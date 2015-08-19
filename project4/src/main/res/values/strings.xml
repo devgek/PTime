@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PTime</string>
+    <string name="title_project_dashboard">@string/app_name</string>
+    <string name="title_project_add">Projekt hinzufügen</string>
+    <string name="title_project_change">Projekt bearbeiten</string>
+    <string name="title_booking_list">Zeitbuchungen</string>
+    <string name="title_project_color_picker">Projektfarbe auswählen</string>
+    <string name="title_booking_new">Buchung neu</string>
+    <string name="title_booking_edit">Buchung bearbeiten</string>
+    <string name="title_period_summary">Summe je Projekt und Periode</string>
+    <string name="title_project_selection">Projektauswahl</string>
+    <string name="title_project_management">Projekte verwalten</string>
+    
+    <string name="comment_project_added">Projekt hinzugefügt.</string>
+    
+    <string name="project_detail_customer_label">KUNDE</string>
+    <string name="project_detail_customer_text">Name Kunde</string>
+    <string name="project_detail_project_label">PROJEKT</string>
+    <string name="project_detail_project_text">Name Projekt</string>
+    <string name="project_detail_active_label">PROJEKTSTATUS</string>
+    <string name="project_detail_active_text">Projekt aktiv</string>
+    <string name="project_detail_active_text_on">aktiv</string>
+    <string name="project_detail_active_text_off">inaktiv</string>
+    
+    <string name="buttonColorCancel">Abbrechen</string>
+    <string name="buttonColorSelect">Auswählen</string>
+    
+    <string name="booking_detail_from_label">START</string>
+    <string name="booking_detail_to_label">STOP</string>
+    <string name="booking_detail_duration_label">DAUER</string>
+    <string name="booking_detail_project_label">PROJEKT</string>
+    <string name="booking_detail_note_label">NOTIZ</string>
+    
+    <string name="action_list_bookings">Buchungen anzeigen</string>
+    <string name="action_select_color">Farbe auswählen</string>
+    <string name="action_add_project">Neues Projekt</string>
+    <string name="action_edit_projects">Projekte bearbeiten</string>
+    <string name="action_edit_project">Projekt bearbeiten</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_help">Hilfe</string>
+    <string name="action_about">Über</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_discard">Löschen</string>
+    <string name="action_export">Daten exportieren</string>
+    <string name="action_add_booking">Neue Buchung</string>
+    <string name="action_manage_projects">Projekte verwalten</string>
+    
+    <string name="settings_cat_bookings">Buchungsliste</string>
+    <string name="setting_bookings_showNote_summary">Notiz bei jeder Buchung anzeigen</string>
+    <string name="setting_bookings_showNote_title">Notiz anzeigen</string>
+    
+</resources>

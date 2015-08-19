@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="0dp"
+    android:paddingRight="10dp" 
+    android:gravity="center">
+
+    <com.gek.and.project4.view.ProjectView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/project_activation_project"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.9"/>
+    <CheckBox 
+        android:id="@+id/project_activation_active" 
+        android:layout_weight="0.1" 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" 
+        android:theme="@android:style/Theme.Holo.Light"/>
+
+</LinearLayout>

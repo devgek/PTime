@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="period">
+        <item>Heute</item>
+        <item>Diese Woche</item>
+        <item>Dieser Monat</item>
+        <item>2015</item>
+    </string-array>
+    
+    <string-array name="periodSummaryTitle">
+        <item>Heute</item>
+        <item>Woche</item>
+        <item>Monat</item>
+        <item>Jahr</item>
+    </string-array>
+    
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="gek_app_name">GekLib</string>
+    <string name="gek_action_about">Über</string>
+    <string name="gek_button_about_ok">OK</string>
+    
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/settings_cat_bookings" >
+        <CheckBoxPreference
+            android:key="setting_bookings_showNote"
+            android:title="@string/setting_bookings_showNote_title" 
+            android:summary="@string/setting_bookings_showNote_summary"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
