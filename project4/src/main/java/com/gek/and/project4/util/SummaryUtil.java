@@ -1,8 +1,8 @@
 package com.gek.and.project4.util;
 
-import java.util.List;
-
 import com.gek.and.project4.entity.Booking;
+
+import java.util.List;
 
 public class SummaryUtil {
 	public static int getMinutes(List<Booking> bookingList, Long projectId) {

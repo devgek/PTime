@@ -1,21 +1,18 @@
 package com.gek.and.project4.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,7 +24,10 @@ import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.model.ProjectCard;
 
-public class ProjectDetailActivity extends Activity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProjectDetailActivity extends AppCompatActivity {
 	private EditText editTextCustomer;
 	private EditText editTextProject;
 	private ImageButton buttonProjectColor;
@@ -51,10 +51,7 @@ public class ProjectDetailActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		if (itemId == R.id.action_cancel) {
-			cancel();
-			return true;
-		} else if (itemId == R.id.action_discard) {
+		if (itemId == R.id.action_discard) {
 			confirmDeleteProject();
 			return true;
 		} else if (itemId == R.id.action_save) {
@@ -88,28 +85,29 @@ public class ProjectDetailActivity extends Activity {
 		
 		switchProjectActive = (CheckedTextView) findViewById(R.id.projectDetailActiveSwitch);
 		switchProjectActive.setOnClickListener(new View.OnClickListener() {
-	    	@Override
-	    	public void onClick(View v) {
-	    		if (switchProjectActive.isChecked()) {
-	    			switchProjectActive.setChecked(false);
-	    		}
-	    		else {
-	    			switchProjectActive.setChecked(true);
-	    		}
-	 
-	    		setStateText();
-	    	}
-	    });
+			@Override
+			public void onClick(View v) {
+				if (switchProjectActive.isChecked()) {
+					switchProjectActive.setChecked(false);
+				} else {
+					switchProjectActive.setChecked(true);
+				}
+
+				setStateText();
+			}
+		});
 		
 		prepareData();
-		
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.project_detail_toolbar);
+		setSupportActionBar(toolbar);
 		if (isModeNew()) {
-			getActionBar().setTitle(R.string.title_project_add);
+			getSupportActionBar().setTitle(R.string.title_project_add);
 		}
 		else {
-			getActionBar().setTitle(R.string.title_project_change);
+			getSupportActionBar().setTitle(R.string.title_project_change);
 		}
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 

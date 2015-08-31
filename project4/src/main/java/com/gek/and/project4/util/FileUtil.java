@@ -1,8 +1,8 @@
 package com.gek.and.project4.util;
 
-import java.io.File;
-
 import android.app.Activity;
+
+import java.io.File;
 
 public class FileUtil {
 	public static File getInternalFile(Activity parentActivity, String fileName) {

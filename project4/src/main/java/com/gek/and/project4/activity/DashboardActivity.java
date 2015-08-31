@@ -1,12 +1,5 @@
 package com.gek.and.project4.activity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -42,6 +35,13 @@ import com.gek.and.project4.service.ProjectService;
 import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.L;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DashboardActivity extends MainActivity implements SummaryLoaderTarget{
 	private static final String TAG = "DashboardActivity::";
@@ -102,7 +102,6 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 		final Summary summary = Project4App.getApp(this).getSummary();
 		
-		setContentView(R.layout.main);
 		mainView = this.findViewById(android.R.id.content);
 
 		textViewToday = (TextView) findViewById(R.id.summary_title_today);

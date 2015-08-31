@@ -4,136 +4,146 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="vertical"
-    android:padding="10dp" >
+    >
 
-    <TableLayout
-        android:id="@+id/projectDetailTable"
+    <include layout="@layout/toolbar" android:id="@+id/project_detail_toolbar"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <TableRow
-            android:id="@+id/projectDetailTableRow1"
+        <TableLayout
+            android:id="@+id/projectDetailTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/projectDetailCustomerLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:labelFor="@+id/projectDetailCustomerText"
-                android:text="@string/project_detail_customer_label" />
+            <TableRow
+                android:id="@+id/projectDetailTableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/projectDetailCustomerLabel2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/projectDetailCustomerLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:labelFor="@+id/projectDetailCustomerText"
+                    android:text="@string/project_detail_customer_label" />
 
-        <TableRow
-            android:id="@+id/projectDetailTableRow2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/projectDetailCustomerLabel2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
 
-            <EditText
-                android:id="@+id/projectDetailCustomerText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:inputType="text"
-                android:text="@string/project_detail_customer_text" >
+            <TableRow
+                android:id="@+id/projectDetailTableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-                <requestFocus />
-            </EditText>
+                <EditText
+                    android:id="@+id/projectDetailCustomerText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:inputType="text"
+                    android:text="@string/project_detail_customer_text" >
 
-            <TextView
-                android:id="@+id/projectDetailCustomerColor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
+                    <requestFocus />
+                </EditText>
 
-        <TableRow
-            android:id="@+id/projectDetailTableRow3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/projectDetailCustomerColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/projectDetailProjectLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:labelFor="@+id/projectDetailProjectText"
-                android:text="@string/project_detail_project_label" />
+            <TableRow
+                android:id="@+id/projectDetailTableRow3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/projectDetailProjectLabel2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/projectDetailProjectLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:labelFor="@+id/projectDetailProjectText"
+                    android:text="@string/project_detail_project_label" />
 
-        <TableRow
-            android:id="@+id/projectDetailTableRow4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/projectDetailProjectLabel2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
 
-            <EditText
-                android:id="@+id/projectDetailProjectText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:inputType="text"
-                android:text="@string/project_detail_project_text" >
-            </EditText>
+            <TableRow
+                android:id="@+id/projectDetailTableRow4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <ImageButton
-                android:id="@+id/projectDetailProjectColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/color_circle"
-                android:contentDescription="@string/action_select_color" />
-        </TableRow>
+                <EditText
+                    android:id="@+id/projectDetailProjectText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:inputType="text"
+                    android:text="@string/project_detail_project_text" >
+                </EditText>
 
-        <TableRow
-            android:id="@+id/projectDetailTableRow5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <ImageButton
+                    android:id="@+id/projectDetailProjectColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/color_circle"
+                    android:contentDescription="@string/action_select_color" />
+            </TableRow>
 
-            <TextView
-                android:id="@+id/projectDetailActiveLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:labelFor="@+id/projectDetailActiveSwitch"
-                android:text="@string/project_detail_active_label" />
+            <TableRow
+                android:id="@+id/projectDetailTableRow5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/projectDetailActiveLabel2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
+                <TextView
+                    android:id="@+id/projectDetailActiveLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:labelFor="@+id/projectDetailActiveSwitch"
+                    android:text="@string/project_detail_active_label" />
 
-        <TableRow
-            android:id="@+id/projectDetailTableRow6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:id="@+id/projectDetailActiveLabel2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
 
-            <CheckedTextView
-                android:id="@+id/projectDetailActiveSwitch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:text="" 
-                android:focusable="true" 
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple" 
-                android:background="@drawable/apptheme_edit_text_holo_light"/>
+            <TableRow
+                android:id="@+id/projectDetailTableRow6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <CheckedTextView
+                    android:id="@+id/projectDetailActiveSwitch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text=""
+                    android:focusable="true"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:background="@drawable/apptheme_edit_text_holo_light"/>
 
 
-            <TextView
-                android:id="@+id/projectDetailActiveColor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:id="@+id/projectDetailActiveColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

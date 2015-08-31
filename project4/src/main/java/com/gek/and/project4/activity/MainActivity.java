@@ -1,20 +1,17 @@
 package com.gek.and.project4.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.gek.and.geklib.util.WorkaroundActionOverflow;
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
-import com.gek.and.project4.listadapter.ProjectManagementArrayAdapter;
-import com.gek.and.project4.service.ProjectService;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
@@ -46,9 +43,14 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActionBar().setTitle(R.string.title_project_dashboard);
-		
-		WorkaroundActionOverflow.execute(this);
+		setContentView(R.layout.main);
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setTitle(R.string.title_project_dashboard);
+//
+//		WorkaroundActionOverflow.execute(this);
 	}
 
 	@Override

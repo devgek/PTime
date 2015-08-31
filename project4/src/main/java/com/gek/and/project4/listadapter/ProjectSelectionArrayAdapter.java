@@ -4,17 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.gek.and.project4.R;
-import com.gek.and.project4.activity.DashboardActivity;
-import com.gek.and.project4.entity.Project;
-import com.gek.and.project4.listadapter.ProjectCardArrayAdapter.CardViewHolder;
 import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.view.ProjectView;
 

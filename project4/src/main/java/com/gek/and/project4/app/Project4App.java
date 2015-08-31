@@ -1,7 +1,5 @@
 package com.gek.and.project4.app;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +18,8 @@ import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.model.ProjectSummary;
 import com.gek.and.project4.service.BookingService;
 import com.gek.and.project4.service.ProjectService;
+
+import java.util.List;
 
 public abstract class Project4App extends Application {
     private SQLiteDatabase db;

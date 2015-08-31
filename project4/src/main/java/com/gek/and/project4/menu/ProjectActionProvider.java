@@ -1,8 +1,5 @@
 package com.gek.and.project4.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.ActionProvider;
@@ -15,6 +12,9 @@ import android.widget.Spinner;
 
 import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.model.ProjectCard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectActionProvider extends ActionProvider{
 	private static final int SPINNER_WIDTH = 300;

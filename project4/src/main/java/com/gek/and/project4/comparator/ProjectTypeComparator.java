@@ -1,8 +1,8 @@
 package com.gek.and.project4.comparator;
 
-import java.util.Comparator;
-
 import com.gek.and.project4.types.ProjectType;
+
+import java.util.Comparator;
 
 
 public class ProjectTypeComparator implements Comparator<ProjectType> {

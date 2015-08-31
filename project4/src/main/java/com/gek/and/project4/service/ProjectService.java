@@ -1,8 +1,5 @@
 package com.gek.and.project4.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.database.sqlite.SQLiteDatabase;
 
 import com.gek.and.project4.dao.BookingDao;
@@ -10,6 +7,11 @@ import com.gek.and.project4.dao.DaoSession;
 import com.gek.and.project4.dao.ProjectDao;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.model.ProjectCard;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import de.greenrobot.dao.query.QueryBuilder;
 
 public class ProjectService {
 	ProjectDao projectDao;
@@ -26,19 +28,6 @@ public class ProjectService {
 	
 	public List<ProjectCard> getActiveProjects(Long runningProjectId) {
 		return getProjects(false, runningProjectId);
-	}
-
-	private List<ProjectCard> getProjects(boolean all, Long runningProjectId) {
-		List<ProjectCard> projectCards = new ArrayList<ProjectCard>();
-		
-		List<Project> projectEntities = projectDao.loadAll();
-		for (Project projectEntity : projectEntities) {
-			if (all || projectEntity.getActive().equals(Boolean.TRUE)) {
-				projectCards.add(toCard(projectEntity, runningProjectId));
-			}
-		}
-		
-		return projectCards;
 	}
 
 	public Project addOrUpdateProject(long projectId, String customer, String title, String subTitle, String color, int priority, boolean active) {
@@ -90,7 +79,14 @@ public class ProjectService {
 		
 		return ok;
 	}
-	
+
+	public ProjectCard toCard(Project project, Long runningProjectId) {
+		ProjectCard card = new ProjectCard(project);
+		card.setRunningNow(runningProjectId != null && runningProjectId.longValue() == project.getId().longValue());
+
+		return card;
+	}
+
 	private void deleteAllBookingsForProject(long projectId) {
 		SQLiteDatabase db = this.daoSession.getDatabase();
 		BookingDao bookingDao = this.daoSession.getBookingDao();
@@ -99,10 +95,28 @@ public class ProjectService {
 		db.execSQL(sql);
 	}
 
-	public ProjectCard toCard(Project project, Long runningProjectId) {
-		ProjectCard card = new ProjectCard(project);
-		card.setRunningNow(runningProjectId != null && runningProjectId.longValue() == project.getId().longValue());
-		
-		return card;
+	/**
+	 * getProjects returns a LinkedList of ProjectCard
+	 * @param all
+	 * @param runningProjectId
+	 * @return a LinkedList of ProjectCard
+	 */
+	private List<ProjectCard> getProjects(boolean all, Long runningProjectId) {
+		List<ProjectCard> projectCards = new LinkedList<ProjectCard>();
+
+		List<Project> projectEntities = getAllWithPriority();
+		for (Project projectEntity : projectEntities) {
+			if (all || projectEntity.getActive().equals(Boolean.TRUE)) {
+				projectCards.add(toCard(projectEntity, runningProjectId));
+			}
+		}
+
+		return projectCards;
+	}
+
+	private List<Project> getAllWithPriority() {
+		QueryBuilder<Project> qb = this.projectDao.queryBuilder();
+		qb.orderAsc(ProjectDao.Properties.Priority);
+		return qb.list();
 	}
 }

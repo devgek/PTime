@@ -1,22 +1,16 @@
 package com.gek.and.project4.activity;
 
-import java.util.Calendar;
-import java.util.List;
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.gek.and.geklib.util.WorkaroundActionOverflow;
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.async.ExportGenerator;
@@ -27,7 +21,10 @@ import com.gek.and.project4.menu.ProjectActionProvider.ProjectActionProviderList
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.FileUtil;
 
-public class BookingListActivity extends FragmentActivity implements ProjectActionProviderListener, PeriodActionProviderListener, SummaryLoaderTarget {
+import java.util.Calendar;
+import java.util.List;
+
+public class BookingListActivity extends AppCompatActivity implements ProjectActionProviderListener, PeriodActionProviderListener, SummaryLoaderTarget {
 	private static final String PERIOD_ITEM_POSITION = "period_item_position";
 	private static final String PROJECT_ITEM_POSITION = "project_item_position";
 	private int periodActionPosition;
@@ -38,12 +35,16 @@ public class BookingListActivity extends FragmentActivity implements ProjectActi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.booking_frame);
-		getActionBar().setDisplayShowTitleEnabled(false);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		setContentView(R.layout.booking_list);
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.booking_list_toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		this.firstActionSelection = true;
 		
-		WorkaroundActionOverflow.execute(this);
+//		WorkaroundActionOverflow.execute(this);
 	}
 
 	@Override
@@ -111,7 +112,7 @@ public class BookingListActivity extends FragmentActivity implements ProjectActi
 		Project4App.getApp(this).setLastBookingList(null);
 		
 		Fragment fragment = new  BookingListFragment(periodActionPosition, projectActionPosition);
-		getFragmentManager().beginTransaction().replace(R.id.booking_frame_container, fragment).commit();
+		getFragmentManager().beginTransaction().replace(R.id.booking_list_frame, fragment).commit();
 	}
 	
 	public void onExportGenerationOk(String exportFileName) {

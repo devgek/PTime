@@ -2,10 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <include layout="@layout/dashboard_summary" />
+    <include layout="@layout/toolbar" android:id="@+id/main_toolbar"/>
 
-    <include layout="@layout/project_list" />
-    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/g_main_margin_top"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/g_main_padding_left"
+        android:paddingRight="@dimen/g_main_padding_right">
+
+        <include layout="@layout/dashboard_summary_card" />
+
+        <include layout="@layout/project_list" />
+
+    </LinearLayout>
+
 </LinearLayout>
+

@@ -37,9 +37,12 @@
         <activity
             android:name="com.gek.and.project4.activity.BookingDetailActivity"
             android:parentActivityName="com.gek.and.project4.activity.BookingListActivity" />
-        <activity android:name="com.gek.and.project4.activity.SettingsActivity" />
-        <activity android:name="com.gek.and.geklib.activity.HtmlAboutActivity" />
-        <activity android:name="com.gek.and.geklib.activity.DefaultAboutActivity" />
+        <activity android:name="com.gek.and.project4.activity.SettingsActivity"
+            android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
+        <activity android:name="com.gek.and.geklib.activity.HtmlAboutActivity"
+            android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
+        <activity android:name="com.gek.and.geklib.activity.DefaultAboutActivity"
+            android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
         <activity
             android:name="com.gek.and.project4.activity.PeriodSummaryActivity"
             android:theme="@style/AppTheme.Dialog.Light" />

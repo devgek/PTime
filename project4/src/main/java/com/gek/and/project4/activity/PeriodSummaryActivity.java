@@ -1,8 +1,5 @@
 package com.gek.and.project4.activity;
 
-import java.util.Calendar;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +12,9 @@ import com.gek.and.project4.listadapter.PeriodSummaryArrayAdapter;
 import com.gek.and.project4.model.ProjectSummary;
 import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class PeriodSummaryActivity extends Activity {
 //	private TextView headLine;

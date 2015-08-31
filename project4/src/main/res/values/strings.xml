@@ -12,7 +12,8 @@
     <string name="title_period_summary">Summe je Projekt und Periode</string>
     <string name="title_project_selection">Projektauswahl</string>
     <string name="title_project_management">Projekte verwalten</string>
-    
+    <string name="title_settings">Einstellungen</string>
+
     <string name="comment_project_added">Projekt hinzugefügt.</string>
     
     <string name="project_detail_customer_label">KUNDE</string>
