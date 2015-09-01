@@ -1,7 +1,7 @@
 package com.gek.and.project4.menu;
 
 import android.content.Context;
-import android.view.ActionProvider;
+import android.support.v4.view.ActionProvider;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -11,7 +11,7 @@ import android.widget.SpinnerAdapter;
 
 import com.gek.and.project4.R;
 
-public class PeriodActionProvider extends ActionProvider{
+public class PeriodActionProvider extends ActionProvider {
 	private Context context;
 	private PeriodActionProviderListener listener;
 

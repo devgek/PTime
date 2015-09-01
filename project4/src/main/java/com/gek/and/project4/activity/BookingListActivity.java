@@ -4,11 +4,13 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gek.and.project4.R;
@@ -57,6 +59,9 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.booking, menu);
+
+//		MenuItem periodItem = menu.findItem(R.id.menu_period_spinner);
+//		Spinner periodSpinner = (Spinner) MenuItemCompat.getActionView(periodItem);
 	    
 		return super.onCreateOptionsMenu(menu);
 	}
