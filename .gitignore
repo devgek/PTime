@@ -3,3 +3,4 @@ import-summary.txt
 local.properties
 *.iml
 build
+.gradle
