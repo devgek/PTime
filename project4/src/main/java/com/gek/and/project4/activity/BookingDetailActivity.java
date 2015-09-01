@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,10 +53,11 @@ public class BookingDetailActivity extends AppCompatActivity implements ProjectS
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		if (itemId == R.id.action_cancel) {
-			cancel();
-			return true;
-		} else if (itemId == R.id.action_discard) {
+//		if (itemId == R.id.action_cancel) {
+//			cancel();
+//			return true;
+//		}
+	if (itemId == R.id.action_discard) {
 			confirmDeleteBooking();
 			return true;
 		} else if (itemId == R.id.action_save) {
@@ -115,15 +117,17 @@ public class BookingDetailActivity extends AppCompatActivity implements ProjectS
 		note	= (EditText) findViewById(R.id.bookingDetailNote);
 		
 		prepareData();
-		
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.booking_detail_toolbar);
+		setSupportActionBar(toolbar);
 		if (isModeNew()) {
-			getActionBar().setTitle(R.string.title_booking_new);
+			getSupportActionBar().setTitle(R.string.title_booking_new);
 		}
 		else {
-			getActionBar().setTitle(R.string.title_booking_edit);
+			getSupportActionBar().setTitle(R.string.title_booking_edit);
 		}
 			
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 
