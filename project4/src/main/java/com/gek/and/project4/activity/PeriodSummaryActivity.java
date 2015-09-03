@@ -3,6 +3,7 @@ package com.gek.and.project4.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import com.gek.and.project4.util.DateUtil;
 import java.util.Calendar;
 import java.util.List;
 
-public class PeriodSummaryActivity extends Activity {
+public class PeriodSummaryActivity extends AppCompatActivity {
 //	private TextView headLine;
 	private TextView headText;
 	private TextView headMinutes;

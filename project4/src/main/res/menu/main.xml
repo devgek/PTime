@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_list_bookings"
-        android:icon="@drawable/ic_action_list"
+        android:icon="@drawable/ic_action_list_tinted"
         app:showAsAction="always"
         android:title="@string/action_list_bookings"/>
     <!--

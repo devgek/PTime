@@ -47,10 +47,15 @@
     <color name="my_light_grey2">#BDBDBD</color>
     <color name="my_dark_grey">#7E7E7E</color>
     <color name="no_project_color">@android:color/black</color>
+
     <!-- orange -->
     <color name="g_ColorPrimary">#FF5722</color>
     <color name="g_ColorPrimaryDark">#E64A19</color>
-    <!--<color name="g_ColorPrimary">#9E9E9E</color>-->
-    <!--<color name="g_ColorPrimaryDark">#616161</color>-->
+    <color name="g_ColorPrimaryLight">#FFCCBC</color>
+    <color name="g_ColorAccent">#607D8B</color>
+    <color name="g_ColorText">#FFFFFF</color>
+    <color name="g_ColorTextPrimary">#212121</color>
+    <color name="g_ColorTextSecondary">#727272</color>
+    <color name="g_ColorActionItemsTint">#727272</color>
 
 </resources>

@@ -9,12 +9,12 @@
         android:title="@string/action_cancel"/-->
     <item
         android:id="@+id/action_discard"
-        android:icon="@drawable/ic_action_discard"
+        android:icon="@drawable/ic_action_discard_tinted"
         app:showAsAction="always"
         android:title="@string/action_discard"/>
     <item
         android:id="@+id/action_save"
-        android:icon="@drawable/ic_action_accept"
+        android:icon="@drawable/ic_action_accept_tinted"
         app:showAsAction="always"
         android:title="@string/action_save"/>
 

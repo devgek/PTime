@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="0dp"
-        >
+                >
 
         <ImageView
             android:id="@+id/project_card_color_bar"
@@ -27,7 +27,8 @@
             android:layout_weight="0.8"
             android:orientation="vertical"
             android:paddingLeft="10dp" 
-            android:paddingTop="5dp">
+            android:paddingTop="5dp"
+            android:background="?android:attr/selectableItemBackground">
 
             <TextView
                 android:id="@+id/project_card_line1"

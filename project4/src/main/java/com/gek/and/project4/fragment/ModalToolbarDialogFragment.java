@@ -15,32 +15,17 @@ import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.listadapter.ProjectSelectionArrayAdapter;
 import com.gek.and.project4.listadapter.ProjectSelectionArrayAdapter.ProjectSelectionListener;
 
-public class ProjectSelectionFragment extends DialogFragment {
+public class ModalToolbarDialogFragment extends DialogFragment {
 
-	private ProjectSelectionDialogListener mProjectSelectionDialogListener;
+	private ModalToolbarDialogFragmentActivator mActivator;
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View mainView = inflater.inflate(R.layout.project_selection, null);
-		ListView listViewProjejectSelection = (ListView) mainView.findViewById(R.id.project_selection_list_view);
-
-		ProjectSelectionArrayAdapter projectSelectionAdapter = new ProjectSelectionArrayAdapter(getActivity().getApplicationContext(), R.layout.project_selection_row);
-		projectSelectionAdapter.addAll(Project4App.getApp(getActivity()).getProjectCardList());
-		projectSelectionAdapter.setProjectSelectionListener(new ProjectSelectionListener() {
-			@Override
-			public void OnProjectSelected(Long projectId) {
-				mProjectSelectionDialogListener.onProjectSelected(projectId);
-				getDialog().dismiss();
-			}
-		});
-
-		listViewProjejectSelection.setAdapter(projectSelectionAdapter);
-		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-		Toolbar toolbar = (Toolbar) mainView.findViewById(R.id.project_selection_toolbar);
+		View customView = mActivator.getModalDialogView();
+		Toolbar toolbar = (Toolbar) customView.findViewById(R.id.project_selection_toolbar);
 		toolbar.setTitle(R.string.title_project_selection);
-		builder.setView(mainView);
+		builder.setView(customView);
 //		builder.setTitle(R.string.title_project_selection);
 
 		Dialog dialog = builder.create();
@@ -55,15 +40,16 @@ public class ProjectSelectionFragment extends DialogFragment {
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-        	mProjectSelectionDialogListener = (ProjectSelectionDialogListener) activity;
+        	mActivator = (ModalToolbarDialogFragmentActivator) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString()
-                    + " must implement ProjectSelectionDialogListener");
+                    + " must implement ModalToolbarDialogFragmentActivator");
         }
 	}
 
-	public interface ProjectSelectionDialogListener {
-		public void onProjectSelected(Long projectId);
+	public interface ModalToolbarDialogFragmentActivator {
+		public String getModalDialogTitle();
+		public View getModalDialogView();
 	}
 }

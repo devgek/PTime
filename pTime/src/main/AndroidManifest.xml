@@ -45,7 +45,7 @@
             android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
         <activity
             android:name="com.gek.and.project4.activity.PeriodSummaryActivity"
-            android:theme="@style/AppTheme.Dialog.Light" />
+            android:theme="@style/AppTheme.Modal" />
     </application>
 
 </manifest>
