@@ -2,6 +2,7 @@ package com.gek.and.project4.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.gek.and.geklib.type.AppType;
@@ -113,6 +114,11 @@ public abstract class Project4App extends Application {
 
 	public static Project4App getApp(Activity activity) {
 		Project4App app = (Project4App) activity.getApplication();
+		return app;
+	}
+
+	public static Project4App getApp(Context context) {
+		Project4App app = (Project4App) context.getApplicationContext();
 		return app;
 	}
 

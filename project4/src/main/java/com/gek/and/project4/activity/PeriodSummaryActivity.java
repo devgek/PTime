@@ -46,7 +46,7 @@ public class PeriodSummaryActivity extends AppCompatActivity {
 		
 		periodProjectList.setAdapter(periodSummaryAdapter);
 
-		setTitle(R.string.title_period_summary);
+		setTitle(getResources().getString(R.string.title_period_summary));
 	}
 
 	private int getTotalMinutes() {
