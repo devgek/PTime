@@ -17,28 +17,5 @@
         android:layout_gravity="center"
         android:layout_margin="8dip" />
 
-    <LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2" >
-
-        <Button
-            android:id="@+id/buttonColorCancel"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/buttonColorCancel" />
-
-        <Button
-            android:id="@+id/buttonColorSelect"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/buttonColorSelect" />
-    </LinearLayout>
 
 </LinearLayout>

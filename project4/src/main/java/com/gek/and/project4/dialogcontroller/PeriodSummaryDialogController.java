@@ -1,9 +1,8 @@
-package com.gek.and.project4.viewbuilder;
+package com.gek.and.project4.dialogcontroller;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,12 +19,12 @@ import java.util.List;
 /**
  * Created by moo on 09.09.15.
  */
-public class PeriodSummaryViewBuilder {
-	private Context context;
+public class PeriodSummaryDialogController extends DefaultDialogController{
 	private int periodCode;
 
-	public PeriodSummaryViewBuilder(Context context, int periodCode) {
-		this.context = context;
+	public PeriodSummaryDialogController(Context context, int periodCode) {
+		super(context);
+		this.periodCode = periodCode;
 	}
 
 	public View buildView() {

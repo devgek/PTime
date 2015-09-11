@@ -28,7 +28,6 @@ import com.gek.and.project4.async.SummaryLoader.SummaryLoaderTarget;
 import com.gek.and.project4.async.TimeBooker;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.fragment.ModalToolbarDialogFragment;
-import com.gek.and.project4.fragment.ProjectSelectionFragment;
 import com.gek.and.project4.listadapter.ProjectCardArrayAdapter;
 import com.gek.and.project4.model.BookedValues;
 import com.gek.and.project4.model.ProjectCard;
@@ -37,7 +36,7 @@ import com.gek.and.project4.service.ProjectService;
 import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.L;
-import com.gek.and.project4.viewbuilder.PeriodSummaryViewBuilder;
+import com.gek.and.project4.dialogcontroller.PeriodSummaryDialogController;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -185,11 +184,11 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 //		periodSummaryIntent.putExtra("periodCode", periodType.getCode());
 //
 //		startActivity(periodSummaryIntent);
-		PeriodSummaryViewBuilder viewBuilder = new PeriodSummaryViewBuilder(this, periodType.getCode());
+		PeriodSummaryDialogController viewBuilder = new PeriodSummaryDialogController(this, periodType.getCode());
 		View dialogView = viewBuilder.buildView();
 
 		ModalToolbarDialogFragment dialogFragment = new ModalToolbarDialogFragment();
-		dialogFragment.init(dialogView, getResources().getString(R.string.title_period_summary));
+		dialogFragment.init(dialogView, getResources().getString(R.string.title_period_summary), -1, -1, null);
 		dialogFragment.show(getFragmentManager(), "periodSummary");
 	}
 
