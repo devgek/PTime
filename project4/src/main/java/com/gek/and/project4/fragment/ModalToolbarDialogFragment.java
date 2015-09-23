@@ -5,12 +5,16 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -35,6 +39,16 @@ public class ModalToolbarDialogFragment extends DialogFragment {
 		this.positiveButtonId = positiveButtonId;
 		this.negativeButtonId = negativeButtonId;
 		this.dialogController = dialogController;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
 	}
 
 	@Override
@@ -68,7 +82,7 @@ public class ModalToolbarDialogFragment extends DialogFragment {
 
 		Dialog dialog = builder.create();
 		dialog.setCanceledOnTouchOutside(true);
-		
+
 		return dialog;
 	}
 

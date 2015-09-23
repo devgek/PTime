@@ -29,7 +29,7 @@ public class PeriodSummaryDialogController extends DefaultDialogController{
 
 	public View buildView() {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View contentView = inflater.inflate(R.layout.period_summary, null);
+		View contentView = loadViewFromXml(R.layout.period_summary);
 
 		TextView headText = (TextView) contentView.findViewById(R.id.period_summary_head_title);
 		headText.setText(getHeadText(periodCode));

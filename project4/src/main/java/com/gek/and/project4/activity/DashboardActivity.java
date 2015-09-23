@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
@@ -163,7 +164,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 		projectCardListView.setAdapter(projectCardAdapter);
 
-		ImageButton addProjectButton = (ImageButton) findViewById(R.id.button_add_project);
+		FloatingActionButton addProjectButton = (FloatingActionButton) findViewById(R.id.button_add_project);
 		addProjectButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -184,11 +185,11 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 //		periodSummaryIntent.putExtra("periodCode", periodType.getCode());
 //
 //		startActivity(periodSummaryIntent);
-		PeriodSummaryDialogController viewBuilder = new PeriodSummaryDialogController(this, periodType.getCode());
-		View dialogView = viewBuilder.buildView();
+		PeriodSummaryDialogController dialogController = new PeriodSummaryDialogController(this, periodType.getCode());
+		View dialogView = dialogController.buildView();
 
 		ModalToolbarDialogFragment dialogFragment = new ModalToolbarDialogFragment();
-		dialogFragment.init(dialogView, getResources().getString(R.string.title_period_summary), -1, -1, null);
+		dialogFragment.init(dialogView, getResources().getString(R.string.title_period_summary), R.string.buttonColorSelect, R.string.buttonColorCancel, dialogController);
 		dialogFragment.show(getFragmentManager(), "periodSummary");
 	}
 

@@ -17,4 +17,7 @@
     <dimen name="g_card_corner_radius">3dp</dimen>
     <dimen name="g_project_list_divider_height">10dp</dimen>
 
+    <dimen name="g_fab_margin_right">16dp</dimen>
+    <dimen name="g_fab_margin_bottom">16dp</dimen>
+
 </resources>
