@@ -46,7 +46,8 @@ public class BookingListFragment extends Fragment{
 
 	    textViewSummaryTitle.setText(getSummaryText(this.periodPosition));
 
-		ImageView addButton = (ImageView) contentView.findViewById(R.id.button_add_booking);
+		View rootView = (View) container.getRootView();
+		ImageView addButton = (ImageView) rootView.findViewById(R.id.button_add_booking);
 		addButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

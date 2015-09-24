@@ -17,6 +17,7 @@ import java.util.List;
 public class DefaultDialogController implements ModalToolbarDialogFragment.ModalToolbarDialogController{
 	protected Context context;
 	protected List<DialogControllerListener> listeners = new ArrayList<DialogControllerListener>();
+	protected DialogInterface dialog;
 
 	public DefaultDialogController(Context context) {
 		this.context = context;
@@ -48,6 +49,15 @@ public class DefaultDialogController implements ModalToolbarDialogFragment.Modal
 		for (DialogControllerListener listener : listeners) {
 			listener.onDialogClose(dialog);
 		}
+	}
+
+	@Override
+	public void connectDialog(DialogInterface dialog) {
+		this.dialog = dialog;
+	}
+
+	public DialogInterface getDialog() {
+		return this.dialog;
 	}
 
 	public interface DialogControllerListener {

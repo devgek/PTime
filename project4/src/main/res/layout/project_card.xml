@@ -63,7 +63,7 @@
                 android:id="@+id/project_card_running_today"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/app_text_important_color"
+                style="@style/booking_row_text_important"
                 android:textSize="@dimen/text_normal" >
             </TextView>
         </LinearLayout>

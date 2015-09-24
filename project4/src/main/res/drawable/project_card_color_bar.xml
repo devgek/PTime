@@ -19,7 +19,7 @@
   -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="#33b5e5"/>
+    <solid android:color="@color/project_color_preselect"/>
     <!--corners android:topLeftRadius="0dp" android:bottomLeftRadius="0dp"/-->
     <!-- <stroke  android:width="2dip" android:color="#A4C2E0"/>-->
 </shape>

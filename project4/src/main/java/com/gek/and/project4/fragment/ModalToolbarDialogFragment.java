@@ -83,8 +83,17 @@ public class ModalToolbarDialogFragment extends DialogFragment {
 		Dialog dialog = builder.create();
 		dialog.setCanceledOnTouchOutside(true);
 
+		connectDialogController(dialog);
+
 		return dialog;
 	}
+
+	private void connectDialogController(DialogInterface dialog) {
+		if (this.dialogController != null) {
+			this.dialogController.connectDialog(dialog);
+		}
+	}
+
 
 	@Override
 	public void onDismiss(DialogInterface dialog) {
@@ -115,5 +124,6 @@ public class ModalToolbarDialogFragment extends DialogFragment {
 		public void onClickPositive();
 		public void onClickNegative();
 		public void onDialogClose(DialogInterface dialog);
+		public void connectDialog(DialogInterface dialog);
 	}
 }

@@ -173,7 +173,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 			}
 		});
 		
-		if (this.tickerThread == null && this.tickerThreadFlag == false) {
+		if (this.tickerThread == null && !this.tickerThreadFlag) {
 			startRunningBookingTickerThread();
 		}
 	}
@@ -181,15 +181,11 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 	private void showSummaryDialog(PeriodType periodType, List<ProjectSummary> periodSummaryList) {
 		Project4App.getApp(this).setPeriodSummaryList(periodSummaryList);
 
-//		Intent periodSummaryIntent = new Intent(this, PeriodSummaryActivity.class);
-//		periodSummaryIntent.putExtra("periodCode", periodType.getCode());
-//
-//		startActivity(periodSummaryIntent);
 		PeriodSummaryDialogController dialogController = new PeriodSummaryDialogController(this, periodType.getCode());
 		View dialogView = dialogController.buildView();
 
 		ModalToolbarDialogFragment dialogFragment = new ModalToolbarDialogFragment();
-		dialogFragment.init(dialogView, getResources().getString(R.string.title_period_summary), R.string.buttonColorSelect, R.string.buttonColorCancel, dialogController);
+		dialogFragment.init(dialogView, getResources().getString(R.string.title_period_summary), -1, -1, null);
 		dialogFragment.show(getFragmentManager(), "periodSummary");
 	}
 
