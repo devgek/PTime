@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">PTime</string>
+    <string name="title_drawer_header">PTime Zeiterfassung</string>
     <string name="title_project_dashboard">@string/app_name</string>
     <string name="title_project_add">Projekt hinzufügen</string>
     <string name="title_project_change">Projekt bearbeiten</string>
@@ -53,5 +54,5 @@
     <string name="settings_cat_bookings">Buchungsliste</string>
     <string name="setting_bookings_showNote_summary">Notiz bei jeder Buchung anzeigen</string>
     <string name="setting_bookings_showNote_title">Notiz anzeigen</string>
-    
+
 </resources>
