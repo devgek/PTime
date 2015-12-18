@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="150dp"
-             android:orientation="vertical"
-             android:background="@color/g_ColorPrimary">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="150dp"
+     android:orientation="horizontal"
+     android:background="@color/primary_dark">
+    <ImageView
+        android:id="@+id/drawer_header_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_launcher_clock"/>
     <TextView
-        style="@style/TextAppearance.AppCompat.Subhead"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
+        android:paddingLeft="10dp"
+        android:singleLine="false"
         android:text="@string/title_drawer_header"
-        android:textColor="@android:color/white" />
-</FrameLayout>
+        android:textColor="@color/primary_text" />
+</LinearLayout>

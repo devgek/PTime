@@ -28,6 +28,7 @@ import com.gek.and.project4.fragment.ModalToolbarDialogFragment;
 import com.gek.and.project4.fragment.TimePickerFragment;
 import com.gek.and.project4.fragment.TimePickerFragment.OnTimeSetListener;
 import com.gek.and.project4.util.DateUtil;
+import com.gek.and.project4.util.MenuUtil;
 import com.gek.and.project4.view.ProjectView;
 
 import java.util.Calendar;
@@ -48,8 +49,10 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.booking_edit, menu);
-	    
-	    return super.onCreateOptionsMenu(menu);
+
+//		MenuUtil.colorMenu(menu, getResources().getColor(R.color.g_ColorActionItemsTint));
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override

@@ -21,17 +21,6 @@
             android:background="@color/app_widget_background_color">
         </ListView>
 
-        <!--ImageButton
-            android:id="@+id/button_add_booking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="25dp" 
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/button_circle"
-            android:contentDescription="@string/action_add_booking"
-            android:src="@drawable/ic_action_new" /-->
-
 
     </RelativeLayout>
 

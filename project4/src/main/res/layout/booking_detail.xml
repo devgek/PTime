@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailFrom"
             android:text="@string/booking_detail_day_label"
+            style="@style/label"
             />
 
         <EditText
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailFrom"
             android:text="@string/booking_detail_from_label"
+            style="@style/label"
              />
 
         <EditText
@@ -63,6 +65,7 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailTo"
             android:text="@string/booking_detail_to_label"
+            style="@style/label"
              />
 
         <EditText
@@ -80,6 +83,7 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailDuration"
             android:text="@string/booking_detail_duration_label"
+            style="@style/label"
              />
 
         <EditText
@@ -88,8 +92,11 @@
             android:layout_height="@dimen/text_view_big"
             android:focusable="false"
             android:gravity="center"
-            android:inputType="text"
-            android:textSize="@dimen/text_big" 
+            android:textSize="@dimen/text_big"
+            android:editable="false"
+            android:cursorVisible="false"
+            android:clickable="false"
+            android:textColor="@android:color/tertiary_text_light"
             />
 
         <TextView
@@ -98,6 +105,7 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailProject"
             android:text="@string/booking_detail_project_label"
+            style="@style/label"
              />
 
         <com.gek.and.project4.view.ProjectView
@@ -112,6 +120,7 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailNote"
             android:text="@string/booking_detail_note_label"
+            style="@style/label"
              />
 
         <EditText

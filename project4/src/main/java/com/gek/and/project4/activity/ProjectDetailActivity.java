@@ -145,7 +145,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		if (isModeNew()) {
 			editTextCustomer.setText("");
 			editTextProject.setText("");
-			setProjectColor((String) getResources().getString(R.color.project_color_preselect));
+			setProjectColor(getResources().getString(R.color.project_color_preselect));
 			switchProjectActive.setChecked(true);
 		}
 		else {

@@ -14,7 +14,7 @@
     </style>
 
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/g_ColorAccent</item>
+        <item name="colorAccent">@color/accent</item>
         <!--item name="android:windowBackground">@color/g_ColorPrimaryLight</item-->
         <item name="android:windowIsFloating">true</item>
     </style>
@@ -24,23 +24,26 @@
 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <!-- appBar -->
-        <item name="colorPrimary">@color/g_ColorPrimary</item>
+        <item name="colorPrimary">@color/primary</item>
         <!-- statusBar -->
-        <item name="colorPrimaryDark">@color/g_ColorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <!-- screen background, shines thrue ui-elements on screen because of transparency -->
-        <item name="android:windowBackground">@color/g_ColorPrimaryLight</item>
+        <item name="android:windowBackground">@color/primary_light</item>
         <!-- fabs, ui controls, buttons in dialogs, category in preference dialogs -->
-        <item name="colorAccent">@color/g_ColorAccent</item>
+        <item name="colorAccent">@color/accent</item>
         <!-- text inside the appBar, EditText -->
-        <item name="android:textColorPrimary">@color/g_ColorTextPrimary</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
         <!-- appBar icons, not tinted; subject in preference dialogs  -->
-        <item name="android:textColorSecondary">@color/g_ColorText</item>
+        <item name="android:textColorSecondary">@color/primary_text</item>
         <!-- textView, text in popups, title in preference dialogs, title in alert dialogs -->
-        <item name="android:textColor">@color/g_ColorText</item>
+        <item name="android:textColor">@color/primary_text</item>
         <!-- the theme for alert dialogs -->
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
     </style>
 
+    <style name="label">
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
+    </style>
     <style name="booking_row_text_normal">
         <item name="@android:textColor">@android:color/tertiary_text_light</item>
     </style>
@@ -50,7 +53,7 @@
     </style>
 
     <style name="booking_row_text_important">
-        <item name="@android:textColor">@color/g_ColorAccent</item>
+        <item name="@android:textColor">@color/accent</item>
     </style>
 
 </resources>

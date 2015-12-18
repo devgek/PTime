@@ -30,7 +30,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:labelFor="@+id/projectDetailCustomerText"
-                    android:text="@string/project_detail_customer_label" />
+                    android:text="@string/project_detail_customer_label"
+                    style="@style/label"
+                    />
 
                 <TextView
                     android:id="@+id/projectDetailCustomerLabel2"
@@ -71,7 +73,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:labelFor="@+id/projectDetailProjectText"
-                    android:text="@string/project_detail_project_label" />
+                    android:text="@string/project_detail_project_label"
+                    style="@style/label"
+                    />
 
                 <TextView
                     android:id="@+id/projectDetailProjectLabel2"
@@ -113,7 +117,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:labelFor="@+id/projectDetailActiveSwitch"
-                    android:text="@string/project_detail_active_label" />
+                    android:text="@string/project_detail_active_label"
+                    style="@style/label"
+                    />
 
                 <TextView
                     android:id="@+id/projectDetailActiveLabel2"

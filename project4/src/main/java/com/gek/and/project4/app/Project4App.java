@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.gek.and.geklib.type.AppBarType;
 import com.gek.and.geklib.type.AppType;
 import com.gek.and.geklib.util.AboutUtil;
 import com.gek.and.geklib.util.PackageInfoUtil;
@@ -36,6 +37,7 @@ public abstract class Project4App extends Application {
     private List<Booking> lastBookingList;
     private Booking editBooking;
     protected AppType appType;
+	protected AppBarType appBarType;
     private List<ProjectSummary> periodSummaryList;
 
 	@Override
@@ -43,6 +45,7 @@ public abstract class Project4App extends Application {
 		super.onCreate();
 		
 		setAppType();
+		this.appBarType = AppBarType.LITE;
 		
 //        DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "project4-db", null);
         SelectiveUpdateOpenHelper helper = new SelectiveUpdateOpenHelper(this, "project4-db", null);
@@ -80,6 +83,10 @@ public abstract class Project4App extends Application {
 	
 	public boolean isPro() {
 		return AppType.PRO.equals(this.appType);
+	}
+
+	public boolean isAppBarDark() {
+		return AppBarType.DARK.equals(this.appBarType);
 	}
 	
 	public ProjectDao getProjectDao() {

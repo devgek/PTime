@@ -19,8 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:text="HEUTE"
-            android:textColor="@android:color/tertiary_text_light"
-            android:textSize="@dimen/text_normal" >
+            android:textSize="@dimen/text_normal"
+            style="@style/label"
+            >
         </TextView>
 
         <FrameLayout
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.15"
             android:gravity="right"
-            style="@style/booking_row_text_important"
+            style="@style/label"
             android:textSize="@dimen/text_normal" >
         </TextView>
     </TableRow>
@@ -65,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:text="WOCHE"
-            android:textColor="@android:color/tertiary_text_light"
+            style="@style/label"
             android:textSize="@dimen/text_normal" >
         </TextView>
 
@@ -93,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.15"
             android:gravity="right"
-            style="@style/booking_row_text_important"
+            style="@style/label"
             android:textSize="@dimen/text_normal" >
         </TextView>
     </TableRow>
@@ -111,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:text="MONAT"
-            android:textColor="@android:color/tertiary_text_light"
+            style="@style/label"
             android:textSize="@dimen/text_normal" >
         </TextView>
 
@@ -139,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.15"
             android:gravity="right"
-            style="@style/booking_row_text_important"
+            style="@style/label"
             android:textSize="@dimen/text_normal" >
         </TextView>
     </TableRow>
