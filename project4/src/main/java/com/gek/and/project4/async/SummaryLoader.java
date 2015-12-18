@@ -1,7 +1,5 @@
 package com.gek.and.project4.async;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 
@@ -9,6 +7,8 @@ import com.gek.and.project4.Summary;
 import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.service.BookingService;
+
+import java.util.List;
 
 
 public class SummaryLoader extends AsyncTask<Object, Void, Void> {

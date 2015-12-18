@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              >
+    <include
+        android:id="@+id/booking_detail_toolbar" layout="@layout/toolbar"/>
 
-    <TextView
+    <!--TextView
         android:id="@+id/bookingDetailHeadLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/apptheme_color"
         android:gravity="center"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:textColor="@android:color/primary_text_light"/-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:id="@+id/bookingDetailDayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/bookingDetailFrom"
+            android:text="@string/booking_detail_day_label"
+            style="@style/label"
+            />
+
+        <EditText
+            android:id="@+id/bookingDetailDay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_view_big"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="none"
+            android:textSize="@dimen/text_big" />
 
         <TextView
             android:id="@+id/bookingDetailFromLabel"
@@ -26,7 +47,8 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailFrom"
             android:text="@string/booking_detail_from_label"
-            android:textColor="@android:color/tertiary_text_light" />
+            style="@style/label"
+             />
 
         <EditText
             android:id="@+id/bookingDetailFrom"
@@ -43,7 +65,8 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailTo"
             android:text="@string/booking_detail_to_label"
-            android:textColor="@android:color/tertiary_text_light" />
+            style="@style/label"
+             />
 
         <EditText
             android:id="@+id/bookingDetailTo"
@@ -60,7 +83,8 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailDuration"
             android:text="@string/booking_detail_duration_label"
-            android:textColor="@android:color/tertiary_text_light" />
+            style="@style/label"
+             />
 
         <EditText
             android:id="@+id/bookingDetailDuration"
@@ -68,9 +92,12 @@
             android:layout_height="@dimen/text_view_big"
             android:focusable="false"
             android:gravity="center"
-            android:inputType="text"
-            android:textSize="@dimen/text_big" 
-            android:textColor="@android:color/tertiary_text_light"/>
+            android:textSize="@dimen/text_big"
+            android:editable="false"
+            android:cursorVisible="false"
+            android:clickable="false"
+            android:textColor="@android:color/tertiary_text_light"
+            />
 
         <TextView
             android:id="@+id/bookingDetailProjectLabel"
@@ -78,7 +105,8 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailProject"
             android:text="@string/booking_detail_project_label"
-            android:textColor="@android:color/tertiary_text_light" />
+            style="@style/label"
+             />
 
         <com.gek.and.project4.view.ProjectView
             android:id="@+id/bookingDetailProject"
@@ -92,7 +120,8 @@
             android:layout_height="wrap_content"
             android:labelFor="@+id/bookingDetailNote"
             android:text="@string/booking_detail_note_label"
-            android:textColor="@android:color/tertiary_text_light" />
+            style="@style/label"
+             />
 
         <EditText
             android:id="@+id/bookingDetailNote"

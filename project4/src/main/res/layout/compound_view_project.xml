@@ -18,14 +18,12 @@
 
         <TextView
             android:id="@+id/combound_viev_project_line1"
-            style="@style/booking_row_text_important"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
              />
 
         <TextView
             android:id="@+id/combound_viev_project_line2"
-            style="@style/booking_row_text_important"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
              />

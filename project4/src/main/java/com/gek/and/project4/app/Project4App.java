@@ -1,11 +1,11 @@
 package com.gek.and.project4.app;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.gek.and.geklib.type.AppBarType;
 import com.gek.and.geklib.type.AppType;
 import com.gek.and.geklib.util.AboutUtil;
 import com.gek.and.geklib.util.PackageInfoUtil;
@@ -21,6 +21,8 @@ import com.gek.and.project4.model.ProjectSummary;
 import com.gek.and.project4.service.BookingService;
 import com.gek.and.project4.service.ProjectService;
 
+import java.util.List;
+
 public abstract class Project4App extends Application {
     private SQLiteDatabase db;
     private DaoMaster daoMaster;
@@ -35,6 +37,7 @@ public abstract class Project4App extends Application {
     private List<Booking> lastBookingList;
     private Booking editBooking;
     protected AppType appType;
+	protected AppBarType appBarType;
     private List<ProjectSummary> periodSummaryList;
 
 	@Override
@@ -42,6 +45,7 @@ public abstract class Project4App extends Application {
 		super.onCreate();
 		
 		setAppType();
+		this.appBarType = AppBarType.LITE;
 		
 //        DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "project4-db", null);
         SelectiveUpdateOpenHelper helper = new SelectiveUpdateOpenHelper(this, "project4-db", null);
@@ -80,6 +84,10 @@ public abstract class Project4App extends Application {
 	public boolean isPro() {
 		return AppType.PRO.equals(this.appType);
 	}
+
+	public boolean isAppBarDark() {
+		return AppBarType.DARK.equals(this.appBarType);
+	}
 	
 	public ProjectDao getProjectDao() {
 		return projectDao;
@@ -113,6 +121,11 @@ public abstract class Project4App extends Application {
 
 	public static Project4App getApp(Activity activity) {
 		Project4App app = (Project4App) activity.getApplication();
+		return app;
+	}
+
+	public static Project4App getApp(Context context) {
+		Project4App app = (Project4App) context.getApplicationContext();
 		return app;
 	}
 

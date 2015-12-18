@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:padding="10dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+    >
 
     <ListView
         android:id="@+id/project_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
+        android:layout_marginTop="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/g_project_list_divider_height"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"
+        >
     </ListView>
 
-    <ImageButton 
+    <!--ImageButton
         android:id="@+id/button_add_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +27,20 @@
         android:contentDescription="@string/action_add_project" 
         android:background="@drawable/button_circle" 
         android:layout_marginBottom="25dp" 
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"/-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_add_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_white_48dp"
+        android:contentDescription="@string/action_add_project"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/g_fab_margin_right"
+        android:layout_marginRight="@dimen/g_fab_margin_bottom"/>
 
 </RelativeLayout>

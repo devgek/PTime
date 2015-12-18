@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    card_view:cardCornerRadius="0dp" 
+    card_view:cardCornerRadius="@dimen/g_card_corner_radius"
     android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="0dp"
-        >
+                >
 
         <ImageView
             android:id="@+id/project_card_color_bar"
@@ -27,7 +27,8 @@
             android:layout_weight="0.8"
             android:orientation="vertical"
             android:paddingLeft="10dp" 
-            android:paddingTop="5dp">
+            android:paddingTop="5dp"
+            android:background="?android:attr/selectableItemBackground">
 
             <TextView
                 android:id="@+id/project_card_line1"
@@ -62,7 +63,7 @@
                 android:id="@+id/project_card_running_today"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/app_text_important_color"
+                style="@style/booking_row_text_important"
                 android:textSize="@dimen/text_normal" >
             </TextView>
         </LinearLayout>

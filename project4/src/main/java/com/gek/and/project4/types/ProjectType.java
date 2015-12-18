@@ -1,10 +1,10 @@
 package com.gek.and.project4.types;
 
+import com.gek.and.project4.comparator.ProjectTypeComparator;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import com.gek.and.project4.comparator.ProjectTypeComparator;
 
 public enum ProjectType {
 	AVENUM("VVO", 3, "#99CC00"),

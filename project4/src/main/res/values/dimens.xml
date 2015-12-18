@@ -9,5 +9,15 @@
     <dimen name="text_big">25sp</dimen>
     <dimen name="text_view_big">55sp</dimen>
     <dimen name="text_bigger">30sp</dimen>
-    
+
+    <dimen name="g_main_padding_left">5dp</dimen>
+    <dimen name="g_main_padding_right">5dp</dimen>
+    <dimen name="g_main_margin_top">5dp</dimen>
+
+    <dimen name="g_card_corner_radius">3dp</dimen>
+    <dimen name="g_project_list_divider_height">10dp</dimen>
+
+    <dimen name="g_fab_margin_right">16dp</dimen>
+    <dimen name="g_fab_margin_bottom">16dp</dimen>
+
 </resources>

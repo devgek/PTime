@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xx="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
         android:id="@+id/action_list_bookings"
-        android:icon="@drawable/ic_action_list"
-        android:showAsAction="always"
+        android:icon="@drawable/ic_action_list_tinted"
+        app:showAsAction="always"
         android:title="@string/action_list_bookings"/>
     <!--
         item
@@ -16,12 +16,12 @@
     -->
     <item
         android:id="@+id/action_manage_projects"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/action_manage_projects"/>
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_action_settings"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/action_settings"/>
     <!--
         item
@@ -33,7 +33,7 @@
     <item
         android:id="@+id/action_about"
         android:icon="@drawable/ic_action_about"
-        android:showAsAction="never"
+        app:showAsAction="never"
         android:title="@string/action_about"/>
 
 </menu>

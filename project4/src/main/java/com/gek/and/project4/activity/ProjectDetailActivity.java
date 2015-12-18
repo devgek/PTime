@@ -1,21 +1,18 @@
 package com.gek.and.project4.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,11 +20,17 @@ import android.widget.Toast;
 
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
+import com.gek.and.project4.dialogcontroller.ColorPickerDialogController;
+import com.gek.and.project4.dialogcontroller.DefaultDialogController;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
+import com.gek.and.project4.fragment.ModalToolbarDialogFragment;
 import com.gek.and.project4.model.ProjectCard;
 
-public class ProjectDetailActivity extends Activity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProjectDetailActivity extends AppCompatActivity implements DefaultDialogController.DialogControllerListener{
 	private EditText editTextCustomer;
 	private EditText editTextProject;
 	private ImageButton buttonProjectColor;
@@ -51,10 +54,7 @@ public class ProjectDetailActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		if (itemId == R.id.action_cancel) {
-			cancel();
-			return true;
-		} else if (itemId == R.id.action_discard) {
+		if (itemId == R.id.action_discard) {
 			confirmDeleteProject();
 			return true;
 		} else if (itemId == R.id.action_save) {
@@ -88,34 +88,42 @@ public class ProjectDetailActivity extends Activity {
 		
 		switchProjectActive = (CheckedTextView) findViewById(R.id.projectDetailActiveSwitch);
 		switchProjectActive.setOnClickListener(new View.OnClickListener() {
-	    	@Override
-	    	public void onClick(View v) {
-	    		if (switchProjectActive.isChecked()) {
-	    			switchProjectActive.setChecked(false);
-	    		}
-	    		else {
-	    			switchProjectActive.setChecked(true);
-	    		}
-	 
-	    		setStateText();
-	    	}
-	    });
+			@Override
+			public void onClick(View v) {
+				if (switchProjectActive.isChecked()) {
+					switchProjectActive.setChecked(false);
+				} else {
+					switchProjectActive.setChecked(true);
+				}
+
+				setStateText();
+			}
+		});
 		
 		prepareData();
-		
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.project_detail_toolbar);
+		setSupportActionBar(toolbar);
 		if (isModeNew()) {
-			getActionBar().setTitle(R.string.title_project_add);
+			getSupportActionBar().setTitle(R.string.title_project_add);
 		}
 		else {
-			getActionBar().setTitle(R.string.title_project_change);
+			getSupportActionBar().setTitle(R.string.title_project_change);
 		}
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 
 	private void chooseProjectColor() {
-		Intent colorChooser = new Intent(getApplicationContext(), ColorPickerActivity.class);
-		startActivityForResult(colorChooser, 1);
+//		Intent colorChooser = new Intent(getApplicationContext(), ColorPickerActivity.class);
+//		startActivityForResult(colorChooser, 1);
+		ColorPickerDialogController dialogController = new ColorPickerDialogController(this);
+		dialogController.addListener(this);
+		View contentView = dialogController.buildView();
+
+		ModalToolbarDialogFragment dialogFragment = new ModalToolbarDialogFragment();
+		dialogFragment.init(contentView, getResources().getString(R.string.title_project_color_picker), R.string.buttonColorSelect, R.string.buttonColorCancel, dialogController);
+		dialogFragment.show(getFragmentManager(), "colorChooser");
 	}
 	
 	
@@ -270,4 +278,8 @@ public class ProjectDetailActivity extends Activity {
 		ad_echt.show();
 	}
 
+	@Override
+	public void onDialogClose(DialogInterface dialog) {
+		setProjectColorButton();
+	}
 }

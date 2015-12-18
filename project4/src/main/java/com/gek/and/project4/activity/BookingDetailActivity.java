@@ -1,14 +1,13 @@
 package com.gek.and.project4.activity;
 
-import java.util.Calendar;
-
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,18 +19,23 @@ import android.widget.Toast;
 
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
+import com.gek.and.project4.dialogcontroller.PeriodSummaryDialogController;
+import com.gek.and.project4.dialogcontroller.ProjectSelectionDialogController;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.fragment.DatePickerFragment;
-import com.gek.and.project4.fragment.ProjectSelectionFragment;
-import com.gek.and.project4.fragment.ProjectSelectionFragment.ProjectSelectionDialogListener;
+import com.gek.and.project4.fragment.ModalToolbarDialogFragment;
 import com.gek.and.project4.fragment.TimePickerFragment;
 import com.gek.and.project4.fragment.TimePickerFragment.OnTimeSetListener;
 import com.gek.and.project4.util.DateUtil;
+import com.gek.and.project4.util.MenuUtil;
 import com.gek.and.project4.view.ProjectView;
 
-public class BookingDetailActivity extends Activity implements ProjectSelectionDialogListener, OnTimeSetListener{
-	private TextView headLine;
+import java.util.Calendar;
+
+public class BookingDetailActivity extends AppCompatActivity implements OnTimeSetListener, ProjectSelectionDialogController.ProjectSelectionDialogListener {
+//	private TextView headLine;
+	private EditText day;
 	private EditText from;
 	private EditText to;
 	private EditText duration;
@@ -45,17 +49,20 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 	    // Inflate the menu items for use in the action bar
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.booking_edit, menu);
-	    
-	    return super.onCreateOptionsMenu(menu);
+
+//		MenuUtil.colorMenu(menu, getResources().getColor(R.color.g_ColorActionItemsTint));
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		if (itemId == R.id.action_cancel) {
-			cancel();
-			return true;
-		} else if (itemId == R.id.action_discard) {
+//		if (itemId == R.id.action_cancel) {
+//			cancel();
+//			return true;
+//		}
+	if (itemId == R.id.action_discard) {
 			confirmDeleteBooking();
 			return true;
 		} else if (itemId == R.id.action_save) {
@@ -74,15 +81,24 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 		
 		this.theBooking = Project4App.getApp(this).getEditBooking();
 		
-		headLine = (TextView) findViewById(R.id.bookingDetailHeadLine);
-		headLine.setOnClickListener(new OnClickListener() {
-			
+//		headLine = (TextView) findViewById(R.id.bookingDetailHeadLine);
+//		headLine.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				showDatePickerDialog((EditText) v);
+//			}
+//		});
+
+		day = (EditText) findViewById(R.id.bookingDetailDay);
+		day.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-				showDatePickerDialog((TextView) v);
+				showDatePickerDialog((EditText) v);
 			}
 		});
-		
+
 		from = (EditText) findViewById(R.id.bookingDetailFrom);
 		from.setOnClickListener(new OnClickListener() {
 			
@@ -115,15 +131,17 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 		note	= (EditText) findViewById(R.id.bookingDetailNote);
 		
 		prepareData();
-		
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.booking_detail_toolbar);
+		setSupportActionBar(toolbar);
 		if (isModeNew()) {
-			getActionBar().setTitle(R.string.title_booking_new);
+			getSupportActionBar().setTitle(R.string.title_booking_new);
 		}
 		else {
-			getActionBar().setTitle(R.string.title_booking_edit);
+			getSupportActionBar().setTitle(R.string.title_booking_edit);
 		}
 			
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 
@@ -133,10 +151,11 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 
 	private void prepareData() {
 		if (theBooking != null) {
-			headLine.setText(DateUtil.getFormattedDayFull(theBooking.getFrom()));
+//			headLine.setText(DateUtil.getFormattedDayFull(theBooking.getFrom()));
+			day.setText(DateUtil.getFormattedDayFull(theBooking.getFrom()));
 			Calendar cDay = Calendar.getInstance();
 			cDay.setTime(theBooking.getFrom());
-			headLine.setTag(cDay);
+			day.setTag(cDay);
 			
 			Calendar cFrom = Calendar.getInstance();
 			if (theBooking.getFrom() != null) {
@@ -152,10 +171,14 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 			to.setText(DateUtil.getFormattedTime(cTo.getTime()));
 			to.setTag(cTo);
 			
-			duration.setText(DateUtil.getFormattedHM(theBooking.getMinutes()));
+			updateDuration();
 			
 			if (theBooking.getProjectId() != null) {
 				prepareDataProject(theBooking.getProjectId());
+				note.requestFocus();
+			}
+			else {
+				projectView.requestFocus();
 			}
 			
 			note.setText(theBooking.getNote() != null ? theBooking.getNote() : "");
@@ -181,7 +204,7 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 	
 	private void saveBooking() {
 		Calendar now = Calendar.getInstance();
-		Calendar cDay = (Calendar) this.headLine.getTag();
+		Calendar cDay = (Calendar) this.day.getTag();
 		Calendar cFrom = (Calendar) this.from.getTag();
 		Calendar cTo = (Calendar) this.to.getTag();
 		
@@ -293,7 +316,7 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 		}
 	}
 	
-	private void showDatePickerDialog(TextView v) {
+	private void showDatePickerDialog(EditText v) {
 	    DialogFragment newFragment = new DatePickerFragment(v);
 	    newFragment.show(getFragmentManager(), "datePicker");
 	}
@@ -304,10 +327,13 @@ public class BookingDetailActivity extends Activity implements ProjectSelectionD
 	}
 
 	private void showProjectSelectionDialog(View v) {
-//		Intent projectSelectionDialog = new Intent(this, ProjectSelectionActivity.class);
-//		startActivityForResult(projectSelectionDialog, 11);
-		ProjectSelectionFragment projectSelectionFragment = new ProjectSelectionFragment();
-		projectSelectionFragment.show(getFragmentManager(), "projectSelector");
+		ProjectSelectionDialogController dialogController = new ProjectSelectionDialogController(this, theBooking.getProjectId(), this);
+		View dialogView = dialogController.buildView();
+
+		ModalToolbarDialogFragment dialogFragment = new ModalToolbarDialogFragment();
+		dialogFragment.init(dialogView, getResources().getString(R.string.title_project_selection), -1, -1, dialogController);
+		dialogFragment.show(getFragmentManager(), "projectSelector");
+
 	}
 
 	@Override

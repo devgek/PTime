@@ -1,16 +1,12 @@
 package com.gek.and.project4.activity;
 
-import java.util.Calendar;
-import java.util.List;
-
 import android.app.Fragment;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +19,9 @@ import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.service.BookingService;
 import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
-import com.gek.and.project4.util.SummaryUtil;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class BookingListFragment extends Fragment{
 	private int periodPosition;
@@ -48,7 +46,8 @@ public class BookingListFragment extends Fragment{
 
 	    textViewSummaryTitle.setText(getSummaryText(this.periodPosition));
 
-		ImageView addButton = (ImageView) contentView.findViewById(R.id.button_add_booking);
+		View rootView = (View) container.getRootView();
+		ImageView addButton = (ImageView) rootView.findViewById(R.id.button_add_booking);
 		addButton.setOnClickListener(new OnClickListener() {
 			
 			@Override

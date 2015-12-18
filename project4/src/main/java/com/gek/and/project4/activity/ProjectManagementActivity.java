@@ -1,10 +1,9 @@
 package com.gek.and.project4.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -13,7 +12,7 @@ import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.listadapter.ProjectManagementArrayAdapter;
 import com.gek.and.project4.service.ProjectService;
 
-public class ProjectManagementActivity extends Activity {
+public class ProjectManagementActivity extends AppCompatActivity {
 	private ProjectManagementArrayAdapter adapter;
 	
 	@Override
@@ -57,9 +56,12 @@ public class ProjectManagementActivity extends Activity {
 
 		this.adapter.addAll(projectService.getAllProjects(null));
 		listView.setAdapter(this.adapter);
-		
-		getActionBar().setTitle(R.string.title_project_management);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.project_management_toolbar);
+		setSupportActionBar(toolbar);
+
+		getSupportActionBar().setTitle(R.string.title_project_management);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	public void editProject(Long projectId) {

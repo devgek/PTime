@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gek.and.ptime.free"
-    android:versionCode="4"
-    android:versionName="1.0.3 (Free)" >
+    android:versionCode="5"
+    android:versionName="2.0.0 (Free)" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -32,17 +32,14 @@
             android:name="com.gek.and.project4.activity.ProjectManagementActivity"
             android:parentActivityName="com.gek.and.project4.activity.DashboardActivity" />
         <activity
-            android:name="com.gek.and.project4.activity.ColorPickerActivity"
-            android:theme="@style/AppTheme.Dialog.Light" />
-        <activity
             android:name="com.gek.and.project4.activity.BookingDetailActivity"
             android:parentActivityName="com.gek.and.project4.activity.BookingListActivity" />
-        <activity android:name="com.gek.and.project4.activity.SettingsActivity" />
-        <activity android:name="com.gek.and.geklib.activity.HtmlAboutActivity" />
-        <activity android:name="com.gek.and.geklib.activity.DefaultAboutActivity" />
-        <activity
-            android:name="com.gek.and.project4.activity.PeriodSummaryActivity"
-            android:theme="@style/AppTheme.Dialog.Light" />
+        <activity android:name="com.gek.and.project4.activity.SettingsActivity"
+            android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
+        <activity android:name="com.gek.and.geklib.activity.HtmlAboutActivity"
+            android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
+        <activity android:name="com.gek.and.geklib.activity.DefaultAboutActivity"
+            android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
     </application>
 
 </manifest>

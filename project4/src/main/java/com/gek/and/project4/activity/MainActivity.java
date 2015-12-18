@@ -1,25 +1,48 @@
 package com.gek.and.project4.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
-import com.gek.and.geklib.util.WorkaroundActionOverflow;
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
-import com.gek.and.project4.listadapter.ProjectManagementArrayAdapter;
-import com.gek.and.project4.service.ProjectService;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+	private static final String STATE_SELECTED_MENU_POSITION = "STATE_SELECTED_MENU_POSITION";
+	private Toolbar mToolbar;
+	private DrawerLayout mDrawerLayout;
+	private NavigationView mNavigationView;
+	private int mCurrentSelectedMenuPosition;
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(STATE_SELECTED_MENU_POSITION, mCurrentSelectedMenuPosition);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+
+		mCurrentSelectedMenuPosition = savedInstanceState.getInt(STATE_SELECTED_MENU_POSITION, 0);
+		Menu menu = mNavigationView.getMenu();
+		menu.getItem(mCurrentSelectedMenuPosition).setChecked(true);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu items for use in the action bar
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
+//		// Inflate the menu items for use in the action bar
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -46,11 +69,71 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActionBar().setTitle(R.string.title_project_dashboard);
-		
-		WorkaroundActionOverflow.execute(this);
+		setContentView(R.layout.main);
+
+		if (savedInstanceState != null) {
+			mCurrentSelectedMenuPosition = savedInstanceState.getInt(STATE_SELECTED_MENU_POSITION);
+		}
+
+		mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setTitle(R.string.title_project_dashboard);
+
+		mDrawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
+		setUpNavDrawer();
+
+		mNavigationView = (NavigationView) findViewById(R.id.main_navigation_view);
+		handleNavigation();
+//
+//		WorkaroundActionOverflow.execute(this);
 	}
 
+	private void handleNavigation() {
+		mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(MenuItem menuItem) {
+				int itemId = menuItem.getItemId();
+				if (itemId == R.id.action_dashboard) {
+					mCurrentSelectedMenuPosition = 0;
+				} else if (itemId == R.id.action_list_bookings) {
+					listBookings();
+					mCurrentSelectedMenuPosition = 1;
+				} else if (itemId == R.id.action_manage_projects) {
+					manageProjects();
+					mCurrentSelectedMenuPosition = 2;
+				} else if (itemId == R.id.action_settings) {
+					changeSettings();
+					mCurrentSelectedMenuPosition = 3;
+				} else if (itemId == R.id.action_about) {
+					showAbout();
+					mCurrentSelectedMenuPosition = 4;
+				}
+
+				mDrawerLayout.closeDrawer(mNavigationView);
+				return true;
+			}
+		});
+	}
+
+	private void setUpNavDrawer() {
+		if (mToolbar != null) {
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+			if (Project4App.getApp(this).isAppBarDark()) {
+				mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+			}
+			else {
+				mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+			}
+//			mToolbar.setNavigationIcon(R.drawable.drawer_menu_selector);
+			mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mDrawerLayout.openDrawer(GravityCompat.START);
+				}
+			});
+		}
+	}
 	@Override
 	protected void onResume() {
 		super.onResume();

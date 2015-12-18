@@ -1,6 +1,5 @@
 package com.gek.and.project4.listadapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +41,7 @@ public class ProjectManagementArrayAdapter extends ArrayAdapter<ProjectCard> {
 			 */
 			LayoutInflater inflater = parentActivity.getLayoutInflater();
 //			LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			row = inflater.inflate(R.layout.project_activation_row, parent, false);
+			row = inflater.inflate(R.layout.project_management_row, parent, false);
 			
 			viewHolder = new ProjectViewHolder();
 			viewHolder.projectView = (ProjectView) row.findViewById(R.id.project_activation_project);

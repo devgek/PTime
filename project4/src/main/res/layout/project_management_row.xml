@@ -9,10 +9,9 @@
 
     <com.gek.and.project4.view.ProjectView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/project_activation_project"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         android:layout_weight="0.9"/>
     <CheckBox 
         android:id="@+id/project_activation_active" 

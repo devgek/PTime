@@ -1,12 +1,5 @@
 package com.gek.and.project4.activity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
@@ -34,6 +28,7 @@ import com.gek.and.project4.async.SummaryLoader;
 import com.gek.and.project4.async.SummaryLoader.SummaryLoaderTarget;
 import com.gek.and.project4.async.TimeBooker;
 import com.gek.and.project4.entity.Project;
+import com.gek.and.project4.fragment.ModalToolbarDialogFragment;
 import com.gek.and.project4.listadapter.ProjectCardArrayAdapter;
 import com.gek.and.project4.model.BookedValues;
 import com.gek.and.project4.model.ProjectCard;
@@ -42,6 +37,14 @@ import com.gek.and.project4.service.ProjectService;
 import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.L;
+import com.gek.and.project4.dialogcontroller.PeriodSummaryDialogController;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DashboardActivity extends MainActivity implements SummaryLoaderTarget{
 	private static final String TAG = "DashboardActivity::";
@@ -102,7 +105,6 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 		final Summary summary = Project4App.getApp(this).getSummary();
 		
-		setContentView(R.layout.main);
 		mainView = this.findViewById(android.R.id.content);
 
 		textViewToday = (TextView) findViewById(R.id.summary_title_today);
@@ -162,7 +164,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 		projectCardListView.setAdapter(projectCardAdapter);
 
-		ImageButton addProjectButton = (ImageButton) findViewById(R.id.button_add_project);
+		FloatingActionButton addProjectButton = (FloatingActionButton) findViewById(R.id.button_add_project);
 		addProjectButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -171,17 +173,20 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 			}
 		});
 		
-		if (this.tickerThread == null && this.tickerThreadFlag == false) {
+		if (this.tickerThread == null && !this.tickerThreadFlag) {
 			startRunningBookingTickerThread();
 		}
 	}
 	
-	private void showSummaryDialog(PeriodType today, List<ProjectSummary> periodSummaryList) {
-		Intent periodSummaryIntent = new Intent(this, PeriodSummaryActivity.class);
-		periodSummaryIntent.putExtra("periodCode", today.getCode());
+	private void showSummaryDialog(PeriodType periodType, List<ProjectSummary> periodSummaryList) {
 		Project4App.getApp(this).setPeriodSummaryList(periodSummaryList);
-		
-		startActivity(periodSummaryIntent);
+
+		PeriodSummaryDialogController dialogController = new PeriodSummaryDialogController(this, periodType.getCode());
+		View dialogView = dialogController.buildView();
+
+		ModalToolbarDialogFragment dialogFragment = new ModalToolbarDialogFragment();
+		dialogFragment.init(dialogView, getResources().getString(R.string.title_period_summary), -1, -1, null);
+		dialogFragment.show(getFragmentManager(), "periodSummary");
 	}
 
 	private void startSummaryLoader() {

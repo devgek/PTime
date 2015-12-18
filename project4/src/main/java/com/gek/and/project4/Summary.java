@@ -1,14 +1,13 @@
 package com.gek.and.project4;
 
+import com.gek.and.project4.entity.Booking;
+import com.gek.and.project4.model.BookedValues;
+import com.gek.and.project4.util.DateUtil;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.gek.and.project4.app.Project4App;
-import com.gek.and.project4.entity.Booking;
-import com.gek.and.project4.model.BookedValues;
-import com.gek.and.project4.util.DateUtil;
 
 public class Summary {
 	private Booking runningNow;

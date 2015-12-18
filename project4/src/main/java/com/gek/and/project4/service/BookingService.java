@@ -1,10 +1,5 @@
 package com.gek.and.project4.service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import com.gek.and.project4.dao.BookingDao;
 import com.gek.and.project4.dao.BookingDao.Properties;
 import com.gek.and.project4.dao.DaoSession;
@@ -12,6 +7,11 @@ import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.L;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import de.greenrobot.dao.query.QueryBuilder;
 

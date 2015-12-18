@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/period_summary_row_line1"
-            style="@style/booking_row_text_important"
+            style="@style/booking_row_text_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_widget_background_color" />
@@ -46,7 +46,7 @@
 
             <TextView
                 android:id="@+id/period_summary_row_line2_right"
-                style="@style/booking_row_text_important"
+                style="@style/booking_row_text_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

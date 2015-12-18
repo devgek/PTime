@@ -15,7 +15,6 @@ import com.gek.and.project4.R;
 import com.gek.and.project4.activity.DashboardActivity;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.model.ProjectCard;
-import com.gek.and.project4.util.ActivityUtil;
 
 public class ProjectCardArrayAdapter extends ArrayAdapter<ProjectCard> {
 	static class CardViewHolder {

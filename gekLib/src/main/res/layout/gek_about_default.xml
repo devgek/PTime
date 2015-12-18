@@ -9,9 +9,10 @@
         android:id="@+id/gek_about_default_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal" >
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:orientation="horizontal"
+        android:background="?attr/colorPrimary">
 
         <ImageView
             android:id="@+id/gek_about_default_icon"

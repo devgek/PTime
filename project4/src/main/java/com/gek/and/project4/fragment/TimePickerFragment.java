@@ -1,7 +1,5 @@
 package com.gek.and.project4.fragment;
 
-import java.util.Calendar;
-
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
@@ -11,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.gek.and.project4.util.DateUtil;
+
+import java.util.Calendar;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 	private EditText editText;

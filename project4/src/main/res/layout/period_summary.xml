@@ -4,39 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!--
-        TextView
-        android:id="@+id/period_summary_head"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/app_accent_color"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" /
-    -->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_widget_background_color"
         android:padding="15dp" >
 
         <TextView
             android:id="@+id/period_summary_head_title"
-            style="@style/booking_row_text_important"
+            style="@style/booking_row_text_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@color/app_widget_background_color" />
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/period_summary_head_hm"
-            style="@style/booking_row_text_important"
+            style="@style/booking_row_text_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@color/app_widget_background_color"
-            android:textColor="@color/app_text_important_color" />
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <ListView

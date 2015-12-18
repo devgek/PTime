@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_dashboard"
+            android:icon="@drawable/ic_action_clock"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/action_list_bookings"
+            android:icon="@drawable/ic_action_list"
+            android:title="Einzelbuchungen" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_manage_projects"
+            android:icon="@drawable/ic_action_edit"
+            android:title="Projekte verwalten" />
+        <item
+            android:id="@+id/action_settings"
+            android:icon="@drawable/ic_action_settings"
+            android:title="Einstellungen" />
+        <item
+            android:id="@+id/action_about"
+            android:icon="@drawable/ic_action_about"
+            android:title="Über" />
+    </group>
+
+</menu>

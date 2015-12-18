@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="state_app_bar_icon_white" format="boolean">true</attr>
+</resources>
