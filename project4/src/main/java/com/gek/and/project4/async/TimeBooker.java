@@ -28,7 +28,7 @@ public class TimeBooker extends AsyncTask<Object, Void, Boolean> {
 
 		if (summary.getRunningNow() != null) {
 			Booking stopped = bookingService.bookStop(summary.getRunningNow());
-			synchronized(summary) {
+			synchronized(Project4App.getApp(parentActivity).getSummary()) {
 				L.d("TimeBooker", "minutes to add to finished " + stopped.getMinutes());
 				summary.setRunningNow(null);
 				summary.addBooking(stopped);
@@ -37,13 +37,13 @@ public class TimeBooker extends AsyncTask<Object, Void, Boolean> {
 		
 		if (bookStart) {
 			Booking newBooking = bookingService.bookStart(projectId);
-			synchronized(summary) {
+			synchronized(Project4App.getApp(parentActivity).getSummary()) {
 				summary.addBooking(newBooking);
 				summary.setRunningNow(newBooking);
 			}
 		}
 		
-		return Boolean.valueOf(bookStart);
+		return bookStart;
 	}
 
 	@Override

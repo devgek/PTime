@@ -18,10 +18,6 @@ public class ProjectCard {
 		return project.getTitle();
 	}
 	
-	public String getLine2() {
-		return project.getCompany();
-	}
-	
 	public void setRunningNow(boolean runningNow) {
 		this.runningNow = runningNow;
 	}

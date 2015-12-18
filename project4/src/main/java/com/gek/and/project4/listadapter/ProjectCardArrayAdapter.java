@@ -2,6 +2,8 @@ package com.gek.and.project4.listadapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +20,7 @@ import com.gek.and.project4.model.ProjectCard;
 
 public class ProjectCardArrayAdapter extends ArrayAdapter<ProjectCard> {
 	static class CardViewHolder {
+		CardView cardView;
 		TextView line1;
 		TextView line2;
 		TextView runningNow;
@@ -44,12 +47,13 @@ public class ProjectCardArrayAdapter extends ArrayAdapter<ProjectCard> {
 			row = inflater.inflate(R.layout.project_card, parent, false);
 			
 			viewHolder = new CardViewHolder();
+			viewHolder.cardView = (CardView) row.findViewById(R.id.card_view_project);
 			viewHolder.line1 = (TextView) row.findViewById(R.id.project_card_line1);
 			viewHolder.line2 = (TextView) row.findViewById(R.id.project_card_line2);
 			viewHolder.runningNow = (TextView) row.findViewById(R.id.project_card_running_today);
 			viewHolder.colorBar = (ImageView) row.findViewById(R.id.project_card_color_bar);
 			viewHolder.editProject = (ImageButton) row.findViewById(R.id.button_edit_project);
-			
+
 			handleEditProject(viewHolder.editProject);
 			handleClick(row);
 			
@@ -59,8 +63,15 @@ public class ProjectCardArrayAdapter extends ArrayAdapter<ProjectCard> {
 		}
 		
 
+		// prepare card content
 		viewHolder.line1.setText(card.getProject().getCompany());
 		viewHolder.line2.setText(card.getProject().getTitle());
+		if (card.isRunningNow()) {
+			viewHolder.cardView.setCardBackgroundColor(Color.parseColor(card.getProject().getColor()));
+		}
+		else {
+			viewHolder.cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.app_widget_background_color));
+		}
 		viewHolder.runningNow.setText(card.getRunningNowString());
 		viewHolder.colorBar.setBackgroundColor(Color.parseColor(card.getProject().getColor()));
 		viewHolder.editProject.setTag(card.getProject());
