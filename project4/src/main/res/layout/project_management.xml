@@ -6,7 +6,7 @@
 
     <include layout="@layout/toolbar" android:id="@+id/project_management_toolbar"/>
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.gek.and.geklib.draganddroplist.DragNDropListView xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/project_management_list_view"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -15,6 +15,6 @@
               android:paddingRight="5dp"
               android:background="@color/app_widget_background_color">
 
-    </ListView>
+    </com.gek.and.geklib.draganddroplist.DragNDropListView>
 </LinearLayout>
 

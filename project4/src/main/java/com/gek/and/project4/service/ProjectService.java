@@ -47,7 +47,14 @@ public class ProjectService {
 		
 		return p;
 	}
-	
+
+	public Project updatePriority(Project project, int newPriority) {
+		project.setPriority(newPriority);
+		this.projectDao.update(project);
+
+		return project;
+	}
+
 	public Project addProject(String customer, String title, String subTitle, String color, int priority, boolean active) {
 		Project p = new Project(null, title, subTitle, customer, color, priority, Boolean.valueOf(active));
 		long id = this.projectDao.insert(p);

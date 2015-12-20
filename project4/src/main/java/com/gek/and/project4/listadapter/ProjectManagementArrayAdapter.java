@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
+import com.gek.and.geklib.draganddroplist.DragNDropArrayAdapter;
 import com.gek.and.project4.R;
 import com.gek.and.project4.activity.ProjectManagementActivity;
 import com.gek.and.project4.app.Project4App;
@@ -15,7 +16,9 @@ import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.service.ProjectService;
 import com.gek.and.project4.view.ProjectView;
 
-public class ProjectManagementArrayAdapter extends ArrayAdapter<ProjectCard> {
+import java.util.List;
+
+public class ProjectManagementArrayAdapter extends DragNDropArrayAdapter<ProjectCard> {
 	static class ProjectViewHolder {
 		ProjectView projectView;
 		CheckBox activeCheckBox;
@@ -24,8 +27,8 @@ public class ProjectManagementArrayAdapter extends ArrayAdapter<ProjectCard> {
 
 	private ProjectManagementActivity parentActivity;
 	
-	public ProjectManagementArrayAdapter(int resource, ProjectManagementActivity parentActivity) {
-		super(parentActivity.getApplicationContext(), resource);
+	public ProjectManagementArrayAdapter(ProjectManagementActivity parentActivity, List<ProjectCard> data, int dragHandler) {
+		super(parentActivity.getApplicationContext(), data, dragHandler);
 		this.parentActivity = parentActivity;
 	}
 

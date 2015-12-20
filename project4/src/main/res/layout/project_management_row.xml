@@ -5,19 +5,28 @@
     android:orientation="horizontal"
     android:paddingLeft="0dp"
     android:paddingRight="10dp" 
-    android:gravity="center">
+    android:gravity="center"
+    android:background="?android:attr/selectableItemBackground"
+    >
 
     <com.gek.and.project4.view.ProjectView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/project_activation_project"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.9"/>
+        android:layout_weight="0.8"/>
     <CheckBox 
         android:id="@+id/project_activation_active" 
         android:layout_weight="0.1" 
         android:layout_width="0dp"
         android:layout_height="wrap_content" 
         android:theme="@android:style/Theme.Holo.Light"/>
+    <ImageView
+        android:id="@+id/draghandler"
+        android:layout_weight="0.1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_unfold_more_black_48dp"
+        />
 
 </LinearLayout>
