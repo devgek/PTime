@@ -29,6 +29,8 @@ import android.widget.ListView;
 import android.widget.Adapter;
 import android.widget.WrapperListAdapter;
 
+import com.gek.and.geklib.R;
+
 
 public class DragNDropListView extends ListView {
 	
@@ -195,11 +197,11 @@ public class DragNDropListView extends ListView {
         dndAdapter.onItemDrag(this, item, mStartPosition, id);
 
 		item.setDrawingCacheEnabled(true);
-		
+
         // Create a copy of the drawing cache so that it does not get recycled
         // by the framework when the list tries to clean up memory
         Bitmap bitmap = Bitmap.createBitmap(item.getDrawingCache());
-        
+
         WindowManager.LayoutParams mWindowParams = new WindowManager.LayoutParams();
         mWindowParams.gravity = Gravity.TOP;
         mWindowParams.x = 0;
@@ -218,10 +220,11 @@ public class DragNDropListView extends ListView {
         Context context = getContext();
         ImageView v = new ImageView(context);
         v.setImageBitmap(bitmap);
+		v.setBackgroundColor(getContext().getResources().getColor(R.color.primary_material_light));
 
-        mWm.addView(v, mWindowParams);
+		mWm.addView(v, mWindowParams);
         mDragView = v;
-        
+
         item.setVisibility(View.INVISIBLE);
         item.invalidate(); // We have not changed anything else.
 	}
