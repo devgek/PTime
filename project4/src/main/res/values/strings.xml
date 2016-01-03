@@ -25,7 +25,9 @@
     <string name="project_detail_active_text">Projekt aktiv</string>
     <string name="project_detail_active_text_on">aktiv</string>
     <string name="project_detail_active_text_off">inaktiv</string>
-    
+    <string name="project_detail_defaultTask_label">DEFAULT-NOTIZ</string>
+    <string name="project_detail_defaultTask_text">Default Notiz</string>
+
     <string name="buttonColorCancel">Abbrechen</string>
     <string name="buttonColorSelect">Auswählen</string>
 

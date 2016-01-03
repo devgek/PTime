@@ -35,6 +35,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 	private EditText editTextProject;
 	private ImageButton buttonProjectColor;
 	private CheckedTextView switchProjectActive;
+	private EditText editTextDefaultNote;
 	
 	private long projectId;
 	
@@ -99,7 +100,9 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 				setStateText();
 			}
 		});
-		
+
+		editTextDefaultNote = (EditText) findViewById(R.id.projectDetailDefaultTask);
+
 		prepareData();
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.project_detail_toolbar);
@@ -147,6 +150,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 			editTextProject.setText("");
 			setProjectColor(getResources().getString(R.color.project_color_preselect));
 			switchProjectActive.setChecked(true);
+			editTextDefaultNote.setText("");
 		}
 		else {
 			Project editProject = Project4App.getApp(this).getProjectService().getProject(projectId);
@@ -154,6 +158,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 			editTextProject.setText(editProject.getTitle());
 			setProjectColor(editProject.getColor());
 			switchProjectActive.setChecked(editProject.getActive() == null || editProject.getActive().equals(Boolean.TRUE));
+			editTextDefaultNote.setText(editProject.getDefaultNote());
 		}
 		
 		setStateText();
@@ -200,8 +205,9 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		String projectColor = getProjectColor();
 		
 		boolean active = switchProjectActive.isChecked();
+		String defaultNote = editTextDefaultNote.getText().toString();
 		
-		Project p = Project4App.getApp(this).getProjectService().addOrUpdateProject(projectId, customer, title, "", projectColor, 0, active);
+		Project p = Project4App.getApp(this).getProjectService().addOrUpdateProject(projectId, customer, title, "", projectColor, 0, active, defaultNote);
 		if (isModeNew()) {
 			ProjectCard pCard = Project4App.getApp(this).getProjectService().toCard(p, null);
 			List<ProjectCard> projectCardList = Project4App.getApp(this).getProjectCardList();

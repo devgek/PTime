@@ -4,6 +4,7 @@ import com.gek.and.project4.dao.BookingDao;
 import com.gek.and.project4.dao.BookingDao.Properties;
 import com.gek.and.project4.dao.DaoSession;
 import com.gek.and.project4.entity.Booking;
+import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.L;
@@ -153,8 +154,10 @@ public class BookingService {
 	}
 	
 	public Booking bookStart(long projectId) {
+		Project project = this.daoSession.getProjectDao().load(projectId);
 		Booking start = new Booking();
 		start.setProjectId(projectId);
+		start.setNote(project.getDefaultNote());
 		start.setFrom(new Date());
 		long bookingId = this.bookingDao.insert(start);
 		if (bookingId > 0) {

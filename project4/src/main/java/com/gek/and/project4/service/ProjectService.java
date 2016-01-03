@@ -30,9 +30,9 @@ public class ProjectService {
 		return getProjects(false, runningProjectId);
 	}
 
-	public Project addOrUpdateProject(long projectId, String customer, String title, String subTitle, String color, int priority, boolean active) {
+	public Project addOrUpdateProject(long projectId, String customer, String title, String subTitle, String color, int priority, boolean active, String defaultNote) {
 		if (projectId < 0) {
-			return addProject(customer, title, subTitle, color, priority, active);
+			return addProject(customer, title, subTitle, color, priority, active, defaultNote);
 		}
 		
 		Project p = getProject(projectId);
@@ -42,6 +42,7 @@ public class ProjectService {
 		p.setColor(color);
 		p.setPriority(priority);
 		p.setActive(Boolean.valueOf(active));
+		p.setDefaultNote(defaultNote);
 		
 		this.projectDao.update(p);
 		
@@ -55,8 +56,8 @@ public class ProjectService {
 		return project;
 	}
 
-	public Project addProject(String customer, String title, String subTitle, String color, int priority, boolean active) {
-		Project p = new Project(null, title, subTitle, customer, color, priority, Boolean.valueOf(active));
+	public Project addProject(String customer, String title, String subTitle, String color, int priority, boolean active, String defaultNote) {
+		Project p = new Project(null, title, subTitle, customer, color, priority, Boolean.valueOf(active), defaultNote);
 		long id = this.projectDao.insert(p);
 		p.setId(id);
 		

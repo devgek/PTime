@@ -16,13 +16,16 @@ public class SelectiveUpdateOpenHelper extends DaoMaster.DevOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         L.d("SelectiveUpdateOpenHelper", "Upgrading schema from version " + oldVersion + " to " + newVersion + " selective.");
-        if (newVersion == 7) {
+        if (oldVersion < 7) {
             BookingTable.migrateTo7(db);
         }
-        else
-        if (newVersion == 8) {
+        if (oldVersion < 8) {
             ProjectTable.migrateTo8(db);
         }
+		if (oldVersion < 9) {
+			ProjectTable.migrateTo9(db);
+			BookingTable.migrateTo9(db);
+		}
         else {
         	super.onUpgrade(db, oldVersion, newVersion);
         }
@@ -32,11 +35,18 @@ public class SelectiveUpdateOpenHelper extends DaoMaster.DevOpenHelper {
 		public static void migrateTo7(SQLiteDatabase db) {
 			db.execSQL("alter table " + BookingDao.TABLENAME + " add column NOTE text");
 		}
+		public static void migrateTo9(SQLiteDatabase db) {
+			db.execSQL("alter table " + BookingDao.TABLENAME + " add column BREAK_HOURS integer default 0");
+			db.execSQL("alter table " + BookingDao.TABLENAME + " add column BREAK_MINUTES integer default 0");
+		}
 	}
 	
 	public static class ProjectTable {
 		public static void migrateTo8(SQLiteDatabase db) {
 			db.execSQL("alter table " + ProjectDao.TABLENAME + " add column ACTIVE integer default 1");
+		}
+		public static void migrateTo9(SQLiteDatabase db) {
+			db.execSQL("alter table " + ProjectDao.TABLENAME + " add column DEFAULT_NOTE text");
 		}
 	}
 

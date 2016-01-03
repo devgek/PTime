@@ -92,7 +92,7 @@ public class ProjectManagementArrayAdapter extends DragNDropArrayAdapter<Project
 		    	ProjectCard card = holder.card;
 		    	Project project = card.getProject();
 		    	ProjectService projectService = Project4App.getApp(parentActivity).getProjectService();
-		    	projectService.addOrUpdateProject(project.getId(), project.getCompany(), project.getTitle(), project.getSubTitle(), project.getColor(), project.getPriority(), checkBox.isChecked());
+		    	projectService.addOrUpdateProject(project.getId(), project.getCompany(), project.getTitle(), project.getSubTitle(), project.getColor(), project.getPriority(), checkBox.isChecked(), project.getDefaultNote());
 		    	card.getProject().setActive(checkBox.isChecked());
 		    	
 		    	holder.projectView.setDimmed(!checkBox.isChecked());

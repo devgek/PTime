@@ -148,6 +148,49 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />
             </TableRow>
+
+            <TableRow
+                android:id="@+id/projectDetailTableRow7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/projectDetailDefaultTaskLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:labelFor="@+id/projectDetailDefaultTask"
+                    android:text="@string/project_detail_defaultTask_label"
+                    style="@style/label"
+                    />
+
+                <TextView
+                    android:id="@+id/projectDetailDefaultTaskLabel2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/projectDetailTableRow8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <EditText
+                    android:id="@+id/projectDetailDefaultTask"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:inputType="text"
+                    android:text="@string/project_detail_defaultTask_text" >
+
+                    <requestFocus />
+                </EditText>
+
+                <TextView
+                    android:id="@+id/projectDetailDefaultTaskColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
         </TableLayout>
 
     </LinearLayout>
