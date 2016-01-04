@@ -36,6 +36,8 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 	private ImageButton buttonProjectColor;
 	private CheckedTextView switchProjectActive;
 	private EditText editTextDefaultNote;
+	private String mSubTitle;
+	private int mPriority;
 	
 	private long projectId;
 	
@@ -151,6 +153,8 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 			setProjectColor(getResources().getString(R.color.project_color_preselect));
 			switchProjectActive.setChecked(true);
 			editTextDefaultNote.setText("");
+			mPriority = 0;
+			mSubTitle = "";
 		}
 		else {
 			Project editProject = Project4App.getApp(this).getProjectService().getProject(projectId);
@@ -159,6 +163,8 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 			setProjectColor(editProject.getColor());
 			switchProjectActive.setChecked(editProject.getActive() == null || editProject.getActive().equals(Boolean.TRUE));
 			editTextDefaultNote.setText(editProject.getDefaultNote());
+			mPriority = editProject.getPriority();
+			mSubTitle = editProject.getSubTitle();
 		}
 		
 		setStateText();
@@ -196,7 +202,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 	private void saveProject() {
 		String customer = editTextCustomer.getText().toString();
 		String title = editTextProject.getText().toString();
-		
+
 		if (customer.trim().equals("") || title.trim().equals("")) {
 			Toast.makeText(getApplicationContext(), "Kunde und Projekt müssen angegeben werden!", Toast.LENGTH_SHORT).show();
 			return;
@@ -207,7 +213,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		boolean active = switchProjectActive.isChecked();
 		String defaultNote = editTextDefaultNote.getText().toString();
 		
-		Project p = Project4App.getApp(this).getProjectService().addOrUpdateProject(projectId, customer, title, "", projectColor, 0, active, defaultNote);
+		Project p = Project4App.getApp(this).getProjectService().addOrUpdateProject(projectId, customer, title, mSubTitle, projectColor, mPriority, active, defaultNote);
 		if (isModeNew()) {
 			ProjectCard pCard = Project4App.getApp(this).getProjectService().toCard(p, null);
 			List<ProjectCard> projectCardList = Project4App.getApp(this).getProjectCardList();

@@ -15,12 +15,18 @@ import java.util.Calendar;
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 	private EditText editText;
 	private OnTimeSetListener timeSetListener;
+	private boolean formatShort;
 	
 	public TimePickerFragment(EditText editView, OnTimeSetListener listener) {
+		this(editView, listener, false);
+	}
+
+	public TimePickerFragment(EditText editView, OnTimeSetListener listener, boolean formatShort) {
 		this.editText = editView;
 		this.timeSetListener = listener;
+		this.formatShort = formatShort;
 	}
-	
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// Use the current time as the default values for the picker
@@ -39,8 +45,15 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		c.set(Calendar.HOUR_OF_DAY, hourOfDay);
 		c.set(Calendar.MINUTE, minute);
 		c.set(Calendar.SECOND, 0);
-		editText.setText(DateUtil.getFormattedTime(c.getTime()));
-		
+
+		if (formatShort) {
+			Integer minutes = DateUtil.getBreakTime(c);
+			editText.setText(DateUtil.getFormattedHM(minutes));
+		}
+		else {
+			editText.setText(DateUtil.getFormattedTime(c.getTime()));
+		}
+
 		timeSetListener.onTimeSet();
 	}
 

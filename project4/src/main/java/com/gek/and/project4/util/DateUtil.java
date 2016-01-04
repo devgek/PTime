@@ -32,6 +32,9 @@ public class DateUtil {
 	}
 	
 	public static String getFormattedHM(int minutes) {
+		if (minutes < 0) {
+			return formatHM(0, 0);
+		}
 		int hours = (int) Math.floor(minutes / 60);
 		int mins = minutes - (hours * 60);
 		return formatHM(hours, mins);
@@ -80,7 +83,14 @@ public class DateUtil {
 			return Integer.valueOf((int)millis / 1000 / 60);
 		}
 	}
-	
+
+	public static Integer getBreakTime(Calendar cBreak) {
+		int breakHours = cBreak.get(Calendar.HOUR_OF_DAY) * 60;
+		int breakMinutes = cBreak.get(Calendar.MINUTE);
+
+		return breakHours + breakMinutes;
+	}
+
 	private static String formatHM(int hours, int minutes) {
 		return String.format("%02d:%02d", hours, minutes);
 	}

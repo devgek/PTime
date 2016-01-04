@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,17 +34,20 @@ import com.gek.and.project4.util.MenuUtil;
 import com.gek.and.project4.view.ProjectView;
 
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 public class BookingDetailActivity extends AppCompatActivity implements OnTimeSetListener, ProjectSelectionDialogController.ProjectSelectionDialogListener {
 //	private TextView headLine;
 	private EditText day;
 	private EditText from;
 	private EditText to;
+	private EditText mBreak;
 	private EditText duration;
 	private ProjectView projectView;
 	private EditText note;
 	
 	private Booking theBooking;
+	private Integer mDuration;
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,7 +109,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			
 			@Override
 			public void onClick(View v) {
-				showTimePickerDialog((EditText) v);
+				showTimePickerDialog((EditText) v, false);
 			}
 		});
 		
@@ -113,7 +118,15 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			
 			@Override
 			public void onClick(View v) {
-				showTimePickerDialog((EditText) v);
+				showTimePickerDialog((EditText) v, false);
+			}
+		});
+
+		mBreak = (EditText) findViewById(R.id.bookingDetailBreak);
+		mBreak.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showTimePickerDialog((EditText) v, true);
 			}
 		});
 
@@ -170,7 +183,47 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			}
 			to.setText(DateUtil.getFormattedTime(cTo.getTime()));
 			to.setTag(cTo);
-			
+
+			int breakHours = theBooking.getBreakHours() != null ? theBooking.getBreakHours() : 0;
+			int breakMinutes = theBooking.getBreakMinutes() != null ? theBooking.getBreakMinutes() : 0;
+			Calendar cBreak = Calendar.getInstance();
+			cBreak.set(Calendar.HOUR_OF_DAY, breakHours);
+			cBreak.set(Calendar.MINUTE, breakMinutes);
+			mBreak.setText(DateUtil.getFormattedHM(breakHours + breakMinutes));
+			mBreak.setTag(cBreak);
+
+			/*
+			mBreak.addTextChangedListener(new TextWatcher() {
+				private final Pattern sPattern
+						= Pattern.compile("[0-2]{1}[0-4]{1}:[0-6]{1}[0-9]{1}");
+
+				private CharSequence mText;
+
+				private boolean isValid(CharSequence s) {
+					return sPattern.matcher(s).matches();
+				}
+
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+				}
+
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,
+											  int after) {
+					mText = isValid(s) ? s.toString() : "";
+				}
+
+				@Override
+				public void afterTextChanged(Editable s) {
+					if (!isValid(s)) {
+						mBreak.setText(mText);
+					}
+					mText = null;
+				}
+			});
+			*/
+
+
 			updateDuration();
 			
 			if (theBooking.getProjectId() != null) {
@@ -188,9 +241,12 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 	private void updateDuration() {
 		Calendar cFrom = (Calendar) from.getTag();
 		Calendar cTo = (Calendar) to.getTag();
-		Integer minutes = DateUtil.getMinutes(cFrom.getTime(), cTo.getTime());
+		Calendar cBreak = (Calendar) mBreak.getTag();
+
+		Integer breakTime = DateUtil.getBreakTime(cBreak);
+		mDuration = DateUtil.getMinutes(cFrom.getTime(), cTo.getTime()) - breakTime;
 		
-		duration.setText(DateUtil.getFormattedHM(minutes));
+		duration.setText(DateUtil.getFormattedHM(mDuration));
 	}
 	
 	private void prepareDataProject(Long projectId) {
@@ -207,6 +263,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 		Calendar cDay = (Calendar) this.day.getTag();
 		Calendar cFrom = (Calendar) this.from.getTag();
 		Calendar cTo = (Calendar) this.to.getTag();
+		Calendar cBreak = (Calendar) this.mBreak.getTag();
 		
 		Calendar cFromCombined = DateUtil.combineDateAndTime(cDay, cFrom);
 		Calendar cToCombined = DateUtil.combineDateAndTime(cDay, cTo);
@@ -219,7 +276,13 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			Toast.makeText(this, "Änderungen sind nur in der Vergangenheit möglich.", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
+
+		Integer breakTime = DateUtil.getBreakTime(cBreak);
+		if (breakTime > mDuration) {
+			Toast.makeText(this, "Pause darf nicht länger als Dauer sein.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		Long projectId = (Long) this.projectView.getTag();
 		if (projectId == null) {
 			Toast.makeText(this, "Ein Projekt muss ausgewählt werden.", Toast.LENGTH_SHORT).show();
@@ -229,6 +292,10 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 		this.theBooking.setFrom(cFromCombined.getTime());
 		
 		this.theBooking.setTo(cToCombined.getTime());
+
+		Integer breakHours = breakTime / 60;
+		this.theBooking.setBreakHours(breakHours);
+		this.theBooking.setBreakMinutes((breakTime - breakHours * 60) % 60);
 		
 		this.theBooking.setProjectId(projectId);
 		
@@ -321,8 +388,8 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 	    newFragment.show(getFragmentManager(), "datePicker");
 	}
 	
-	public void showTimePickerDialog(final EditText v) {
-	    DialogFragment newFragment = new TimePickerFragment(v, this);
+	public void showTimePickerDialog(final EditText v, boolean formatShort) {
+	    DialogFragment newFragment = new TimePickerFragment(v, this, formatShort);
 	    newFragment.show(getFragmentManager(), "timePicker");
 	}
 

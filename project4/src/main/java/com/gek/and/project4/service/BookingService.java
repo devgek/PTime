@@ -158,6 +158,9 @@ public class BookingService {
 		Booking start = new Booking();
 		start.setProjectId(projectId);
 		start.setNote(project.getDefaultNote());
+		start.setBreakHours(0);
+		start.setBreakMinutes(0);
+		start.setMinutes(0);
 		start.setFrom(new Date());
 		long bookingId = this.bookingDao.insert(start);
 		if (bookingId > 0) {

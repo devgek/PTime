@@ -34,6 +34,7 @@
     <string name="booking_detail_day_label">TAG</string>
     <string name="booking_detail_from_label">START</string>
     <string name="booking_detail_to_label">STOP</string>
+    <string name="booking_detail_break_label">PAUSE</string>
     <string name="booking_detail_duration_label">DAUER</string>
     <string name="booking_detail_project_label">PROJEKT</string>
     <string name="booking_detail_note_label">NOTIZ</string>
