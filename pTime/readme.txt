@@ -1,3 +1,6 @@
+Version 2.1.0(6):
+- neue Funktion "Pause zu einer Buchung erfassen"
+
 Version 2.0.0(5):
 - Material Design
 

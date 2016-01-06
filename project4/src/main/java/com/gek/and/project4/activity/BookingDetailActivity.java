@@ -29,6 +29,7 @@ import com.gek.and.project4.fragment.DatePickerFragment;
 import com.gek.and.project4.fragment.ModalToolbarDialogFragment;
 import com.gek.and.project4.fragment.TimePickerFragment;
 import com.gek.and.project4.fragment.TimePickerFragment.OnTimeSetListener;
+import com.gek.and.project4.util.BookingUtil;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.MenuUtil;
 import com.gek.and.project4.view.ProjectView;
@@ -184,12 +185,10 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			to.setText(DateUtil.getFormattedTime(cTo.getTime()));
 			to.setTag(cTo);
 
-			int breakHours = theBooking.getBreakHours() != null ? theBooking.getBreakHours() : 0;
-			int breakMinutes = theBooking.getBreakMinutes() != null ? theBooking.getBreakMinutes() : 0;
 			Calendar cBreak = Calendar.getInstance();
-			cBreak.set(Calendar.HOUR_OF_DAY, breakHours);
-			cBreak.set(Calendar.MINUTE, breakMinutes);
-			mBreak.setText(DateUtil.getFormattedHM(breakHours + breakMinutes));
+			cBreak.set(Calendar.HOUR_OF_DAY, BookingUtil.getBreakHours(theBooking));
+			cBreak.set(Calendar.MINUTE, BookingUtil.getBreakMinutes(theBooking));
+			mBreak.setText(DateUtil.getFormattedHM(BookingUtil.getBreakTotal(theBooking)));
 			mBreak.setTag(cBreak);
 
 			/*
@@ -278,7 +277,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 		}
 
 		Integer breakTime = DateUtil.getBreakTime(cBreak);
-		if (breakTime > mDuration) {
+		if (mDuration < 0) {
 			Toast.makeText(this, "Pause darf nicht länger als Dauer sein.", Toast.LENGTH_SHORT).show();
 			return;
 		}

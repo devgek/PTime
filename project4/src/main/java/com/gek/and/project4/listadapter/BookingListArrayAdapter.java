@@ -17,6 +17,7 @@ import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.service.ProjectService;
+import com.gek.and.project4.util.BookingUtil;
 import com.gek.and.project4.util.ColorUtil;
 import com.gek.and.project4.util.DateUtil;
 
@@ -82,16 +83,21 @@ public class BookingListArrayAdapter extends ArrayAdapter<Booking> {
 	}
 
 	private String getLine2Right(Booking booking) {
-		return booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getMinutes()) : "";
+		return booking.getMinutes() != null ? DateUtil.getFormattedHM(BookingUtil.getDuration(booking)) : "";
 	}
 
-	private String getLine2Left(Booking booking) {
+	public String getLine2Left(Booking booking) {
 		StringBuffer buf = new StringBuffer();
 		buf.append(DateUtil.getFormattedDate(booking.getFrom()));
 		buf.append("   ");
 		buf.append(DateUtil.getFormattedTime(booking.getFrom()));
 		buf.append("   ");
 		buf.append(booking.getTo() != null ? DateUtil.getFormattedTime(booking.getTo()) : "läuft ...");
+		int breakTotal = BookingUtil.getBreakTotal(booking);
+		if (breakTotal > 0) {
+			buf.append("      ");
+			buf.append(DateUtil.getFormattedHM(breakTotal));
+		}
 		
 		return buf.toString();
 	}

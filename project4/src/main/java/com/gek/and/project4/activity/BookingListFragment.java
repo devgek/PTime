@@ -18,6 +18,7 @@ import com.gek.and.project4.listadapter.BookingListArrayAdapter;
 import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.service.BookingService;
 import com.gek.and.project4.types.PeriodType;
+import com.gek.and.project4.util.BookingUtil;
 import com.gek.and.project4.util.DateUtil;
 
 import java.util.Calendar;
@@ -66,9 +67,9 @@ public class BookingListFragment extends Fragment{
 		super.onResume();
 		
 		List<Booking> bookingList = getData();
-		int minutes = getMinutes(bookingList);
+		int minutesSum = getMinutes(bookingList);
 		
-		this.textViewSummary.setText(DateUtil.getFormattedHM(minutes));
+		this.textViewSummary.setText(DateUtil.getFormattedHM(minutesSum));
 		
 		BookingListArrayAdapter bookingListAdapter = new BookingListArrayAdapter(R.layout.booking_row, getActivity());
 		bookingListAdapter.addAll(bookingList);
@@ -89,7 +90,7 @@ public class BookingListFragment extends Fragment{
 			}
 			
 			if (booking.getMinutes() != null) {
-				minutes += booking.getMinutes();
+				minutes += BookingUtil.getDuration(booking);
 			}
 		}
 		

@@ -2,6 +2,7 @@ package com.gek.and.project4;
 
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.model.BookedValues;
+import com.gek.and.project4.util.BookingUtil;
 import com.gek.and.project4.util.DateUtil;
 
 import java.util.Calendar;
@@ -78,7 +79,7 @@ public class Summary {
 			}
 		}
 		else {
-			Integer minutes = booking.getMinutes() == null ? DateUtil.getMinutes(booking.getFrom(), booking.getTo()) : booking.getMinutes();
+			Integer minutes = BookingUtil.getDuration(booking);
 			if (isDay(cal)) {
 				minutesDay += minutes;
 				addToMap(projectsToday, booking.getProjectId(), minutes, 0);
