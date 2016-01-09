@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +28,7 @@ import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.async.SummaryLoader;
 import com.gek.and.project4.async.SummaryLoader.SummaryLoaderTarget;
 import com.gek.and.project4.async.TimeBooker;
+import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.fragment.ModalToolbarDialogFragment;
 import com.gek.and.project4.listadapter.ProjectCardArrayAdapter;
@@ -35,6 +37,7 @@ import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.model.ProjectSummary;
 import com.gek.and.project4.service.ProjectService;
 import com.gek.and.project4.types.PeriodType;
+import com.gek.and.project4.util.BookingUtil;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.L;
 import com.gek.and.project4.dialogcontroller.PeriodSummaryDialogController;
@@ -58,9 +61,11 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 	private ProjectCardArrayAdapter projectCardAdapter;
 	private ListView projectCardListView;
 	private View mainView;
-	private TextView textViewToday;
-	private TextView textViewWeek;
-	private TextView textViewMonth;
+	private View headerView;
+	private TextView tvSummaryToday;
+	private TextView tvHeaderCustomer;
+	private TextView tvHeaderProject;
+	private TextView tvHeaderRunning;
 	private ColorBarView colorBarViewToday;
 	private ColorBarView colorBarViewWeek;
 	private ColorBarView colorBarViewMonth;
@@ -94,6 +99,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 	@Override
 	protected void onResume() {
+		updateHeader();
 		super.onResume();
 	}
 
@@ -106,8 +112,23 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 		final Summary summary = Project4App.getApp(this).getSummary();
 		
 		mainView = this.findViewById(android.R.id.content);
+		headerView = this.findViewById(R.id.dashboard_header_view);
+		tvSummaryToday = (TextView) findViewById(R.id.dashboard_header_today);
+		tvHeaderCustomer = (TextView) findViewById(R.id.dashboard_header_customer);
+		tvHeaderProject = (TextView) findViewById(R.id.dashboard_header_project);
+		tvHeaderRunning = (TextView) findViewById(R.id.dashboard_header_running);
 
-		textViewToday = (TextView) findViewById(R.id.summary_title_today);
+		headerView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Project p = Project4App.getApp(DashboardActivity.this).getRunningProject();
+				if (p != null) {
+					bookProject(p.getId());
+				}
+			}
+		});
+		/*
+		textViewToday = (TextView) findViewById(R.id.dashboard_header_today);
 		textViewWeek = (TextView) findViewById(R.id.summary_title_week);
 		textViewMonth = (TextView) findViewById(R.id.summary_title_month);
 
@@ -149,6 +170,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 				showSummaryDialog(PeriodType.MONTH, getProjectSummary(summary.getProjectsMonth()));
 			}
 		});
+		*/
 
 		projectCardListView = (ListView) findViewById(R.id.project_list_view);
 
@@ -191,7 +213,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 	private void startSummaryLoader() {
 		SummaryLoader summaryLoader = new SummaryLoader();
-		summaryLoader.execute(new Object[] { this, this });
+		summaryLoader.execute(new Object[]{this, this});
 	}
 
 	protected void addProject() {
@@ -211,7 +233,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 	public void bookProject(Long projectId) {
 		TimeBooker timeBooker = new TimeBooker();
-		timeBooker.execute(new Object[] { this, projectId });
+		timeBooker.execute(new Object[]{this, projectId});
 	}
 
 	@Override
@@ -259,7 +281,29 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 		updateRunningProject(startedProjectId);
 		updateCardAdapter();
 		updateSummaryFields();
+		updateHeader();
 		invalidateMainView();
+	}
+
+	private void updateHeader() {
+		int headerColor = 0;
+		int statusColor = 0;
+		Project p = Project4App.getApp(this).getRunningProject();
+		if (p != null) {
+			headerColor = Color.parseColor(p.getColor());
+		}
+		else {
+			headerColor = getResources().getColor(R.color.primary);
+		}
+
+		headerView.setBackgroundColor(headerColor);
+		getAppBar().setBackgroundColor(headerColor);
+
+//		statusColor = getResources().getColor(R.color.primary_dark);
+
+//		if (Build.VERSION.SDK_INT >= 21) {
+//			getWindow().setStatusBarColor(statusColor);
+//		}
 	}
 
 	private void sendProjectStartedNotification(Long projectId) {
@@ -310,9 +354,9 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 	private void invalidateMainView() {
 		if (mainView != null) {
-			colorBarViewToday.invalidate();
-			colorBarViewWeek.invalidate();
-			colorBarViewMonth.invalidate();
+//			colorBarViewToday.invalidate();
+//			colorBarViewWeek.invalidate();
+//			colorBarViewMonth.invalidate();
 			projectCardListView.invalidate();
 			mainView.invalidate();
 		}
@@ -321,13 +365,13 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 	private void updateSummaryFields() {
 		Summary summary = Project4App.getApp(this).getSummary();
 
+		/*
 		textViewToday.setText(DateUtil.getFormattedDay(summary.getInitDate()));
 		textViewWeek.setText(DateUtil.getFormattedWeek(summary.getInitDate()));
 		textViewMonth.setText(DateUtil.getFormattedMonth(summary.getInitDate()));
-		
-		TextView tvSummaryDay = (TextView) findViewById(R.id.summary_day);
-		tvSummaryDay.setText(summary.getFormattedDay());
-
+		*/
+		tvSummaryToday.setText(summary.getFormattedDay());
+		/*
 		TextView tvSummaryWeek = (TextView) findViewById(R.id.summary_week);
 		tvSummaryWeek.setText(summary.getFormattedWeek());
 
@@ -337,6 +381,19 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 		colorBarViewToday.setColorBars(getColorBars(summary.getProjectsToday()));
 		colorBarViewWeek.setColorBars(getColorBars(summary.getProjectsWeek()));
 		colorBarViewMonth.setColorBars(getColorBars(summary.getProjectsMonth()));
+		*/
+		Booking b = Project4App.getApp(this).getRunningBooking();
+		if (b != null) {
+			Project p = Project4App.getApp(this).getRunningProject();
+			tvHeaderCustomer.setText(p.getCompany());
+			tvHeaderProject.setText(p.getTitle());
+			tvHeaderRunning.setText(DateUtil.getFormattedHM(BookingUtil.getRunningMinutes(b)));
+		}
+		else {
+			tvHeaderCustomer.setText("");
+			tvHeaderProject.setText("");
+			tvHeaderRunning.setText("");
+		}
 	}
 
 	private List<ProjectSummary> getProjectSummary(Map<Long, BookedValues> projects) {

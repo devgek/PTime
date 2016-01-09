@@ -20,4 +20,9 @@
     <dimen name="g_fab_margin_right">16dp</dimen>
     <dimen name="g_fab_margin_bottom">16dp</dimen>
 
+    <dimen name="dashboard_header_size">120sp</dimen>
+    <dimen name="dashboard_header_padding_left">30dp</dimen>
+    <dimen name="dashboard_header_margin_bottom">10dp</dimen>
+    <dimen name="dashboard_header_margin_right">15dp</dimen>
+
 </resources>

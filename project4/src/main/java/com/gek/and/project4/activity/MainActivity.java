@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 		mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setTitle(R.string.title_project_dashboard);
+		getSupportActionBar().setElevation(0);
 
 		mDrawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
 		setUpNavDrawer();
@@ -137,6 +138,10 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+	}
+
+	protected Toolbar getAppBar() {
+		return mToolbar;
 	}
 
 	private void showAbout() {

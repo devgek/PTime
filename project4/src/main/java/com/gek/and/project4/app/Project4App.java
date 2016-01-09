@@ -16,6 +16,7 @@ import com.gek.and.project4.dao.DaoSession;
 import com.gek.and.project4.dao.ProjectDao;
 import com.gek.and.project4.dao.SelectiveUpdateOpenHelper;
 import com.gek.and.project4.entity.Booking;
+import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.model.ProjectSummary;
 import com.gek.and.project4.service.BookingService;
@@ -169,4 +170,26 @@ public abstract class Project4App extends Application {
 		this.periodSummaryList = periodSummaryList;
 	}
 
+	public boolean isRunning() {
+		return getSummary().getRunningNow() != null;
+	}
+
+	public Booking getRunningBooking() {
+		if (isRunning()) {
+			return getSummary().getRunningNow();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public Project getRunningProject() {
+		if (isRunning()) {
+			Booking b = getRunningBooking();
+			return projectService.getProject(b.getProjectId());
+		}
+		else {
+			return null;
+		}
+	}
 }

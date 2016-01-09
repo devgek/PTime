@@ -2,6 +2,8 @@ package com.gek.and.project4.util;
 
 import com.gek.and.project4.entity.Booking;
 
+import java.util.Calendar;
+
 /**
  * Created by moo on 05.01.16.
  */
@@ -33,5 +35,9 @@ public class BookingUtil {
 
 	public static int getDuration(Booking b) {
 		return b.getMinutes() - getBreakTotal(b);
+	}
+
+	public static int getRunningMinutes(Booking b) {
+		return DateUtil.getMinutes(b.getFrom(), Calendar.getInstance().getTime());
 	}
 }

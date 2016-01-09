@@ -6,6 +6,8 @@
 
     <include layout="@layout/toolbar" android:id="@+id/main_toolbar"/>
 
+    <include layout="@layout/dashboard_header" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -14,8 +16,6 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/g_main_padding_left"
         android:paddingRight="@dimen/g_main_padding_right">
-
-        <include layout="@layout/dashboard_summary_card" />
 
         <include layout="@layout/project_list" />
 

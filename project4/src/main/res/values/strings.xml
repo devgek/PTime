@@ -57,5 +57,6 @@
     <string name="settings_cat_bookings">Buchungsliste</string>
     <string name="setting_bookings_showNote_summary">Notiz bei jeder Buchung anzeigen</string>
     <string name="setting_bookings_showNote_title">Notiz anzeigen</string>
+    <string name="label_dashboard_header_today">Heute   </string>
 
 </resources>

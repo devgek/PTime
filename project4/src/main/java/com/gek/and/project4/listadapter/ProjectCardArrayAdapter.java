@@ -66,12 +66,13 @@ public class ProjectCardArrayAdapter extends ArrayAdapter<ProjectCard> {
 		// prepare card content
 		viewHolder.line1.setText(card.getProject().getCompany());
 		viewHolder.line2.setText(card.getProject().getTitle());
-		if (card.isRunningNow()) {
-			viewHolder.cardView.setCardBackgroundColor(Color.parseColor(card.getProject().getColor()));
-		}
-		else {
-			viewHolder.cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.app_widget_background_color));
-		}
+		//change card background to project color
+//		if (card.isRunningNow()) {
+//			viewHolder.cardView.setCardBackgroundColor(Color.parseColor(card.getProject().getColor()));
+//		}
+//		else {
+//			viewHolder.cardView.setCardBackgroundColor(getContext().getResources().getColor(R.color.app_widget_background_color));
+//		}
 		viewHolder.runningNow.setText(card.getRunningNowString());
 		viewHolder.colorBar.setBackgroundColor(Color.parseColor(card.getProject().getColor()));
 		viewHolder.editProject.setTag(card.getProject());
