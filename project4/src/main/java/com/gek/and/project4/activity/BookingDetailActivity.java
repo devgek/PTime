@@ -181,8 +181,11 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			Calendar cTo = Calendar.getInstance();
 			if (theBooking.getTo() != null) {
 				cTo.setTime(theBooking.getTo());
+				to.setText(DateUtil.getFormattedTime(cTo.getTime()));
 			}
-			to.setText(DateUtil.getFormattedTime(cTo.getTime()));
+			else {
+				to.setText(getResources().getString(R.string.booking_detail_text_running));
+			}
 			to.setTag(cTo);
 
 			Calendar cBreak = Calendar.getInstance();

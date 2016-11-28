@@ -105,9 +105,12 @@ public class MainActivity extends AppCompatActivity {
 				} else if (itemId == R.id.action_settings) {
 					changeSettings();
 					mCurrentSelectedMenuPosition = 3;
+				} else if (itemId == R.id.action_backup_restore) {
+					backupRestore();
+					mCurrentSelectedMenuPosition = 4;
 				} else if (itemId == R.id.action_about) {
 					showAbout();
-					mCurrentSelectedMenuPosition = 4;
+					mCurrentSelectedMenuPosition = 5;
 				}
 
 				mDrawerLayout.closeDrawer(mNavigationView);
@@ -170,7 +173,12 @@ public class MainActivity extends AppCompatActivity {
 		Intent intent = new Intent(this, ProjectManagementActivity.class);
 		startActivityForResult(intent, 3000);
 	}
-	
+
+	private void backupRestore() {
+		Intent intent = new Intent(this, BackupRestoreActivity.class);
+		startActivityForResult(intent, 4000);
+	}
+
 	private void startActivityNewTask(Class<?> theActivityClass) {
 		Intent intent = new Intent(this, theActivityClass);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

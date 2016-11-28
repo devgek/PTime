@@ -21,6 +21,10 @@
             android:icon="@drawable/ic_action_settings"
             android:title="Einstellungen" />
         <item
+                android:id="@+id/action_backup_restore"
+                android:icon="@drawable/ic_action_settings"
+                android:title="Backup / Restore" />
+        <item
             android:id="@+id/action_about"
             android:icon="@drawable/ic_action_about"
             android:title="Über" />

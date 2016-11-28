@@ -14,6 +14,7 @@
     <string name="title_project_selection">Projektauswahl</string>
     <string name="title_project_management">Projekte verwalten</string>
     <string name="title_settings">Einstellungen</string>
+    <string name="title_backup_restore">Backup / Restore</string>
 
     <string name="comment_project_added">Projekt hinzugefügt.</string>
     
@@ -38,6 +39,7 @@
     <string name="booking_detail_duration_label">DAUER</string>
     <string name="booking_detail_project_label">PROJEKT</string>
     <string name="booking_detail_note_label">NOTIZ</string>
+    <string name="booking_detail_text_running">läuft ...</string>
     
     <string name="action_list_bookings">Buchungen anzeigen</string>
     <string name="action_select_color">Farbe auswählen</string>

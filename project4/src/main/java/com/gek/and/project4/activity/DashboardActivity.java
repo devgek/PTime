@@ -54,6 +54,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 	private static final int RC_PROJECT__DETAIL_NEW = 1000;
 	private static final int RC_PROJECT_DETAIL_EDIT = 2000;
 	private static final int RC_PROJECT_MANAGEMENT = 3000;
+	private static final int RC_BACKUP_RESTORE = 4000;
 	private final int BAR_HEIGHT = 40;
 	private final int BAR_PADDING = 0;
 	
@@ -239,7 +240,8 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			if (requestCode == RC_PROJECT__DETAIL_NEW || requestCode == RC_PROJECT_DETAIL_EDIT || requestCode == RC_PROJECT_MANAGEMENT) {
+			if (requestCode == RC_PROJECT__DETAIL_NEW || requestCode == RC_PROJECT_DETAIL_EDIT ||
+					requestCode == RC_PROJECT_MANAGEMENT || requestCode == RC_BACKUP_RESTORE) {
 				boolean reloadSummary = data.getBooleanExtra("reloadSummary", false);
 				if (reloadSummary) {
 					startSummaryLoader();
