@@ -47,18 +47,28 @@ public abstract class Project4App extends Application {
 		
 		setAppType();
 		this.appBarType = AppBarType.LITE;
-		
-//        DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "project4-db", null);
-        SelectiveUpdateOpenHelper helper = new SelectiveUpdateOpenHelper(this, "project4-db", null);
-        db = helper.getWritableDatabase();
-        daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
-        projectDao = daoSession.getProjectDao();
-        bookingDao = daoSession.getBookingDao();
-        projectService = new ProjectService(daoSession);
-        bookingService = new BookingService(daoSession);
+
+		initDatabase();
 	}
-	
+
+	public void initDatabase() {
+//        DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "project4-db", null);
+		SelectiveUpdateOpenHelper helper = new SelectiveUpdateOpenHelper(this, "project4-db", null);
+		db = helper.getWritableDatabase();
+		daoMaster = new DaoMaster(db);
+		daoSession = daoMaster.newSession();
+		projectDao = daoSession.getProjectDao();
+		bookingDao = daoSession.getBookingDao();
+		projectService = new ProjectService(daoSession);
+		bookingService = new BookingService(daoSession);
+	}
+
+	public void closeDatabase() {
+		if (db.isOpen()) {
+			db.close();
+		}
+	}
+
 	protected abstract void setAppType();
 	
 	public String getVersion() {
@@ -118,16 +128,6 @@ public abstract class Project4App extends Application {
 
 	public void setProjectCardList(List<ProjectCard> projectCardList) {
 		this.projectCardList = projectCardList;
-	}
-
-	public static Project4App getApp(Activity activity) {
-		Project4App app = (Project4App) activity.getApplication();
-		return app;
-	}
-
-	public static Project4App getApp(Context context) {
-		Project4App app = (Project4App) context.getApplicationContext();
-		return app;
 	}
 
 	public Summary getSummary() {
@@ -192,4 +192,15 @@ public abstract class Project4App extends Application {
 			return null;
 		}
 	}
+
+	public static Project4App getApp(Activity activity) {
+		Project4App app = (Project4App) activity.getApplication();
+		return app;
+	}
+
+	public static Project4App getApp(Context context) {
+		Project4App app = (Project4App) context.getApplicationContext();
+		return app;
+	}
+
 }
