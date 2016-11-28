@@ -1,3 +1,6 @@
+Version 2.2.0(7):
+- neue Funktion "Backup/Restore" im Drawer-Menü
+
 Version 2.1.0(6):
 - neue Funktion "Pause zu einer Buchung erfassen"
 
