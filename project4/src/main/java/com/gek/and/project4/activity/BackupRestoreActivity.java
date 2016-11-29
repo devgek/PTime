@@ -1,13 +1,18 @@
 package com.gek.and.project4.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -17,6 +22,8 @@ import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.listadapter.ProjectManagementArrayAdapter;
 import com.gek.and.project4.model.ProjectCard;
 import com.gek.and.project4.service.ProjectService;
+import com.gek.and.project4.view.BackupRestoreViewMvc;
+import com.gek.and.project4.view.BackupRestoreViewMvcImpl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,11 +31,11 @@ import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.List;
 
-public class BackupRestoreActivity extends AppCompatActivity {
-	private CheckBox mRestoreLastBackup;
+public class BackupRestoreActivity extends AppCompatActivity implements BackupRestoreViewMvc.BackupRestoreViewMvcListener{
     private static final String DB_NAME = "project4-db";
     private static final String DB_BACKUP_NAME = "ptime-backup.db";
     private static final String DB_RESTORE_NAME = "ptime-restore.db";
+	private BackupRestoreViewMvc backupRestoreView;
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,7 +48,7 @@ public class BackupRestoreActivity extends AppCompatActivity {
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -57,90 +64,29 @@ public class BackupRestoreActivity extends AppCompatActivity {
 		super.onResume();
 	}
 
+	@Nullable
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.backup_restore);
-		
-		Button backupButton = (Button) findViewById(R.id.backup_restore_button_backup);
-		backupButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doBackup();
-            }
-        });
-        
-		Button restoreButton = (Button) findViewById(R.id.backup_restore_button_restore);
-        restoreButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doRestore();
-            }
-        });
 
-        mRestoreLastBackup = (CheckBox) findViewById(R.id.backup_restore_checkbox_restore);
+		backupRestoreView = new BackupRestoreViewMvcImpl(getLayoutInflater(), getMainWindow());
+		backupRestoreView.setListener(this);
+		setContentView(backupRestoreView.getRootView());
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.backup_restore_toolbar);
-		setSupportActionBar(toolbar);
+		if (backupRestoreView.hasToolbar()) {
+			setSupportActionBar(backupRestoreView.getToolbar());
+		}
 
 		getSupportActionBar().setTitle(R.string.title_backup_restore);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
-    private void doRestore() {
-        try {
-            Project4App.getApp(this).closeDatabase();
+	private ViewGroup getMainWindow() {
+		return (ViewGroup) this.findViewById(android.R.id.content);
+	}
 
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-
-            File currentDB = getApplicationContext().getDatabasePath(DB_NAME);
-
-            String backupDBPath = DB_RESTORE_NAME;
-            if (mRestoreLastBackup.isChecked()) {
-                backupDBPath = DB_BACKUP_NAME;
-            }
-            File backupDB = new File(sd, backupDBPath);
-
-            FileChannel src = new FileInputStream(backupDB).getChannel();
-            FileChannel dst = new FileOutputStream(currentDB).getChannel();
-            dst.transferFrom(src, 0, src.size());
-            src.close();
-            dst.close();
-            Toast.makeText(getBaseContext(), "Restore: " + backupDB.toString(), Toast.LENGTH_LONG).show();
-         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
-        }
-        finally {
-            Project4App.getApp(this).initDatabase();
-        }
-    }
-
-    private void doBackup() {
-        try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
-
-            if (sd.canWrite()) {
-                File currentDB = getApplicationContext().getDatabasePath(DB_NAME);
-
-                String backupDBPath = DB_BACKUP_NAME;
-                File backupDB = new File(sd, backupDBPath);
-
-                FileChannel src = new FileInputStream(currentDB).getChannel();
-                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-                dst.transferFrom(src, 0, src.size());
-                src.close();
-                dst.close();
-                Toast.makeText(getBaseContext(), "Backup: " + backupDB.toString(), Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
+	@Override
 	public void finish() {
 		Intent back = this.getIntent();
 		setResult(RESULT_OK, back);
@@ -149,4 +95,57 @@ public class BackupRestoreActivity extends AppCompatActivity {
 	}
 
 
+	@Override
+	public void onBackupClick() {
+		try {
+			File sd = Environment.getExternalStorageDirectory();
+			File data = Environment.getDataDirectory();
+
+			if (sd.canWrite()) {
+				File currentDB = getApplicationContext().getDatabasePath(DB_NAME);
+
+				String backupDBPath = DB_BACKUP_NAME;
+				File backupDB = new File(sd, backupDBPath);
+
+				FileChannel src = new FileInputStream(currentDB).getChannel();
+				FileChannel dst = new FileOutputStream(backupDB).getChannel();
+				dst.transferFrom(src, 0, src.size());
+				src.close();
+				dst.close();
+				Toast.makeText(getBaseContext(), "Backup: " + backupDB.toString(), Toast.LENGTH_LONG).show();
+			}
+		} catch (Exception e) {
+			Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
+		}
+	}
+
+	@Override
+	public void onRestoreClick(boolean restoreLastBackup) {
+		try {
+			Project4App.getApp(this).closeDatabase();
+
+			File sd = Environment.getExternalStorageDirectory();
+			File data = Environment.getDataDirectory();
+
+			File currentDB = getApplicationContext().getDatabasePath(DB_NAME);
+
+			String backupDBPath = DB_RESTORE_NAME;
+			if (restoreLastBackup) {
+				backupDBPath = DB_BACKUP_NAME;
+			}
+			File backupDB = new File(sd, backupDBPath);
+
+			FileChannel src = new FileInputStream(backupDB).getChannel();
+			FileChannel dst = new FileOutputStream(currentDB).getChannel();
+			dst.transferFrom(src, 0, src.size());
+			src.close();
+			dst.close();
+			Toast.makeText(getBaseContext(), "Restore: " + backupDB.toString(), Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+			Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
+		}
+		finally {
+			Project4App.getApp(this).initDatabase();
+		}
+	}
 }
