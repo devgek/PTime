@@ -57,8 +57,13 @@
     <string name="action_manage_projects">Projekte verwalten</string>
     
     <string name="settings_cat_bookings">Buchungsliste</string>
+    <string name="settings_cat_dashboard">Dashboard</string>
     <string name="setting_bookings_showNote_summary">Notiz bei jeder Buchung anzeigen</string>
     <string name="setting_bookings_showNote_title">Notiz anzeigen</string>
+    <string name="setting_dashboard_showSummary_summary">Summenansicht zeigen</string>
+    <string name="setting_dashboard_showSummary_title">Summenansicht</string>
     <string name="label_dashboard_header_today">Heute   </string>
+    <string name="label_dashboard_header_month">Monat   </string>
+    <string name="label_dashboard_header_year">Jahr   </string>
 
 </resources>

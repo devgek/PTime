@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@color/app_widget_background_color"
+             android:padding="10dp"
+    >
+
+    <TableRow
+        android:id="@+id/summaryTableRowToday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/summary_title_today"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="HEUTE"
+            android:textSize="@dimen/text_normal"
+            style="@style/label"
+            >
+        </TextView>
+
+        <FrameLayout
+            android:id="@+id/colorBarTodayFrame"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/shadow_small"
+            android:paddingTop="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp">
+
+            <com.gek.and.geklib.view.ColorBarView
+                android:id="@+id/colorBarToday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/summary_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:gravity="right"
+            style="@style/label"
+            android:textSize="@dimen/text_normal" >
+        </TextView>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/summaryTableRowWeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/summary_title_week"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="WOCHE"
+            style="@style/label"
+            android:textSize="@dimen/text_normal" >
+        </TextView>
+
+        <FrameLayout
+            android:id="@+id/colorBarWeekFrame"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/shadow_small"
+            android:paddingTop="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp">
+
+            <com.gek.and.geklib.view.ColorBarView
+                android:id="@+id/colorBarWeek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/summary_week"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:gravity="right"
+            style="@style/label"
+            android:textSize="@dimen/text_normal" >
+        </TextView>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/summaryTableRowMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/summary_title_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="MONAT"
+            style="@style/label"
+            android:textSize="@dimen/text_normal" >
+        </TextView>
+
+        <FrameLayout
+            android:id="@+id/colorBarMonthFrame"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/shadow_small"
+            android:paddingTop="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="1dp"
+            android:paddingBottom="1dp">
+
+            <com.gek.and.geklib.view.ColorBarView
+                android:id="@+id/colorBarMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/summary_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:gravity="right"
+            style="@style/label"
+            android:textSize="@dimen/text_normal" >
+        </TextView>
+    </TableRow>
+
+</TableLayout>

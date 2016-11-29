@@ -1,148 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_widget_background_color"
-    android:padding="10dp"
-    >
+    android:paddingTop="@dimen/dashboard_summary_padding_top"
+    android:paddingBottom="@dimen/dashboard_summary_padding_bottom"
+    android:id="@+id/layout_dashboard_summary"
+    android:background="@color/primary"
+    tools:showIn="@layout/main_content">
 
-    <TableRow
-        android:id="@+id/summaryTableRowToday"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center" >
+        android:id="@+id/layout_dashboard_header_today"
+        android:layout_marginRight="@dimen/dashboard_header_margin_right"
+        android:gravity="right"
+        >
 
         <TextView
-            android:id="@+id/summary_title_today"
-            android:layout_width="0dp"
+            android:id="@+id/dashboard_header_title_today"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="HEUTE"
+            android:text="@string/label_dashboard_header_today"
             android:textSize="@dimen/text_normal"
-            style="@style/label"
+            android:paddingRight="10dp"
             >
         </TextView>
 
-        <FrameLayout
-            android:id="@+id/colorBarTodayFrame"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:foreground="?android:attr/selectableItemBackground" 
-            android:background="@drawable/shadow_small" 
-            android:paddingTop="0dp" 
-            android:paddingLeft="0dp"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp">
-
-            <com.gek.and.geklib.view.ColorBarView
-                android:id="@+id/colorBarToday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-
         <TextView
-            android:id="@+id/summary_day"
-            android:layout_width="0dp"
+            android:id="@+id/dashboard_header_today"
+            android:layout_width="@dimen/dashboard_header_time_width"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
+            android:textSize="@dimen/text_normal"
             android:gravity="right"
-            style="@style/label"
-            android:textSize="@dimen/text_normal" >
+            >
         </TextView>
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
-        android:id="@+id/summaryTableRowWeek"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center" >
+        android:id="@+id/layout_dashboard_header_week"
+        android:layout_marginRight="@dimen/dashboard_header_margin_right"
+        android:gravity="right"
+        >
 
         <TextView
-            android:id="@+id/summary_title_week"
-            android:layout_width="0dp"
+            android:id="@+id/dashboard_header_title_week"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="WOCHE"
-            style="@style/label"
-            android:textSize="@dimen/text_normal" >
+            android:text="@string/label_dashboard_header_month"
+            android:textSize="@dimen/text_normal"
+            android:paddingRight="10dp"
+            >
         </TextView>
 
-        <FrameLayout
-            android:id="@+id/colorBarWeekFrame"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:foreground="?android:attr/selectableItemBackground" 
-            android:background="@drawable/shadow_small"
-            android:paddingTop="0dp" 
-            android:paddingLeft="0dp"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp">
-
-            <com.gek.and.geklib.view.ColorBarView
-                android:id="@+id/colorBarWeek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-
         <TextView
-            android:id="@+id/summary_week"
-            android:layout_width="0dp"
+            android:id="@+id/dashboard_header_week"
+            android:layout_width="@dimen/dashboard_header_time_width"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
+            android:textSize="@dimen/text_normal"
+            android:text="10:30"
             android:gravity="right"
-            style="@style/label"
-            android:textSize="@dimen/text_normal" >
+            >
         </TextView>
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
-        android:id="@+id/summaryTableRowMonth"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center" >
+        android:id="@+id/layout_dashboard_header_month"
+        android:layout_marginRight="@dimen/dashboard_header_margin_right"
+        android:gravity="right"
+        >
 
         <TextView
-            android:id="@+id/summary_title_month"
-            android:layout_width="0dp"
+            android:id="@+id/dashboard_header_title_month"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="MONAT"
-            style="@style/label"
-            android:textSize="@dimen/text_normal" >
+            android:text="@string/label_dashboard_header_month"
+            android:textSize="@dimen/text_normal"
+            android:paddingRight="10dp"
+            >
         </TextView>
 
-        <FrameLayout
-            android:id="@+id/colorBarMonthFrame"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:foreground="?android:attr/selectableItemBackground" 
-            android:background="@drawable/shadow_small"
-            android:paddingTop="0dp" 
-            android:paddingLeft="0dp"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp">
-
-            <com.gek.and.geklib.view.ColorBarView
-                android:id="@+id/colorBarMonth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-
         <TextView
-            android:id="@+id/summary_month"
-            android:layout_width="0dp"
+            android:id="@+id/dashboard_header_month"
+            android:layout_width="@dimen/dashboard_header_time_width"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15"
+            android:textSize="@dimen/text_normal"
+            android:text="10:30"
             android:gravity="right"
-            style="@style/label"
-            android:textSize="@dimen/text_normal" >
+            >
         </TextView>
-    </TableRow>
-
-</TableLayout>
+    </LinearLayout>
+</LinearLayout>

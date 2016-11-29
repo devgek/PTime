@@ -8,6 +8,8 @@
 
     <include layout="@layout/dashboard_header" />
 
+    <include layout="@layout/dashboard_summary"/>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
