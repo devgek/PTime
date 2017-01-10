@@ -6,17 +6,13 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -265,7 +261,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 					startSummaryLoader();
 				}
 				else {
-					updateSummaryFields();
+					updateDashboardHeader();
 					updateCardAdapter();
 					invalidateMainView();
 				}
@@ -279,7 +275,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 	}
 
 	public void onPostSummaryLoad() {
-		updateSummaryFields();
+		updateDashboardHeader();
 
 		Summary summary = Project4App.getApp(this).getSummary();
 		Long runningProjectId = summary.getRunningNow() != null ? summary.getRunningNow().getProjectId() : null;
@@ -300,7 +296,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 		}
 		updateRunningProject(startedProjectId);
 		updateCardAdapter();
-		updateSummaryFields();
+		updateDashboardHeader();
 		updateHeader();
 		invalidateMainView();
 	}
@@ -318,6 +314,13 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 		headerView.setBackgroundColor(headerColor);
 		getAppBar().setBackgroundColor(headerColor);
+
+		if (p != null) {
+			headerView.setVisibility(View.VISIBLE);
+		}
+		else {
+			headerView.setVisibility(View.GONE);
+		}
 
 //		statusColor = getResources().getColor(R.color.primary_dark);
 
@@ -389,7 +392,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 		}
 	}
 
-	private void updateSummaryFields() {
+	private void updateDashboardHeader() {
 		Summary summary = Project4App.getApp(this).getSummary();
 
 		tvHeaderSummaryToday.setText(DateUtil.getFormattedDay(summary.getInitDate()));
@@ -472,7 +475,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					updateSummaryFields();
+					updateDashboardHeader();
 					invalidateMainView();
 				}
 			}

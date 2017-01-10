@@ -99,11 +99,13 @@ public class BookingListFragment extends Fragment{
 
 	private String getSummaryText(int position) {
 		Calendar initDate = Project4App.getApp(getActivity()).getSummary().getInitDate();
+		Calendar priorYearDate = Project4App.getApp(getActivity()).getSummary().getPriorYearDate();
 		switch (position) {
 		case 0: return DateUtil.getFormattedDay(initDate);
 		case 1: return DateUtil.getFormattedWeek(initDate);
 		case 2: return DateUtil.getFormattedMonth(initDate);
 		case 3: return DateUtil.getFormattedYear(initDate);
+		case 4: return DateUtil.getFormattedYear(priorYearDate);
 		default: return "";
 		}
 	}

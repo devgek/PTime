@@ -20,6 +20,7 @@ public class Summary {
 	private int minutesWeek;
 	private int minutesDay;
 	private Calendar initDate;
+	private Calendar priorYearDate;
 	private int initYear;
 	private int initMonth;
 	private int initDay;
@@ -37,6 +38,8 @@ public class Summary {
 		this.loaded = false;
 		this.initDate = Calendar.getInstance();
 		this.initYear = initDate.get(Calendar.YEAR);
+		this.priorYearDate = Calendar.getInstance();
+		this.priorYearDate.set(Calendar.YEAR, this.initYear - 1);
 		this.initMonth = initDate.get(Calendar.MONTH);
 		this.initWeek = initDate.get(Calendar.WEEK_OF_YEAR);
 		this.initDay = initDate.get(Calendar.DAY_OF_YEAR);
@@ -150,6 +153,10 @@ public class Summary {
 
 	public Calendar getInitDate() {
 		return initDate;
+	}
+
+	public Calendar getPriorYearDate() {
+		return this.priorYearDate;
 	}
 
 	public boolean isLoaded() {

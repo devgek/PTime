@@ -64,6 +64,7 @@ public class BookingService {
 		case WEEK: bookingList = getThisWeek();break;
 		case MONTH: bookingList = getThisMonth();break;
 		case YEAR: bookingList = getThisYear();break;
+			case PRIOR_YEAR: bookingList = getPriorYear();break;
 		default: bookingList = new ArrayList<Booking>();
 		}
 		
@@ -138,7 +139,24 @@ public class BookingService {
 		
 		return getGreaterEqual(cal);
 	}
-	
+
+	public List<Booking> getPriorYear() {
+		Calendar calFrom = Calendar.getInstance();
+		int year = calFrom.get(Calendar.YEAR);
+		calFrom.clear();
+		calFrom.set(Calendar.YEAR, year - 1);
+		calFrom.set(Calendar.MONTH, 0);
+		calFrom.set(Calendar.DAY_OF_MONTH, 1);
+
+		Calendar calTo = Calendar.getInstance();
+		calTo.clear();
+		calTo.set(Calendar.YEAR, year - 1);
+		calTo.set(Calendar.MONTH, 11);
+		calTo.set(Calendar.DAY_OF_MONTH, 31);
+
+		return getBeetween(calFrom, calTo);
+	}
+
 	private List<Booking> getGreaterEqual(Calendar compareDate) {
 		QueryBuilder<Booking> qb = this.bookingDao.queryBuilder();
 //		qb.where(Properties.From.ge(cal.getTime())).where(Properties.To.isNotNull()).orderAsc(Properties.From);

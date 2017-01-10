@@ -5,7 +5,8 @@ public enum PeriodType {
 	TODAY(0),
 	WEEK(1),
 	MONTH(2),
-	YEAR(3);
+	YEAR(3),
+	PRIOR_YEAR(4);
 	
 	private int code;
 	
@@ -22,7 +23,8 @@ public enum PeriodType {
 		if (code == 1) return PeriodType.WEEK;
 		if (code == 2) return PeriodType.MONTH;
 		if (code == 3) return PeriodType.YEAR;
-		
-		throw new IllegalArgumentException("Illegal SummaryType with code " + code);
+		if (code == 4) return PeriodType.PRIOR_YEAR;
+
+		throw new IllegalArgumentException("Illegal PeriodType with code " + code);
 	}
 }
