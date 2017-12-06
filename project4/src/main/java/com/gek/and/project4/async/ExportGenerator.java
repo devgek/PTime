@@ -7,6 +7,7 @@ import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
 import com.gek.and.project4.service.ProjectService;
+import com.gek.and.project4.util.BookingUtil;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.FileUtil;
 
@@ -34,12 +35,16 @@ public class ExportGenerator extends AsyncTask<Object, Void, Boolean> {
 			FileWriter fw = new FileWriter(exportFile, false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			
-			bw.write("KUNDE;PROJEKT;START;ENDE;MINUTEN;NOTIZ");
+			bw.write("KUNDE;PROJEKT;START;ENDE;DAUER;PAUSE;GESAMT;NOTIZ");
 			bw.newLine();
 			
 			ProjectService projectService = Project4App.getApp(parentActivity).getProjectService();
 
+			int totalMinutes = 0;
+
 			for (Booking booking : bookingList) {
+				totalMinutes += BookingUtil.getDuration(booking);
+
 				Project p = projectService.getProject(booking.getProjectId());
 				StringBuffer buf = new StringBuffer();
 				buf.append(p != null ? p.getCompany() : "");
@@ -48,15 +53,23 @@ public class ExportGenerator extends AsyncTask<Object, Void, Boolean> {
 				buf.append(";");
 				buf.append(DateUtil.getFormattedDateTime(booking.getFrom()));
 				buf.append(";");
-				buf.append(booking.getTo() != null ? DateUtil.getFormattedDate(booking.getTo()) : "");
+				StringBuffer append = buf.append(booking.getTo() != null ? DateUtil.getFormattedDateTime(booking.getTo()) : "");
 				buf.append(";");
 				buf.append(booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getMinutes()) : "");
+				buf.append(";");
+				buf.append(booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getBreakHours() * 60 + booking.getBreakMinutes()) : "");
+				buf.append(";");
+				buf.append(booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getMinutes() - (booking.getBreakHours() * 60 + booking.getBreakMinutes())) : "");
 				buf.append(";");
 				buf.append(booking.getNote() != null ? booking.getNote() : "");
 
 				bw.write(buf.toString());
 				bw.newLine();
 			}
+			StringBuffer total = new StringBuffer("Gesamt:;;;;;;");
+			total.append(DateUtil.getFormattedHM(totalMinutes));
+			bw.newLine();
+			bw.write(total.toString());
 			
 			bw.close();
 		}

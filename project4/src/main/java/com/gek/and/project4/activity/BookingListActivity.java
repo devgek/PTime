@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -143,16 +144,21 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		generator.execute(new Object[] {this, bookingList, getExportFileName()});
 	}
 
+	@NonNull
 	private String getExportFileName() {
 		StringBuffer buf = new StringBuffer("export_");
 		
 		Calendar cal = Project4App.getApp(this).getSummary().getInitDate();
-		
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+
 		switch(this.periodActionPosition) {
 			case 0: buf.append(DateUtil.getFormattedFileNameToday(cal)); break;
 			case 1: buf.append(DateUtil.getFormattedFileNameWeek(cal)); break;
 			case 2: buf.append(DateUtil.getFormattedFileNameMonth(cal)); break;
 			case 3: buf.append(DateUtil.getFormattedFileNameYear(cal)); break;
+			case 4: buf.append(DateUtil.getFormattedFileNameYear(Project4App.getApp(this).getSummary().getPriorYearDate())); break;
+			case 5: buf.append(DateUtil.getFormattedFileNameMonth(Project4App.getApp(this).getSummary().getPriorMonthDate())); break;
 			default:break;
 		}
 		
