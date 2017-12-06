@@ -7,6 +7,7 @@
         <item>Dieser Monat</item>
         <item>Dieses Jahr</item>
         <item>Vorjahr</item>
+        <item>Vormonat</item>
     </string-array>
     
     <string-array name="periodSummaryTitle">
@@ -15,6 +16,7 @@
         <item>Monat</item>
         <item>Jahr</item>
         <item>Vorjahr</item>
+        <item>Vormonat</item>
     </string-array>
     
 </resources>

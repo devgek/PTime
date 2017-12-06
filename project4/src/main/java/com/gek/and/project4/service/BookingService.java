@@ -60,12 +60,13 @@ public class BookingService {
 		List<Booking> bookingList;
 		
 		switch (periodType) {
-		case TODAY: bookingList = getToday();break;
-		case WEEK: bookingList = getThisWeek();break;
-		case MONTH: bookingList = getThisMonth();break;
-		case YEAR: bookingList = getThisYear();break;
+			case TODAY: bookingList = getToday();break;
+			case WEEK: bookingList = getThisWeek();break;
+			case MONTH: bookingList = getThisMonth();break;
+			case YEAR: bookingList = getThisYear();break;
 			case PRIOR_YEAR: bookingList = getPriorYear();break;
-		default: bookingList = new ArrayList<Booking>();
+			case PRIOR_MONTH: bookingList = getPriorMonth();break;
+			default: bookingList = new ArrayList<Booking>();
 		}
 		
 		if (projectId != null && projectId > -1) {
@@ -153,6 +154,31 @@ public class BookingService {
 		calTo.set(Calendar.YEAR, year - 1);
 		calTo.set(Calendar.MONTH, 11);
 		calTo.set(Calendar.DAY_OF_MONTH, 31);
+
+		return getBeetween(calFrom, calTo);
+	}
+
+	public List<Booking> getPriorMonth() {
+		Calendar calTo = Calendar.getInstance();
+		int year = calTo.get(Calendar.YEAR);
+		int month = calTo.get(Calendar.MONTH);
+		calTo.clear();
+		calTo.set(Calendar.YEAR, year);
+		calTo.set(Calendar.MONTH, month);
+		calTo.set(Calendar.DAY_OF_MONTH, 1);
+
+		Calendar calFrom = Calendar.getInstance();
+		calFrom.clear();
+		if (month == 0) {
+			calFrom.set(Calendar.YEAR, year - 1);
+			calFrom.set(Calendar.MONTH, 11);
+			calFrom.set(Calendar.DAY_OF_MONTH, 1);
+		}
+		else {
+			calFrom.set(Calendar.YEAR, year);
+			calFrom.set(Calendar.MONTH, month - 1);
+			calFrom.set(Calendar.DAY_OF_MONTH, 1);
+		}
 
 		return getBeetween(calFrom, calTo);
 	}

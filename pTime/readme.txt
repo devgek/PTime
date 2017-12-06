@@ -1,3 +1,9 @@
+Version 2.2.2(9):
+- neue Funktion "Vormonat" in der Buchungsliste
+
+Version 2.2.1(8):
+- neue Funktion "Vorjahr" in der Buchungsliste
+
 Version 2.2.0(7):
 - neue Funktion "Backup/Restore" im Drawer-Menü
 
