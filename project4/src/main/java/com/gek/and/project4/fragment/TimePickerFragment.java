@@ -47,7 +47,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		c.set(Calendar.SECOND, 0);
 
 		if (formatShort) {
-			Integer minutes = DateUtil.getBreakTime(c);
+			Integer minutes = DateUtil.getMinutes(c);
 			editText.setText(DateUtil.getFormattedHM(minutes));
 		}
 		else {

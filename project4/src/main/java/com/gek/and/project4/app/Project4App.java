@@ -10,6 +10,9 @@ import com.gek.and.geklib.type.AppType;
 import com.gek.and.geklib.util.AboutUtil;
 import com.gek.and.geklib.util.PackageInfoUtil;
 import com.gek.and.project4.Summary;
+import com.gek.and.project4.dagger.DaggerServiceComponent;
+import com.gek.and.project4.dagger.ServiceComponent;
+import com.gek.and.project4.dagger.ServiceModule;
 import com.gek.and.project4.dao.BookingDao;
 import com.gek.and.project4.dao.DaoMaster;
 import com.gek.and.project4.dao.DaoSession;
@@ -41,6 +44,8 @@ public abstract class Project4App extends Application {
 	protected AppBarType appBarType;
     private List<ProjectSummary> periodSummaryList;
 
+    private ServiceComponent serviceComponent;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -49,6 +54,15 @@ public abstract class Project4App extends Application {
 		this.appBarType = AppBarType.LITE;
 
 		initDatabase();
+
+		serviceComponent = createServiceComponent();
+	}
+
+	private ServiceComponent createServiceComponent() {
+		return DaggerServiceComponent
+				.builder()
+				.serviceModule(new ServiceModule())
+				.build();
 	}
 
 	public void initDatabase() {
@@ -203,4 +217,7 @@ public abstract class Project4App extends Application {
 		return app;
 	}
 
+	public ServiceComponent getServiceComponent() {
+		return serviceComponent;
+	}
 }

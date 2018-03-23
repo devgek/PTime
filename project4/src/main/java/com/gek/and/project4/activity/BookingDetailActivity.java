@@ -8,20 +8,16 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
-import com.gek.and.project4.dialogcontroller.PeriodSummaryDialogController;
 import com.gek.and.project4.dialogcontroller.ProjectSelectionDialogController;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
@@ -31,11 +27,9 @@ import com.gek.and.project4.fragment.TimePickerFragment;
 import com.gek.and.project4.fragment.TimePickerFragment.OnTimeSetListener;
 import com.gek.and.project4.util.BookingUtil;
 import com.gek.and.project4.util.DateUtil;
-import com.gek.and.project4.util.MenuUtil;
 import com.gek.and.project4.view.ProjectView;
 
 import java.util.Calendar;
-import java.util.regex.Pattern;
 
 public class BookingDetailActivity extends AppCompatActivity implements OnTimeSetListener, ProjectSelectionDialogController.ProjectSelectionDialogListener {
 //	private TextView headLine;
@@ -245,7 +239,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 		Calendar cTo = (Calendar) to.getTag();
 		Calendar cBreak = (Calendar) mBreak.getTag();
 
-		Integer breakTime = DateUtil.getBreakTime(cBreak);
+		Integer breakTime = DateUtil.getMinutes(cBreak);
 		mDuration = DateUtil.getMinutes(cFrom.getTime(), cTo.getTime()) - breakTime;
 		
 		duration.setText(DateUtil.getFormattedHM(mDuration));
@@ -279,7 +273,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			return;
 		}
 
-		Integer breakTime = DateUtil.getBreakTime(cBreak);
+		Integer breakTime = DateUtil.getMinutes(cBreak);
 		if (mDuration < 0) {
 			Toast.makeText(this, "Pause darf nicht länger als Dauer sein.", Toast.LENGTH_SHORT).show();
 			return;

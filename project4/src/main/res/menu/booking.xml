@@ -17,5 +17,10 @@
         android:icon="@drawable/ic_action_export"
         app:showAsAction="never"
         android:title="@string/action_export"/>
+    <item
+        android:id="@+id/action_import"
+        android:icon="@drawable/ic_action_export"
+        app:showAsAction="never"
+        android:title="@string/action_import"/>
 
 </menu>

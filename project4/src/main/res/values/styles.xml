@@ -45,15 +45,15 @@
         <item name="android:textColor">@android:color/tertiary_text_light</item>
     </style>
     <style name="booking_row_text_normal">
-        <item name="@android:textColor">@android:color/tertiary_text_light</item>
+        <item name="android:textColor">@android:color/tertiary_text_light</item>
     </style>
 
     <style name="booking_row_text_header">
-        <item name="@android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
     </style>
 
     <style name="booking_row_text_important">
-        <item name="@android:textColor">@color/accent</item>
+        <item name="android:textColor">@color/accent</item>
     </style>
 
 </resources>

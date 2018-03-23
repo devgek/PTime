@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <PreferenceCategory android:title="@string/settings_cat_user" >
+        <EditTextPreference
+            android:key="setting_user_name"
+            android:title="@string/setting_user_name_title"
+            android:summary="@string/setting_user_name_summary"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_cat_dashboard" >
         <CheckBoxPreference
             android:key="setting_dashboard_showSummary"
@@ -14,6 +21,23 @@
             android:title="@string/setting_bookings_showNote_title"
             android:summary="@string/setting_bookings_showNote_summary"
             android:defaultValue="false"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_cat_export" >
+        <CheckBoxPreference
+            android:key="setting_export_showDuration"
+            android:title="@string/setting_export_showDuration_title"
+            android:summary="@string/setting_export_showDuration_summary"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="setting_export_showSummaryDecimal"
+            android:title="@string/setting_export_showSummaryDecimal_title"
+            android:summary="@string/setting_export_showSummaryDecimal_summary"
+            android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="setting_export_sortAscending"
+            android:title="@string/setting_export_sortAscending_title"
+            android:summary="@string/setting_export_sortAscending_summary"
+            android:defaultValue="true"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

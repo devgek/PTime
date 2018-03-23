@@ -1,6 +1,7 @@
 package com.gek.and.project4.async;
 
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import com.gek.and.project4.activity.BookingListActivity;
 import com.gek.and.project4.app.Project4App;
@@ -13,7 +14,11 @@ import com.gek.and.project4.util.FileUtil;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -29,13 +34,40 @@ public class ExportGenerator extends AsyncTask<Object, Void, Boolean> {
 		parentActivity = (BookingListActivity) params[0];
 		bookingList = (List<Booking>) params[1];
 		exportFileName = (String) params[2];
-		
+
+		String userName = PreferenceManager.getDefaultSharedPreferences(parentActivity).getString("setting_user_name", "");
+		boolean showDuration = PreferenceManager.getDefaultSharedPreferences(parentActivity).getBoolean("setting_export_showDuration", false);
+		boolean showSummaryDecimal = PreferenceManager.getDefaultSharedPreferences(parentActivity).getBoolean("setting_export_showSummaryDecimal", false);
+		boolean sortAscending = PreferenceManager.getDefaultSharedPreferences(parentActivity).getBoolean("setting_export_sortAscending", false);
+		if (sortAscending) {
+		//needs sdk version 24 at least
+//			Collections.sort(bookingList, (o1, o2) -> o1.getFrom().compareTo(o2.getFrom()));
+			Collections.sort(bookingList, new Comparator<Booking>() {
+				@Override
+				public int compare(Booking o1, Booking o2) {
+					return o1.getFrom().compareTo(o2.getFrom());
+				}
+			});
+		}
+
 		try {
 			File exportFile = FileUtil.getInternalFile(parentActivity, exportFileName);
-			FileWriter fw = new FileWriter(exportFile, false);
-			BufferedWriter bw = new BufferedWriter(fw);
-			
-			bw.write("KUNDE;PROJEKT;START;ENDE;DAUER;PAUSE;GESAMT;NOTIZ");
+			FileOutputStream fos = new FileOutputStream(exportFile);
+			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+			BufferedWriter bw = new BufferedWriter(osw);
+
+			if (!userName.isEmpty()) {
+				bw.write(userName);
+				bw.newLine();
+				bw.newLine();
+			}
+
+			bw.write("Kunde;Projekt;Datum;Von;Bis");
+			if (showDuration) {
+				bw.write(";Dauer");
+			}
+			bw.write(";Pause;Gesamt;Tätigkeiten");
+			bw.newLine();
 			bw.newLine();
 			
 			ProjectService projectService = Project4App.getApp(parentActivity).getProjectService();
@@ -47,27 +79,50 @@ public class ExportGenerator extends AsyncTask<Object, Void, Boolean> {
 
 				Project p = projectService.getProject(booking.getProjectId());
 				StringBuffer buf = new StringBuffer();
-				buf.append(p != null ? p.getCompany() : "");
+				//Kunde
+				buf.append("\"" + (p != null ? p.getCompany() : "") + "\"");
 				buf.append(";");
-				buf.append(p != null ? p.getTitle() : "");
+				//Projekt
+				buf.append("\"" + (p != null ? p.getTitle() : "") + "\"");
 				buf.append(";");
-				buf.append(DateUtil.getFormattedDateTime(booking.getFrom()));
+				//Datum
+				buf.append("\"" + DateUtil.getFormattedDate(booking.getFrom()) + "\"");
 				buf.append(";");
-				StringBuffer append = buf.append(booking.getTo() != null ? DateUtil.getFormattedDateTime(booking.getTo()) : "");
+				//Von
+				buf.append("\"" + DateUtil.getFormattedHM(booking.getFrom()) + "\"");
 				buf.append(";");
-				buf.append(booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getMinutes()) : "");
+				//Bis
+				StringBuffer append = buf.append("\"" + (booking.getTo() != null ? DateUtil.getFormattedHM(booking.getTo()) : "") + "\"");
 				buf.append(";");
-				buf.append(booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getBreakHours() * 60 + booking.getBreakMinutes()) : "");
+				//Dauer
+				if (showDuration) {
+					buf.append("\"" + (booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getMinutes()) : "") + "\"");
+					buf.append(";");
+				}
+				//Pause
+				buf.append("\"" + (booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getBreakHours() * 60 + booking.getBreakMinutes()) : "") + "\"");
 				buf.append(";");
-				buf.append(booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getMinutes() - (booking.getBreakHours() * 60 + booking.getBreakMinutes())) : "");
+				//Gesamt
+				if (showSummaryDecimal) {
+					buf.append("\"" + (booking.getMinutes() != null ? DateUtil.getFormattedHMDecimal(booking.getMinutes() - (booking.getBreakHours() * 60 + booking.getBreakMinutes())) : "") + "\"");
+				}
+				else {
+					buf.append("\"" + (booking.getMinutes() != null ? DateUtil.getFormattedHM(booking.getMinutes() - (booking.getBreakHours() * 60 + booking.getBreakMinutes())) : "") + "\"");
+				}
 				buf.append(";");
-				buf.append(booking.getNote() != null ? booking.getNote() : "");
+				//Tätigkeiten
+				buf.append("\"" + (booking.getNote() != null ? booking.getNote() : "") + "\"");
 
 				bw.write(buf.toString());
 				bw.newLine();
 			}
 			StringBuffer total = new StringBuffer("Gesamt:;;;;;;");
-			total.append(DateUtil.getFormattedHM(totalMinutes));
+			if (showSummaryDecimal) {
+				total.append("\"" + DateUtil.getFormattedHMDecimal(totalMinutes) + "\"");
+			}
+			else {
+				total.append("\"" + DateUtil.getFormattedHM(totalMinutes) + "\"");
+			}
 			bw.newLine();
 			bw.write(total.toString());
 			

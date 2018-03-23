@@ -306,4 +306,8 @@ public class BookingService {
 		return ok;
 	}
 
+	public boolean deleteWholeDay(Booking booking) {
+		return true;
+	}
+
 }

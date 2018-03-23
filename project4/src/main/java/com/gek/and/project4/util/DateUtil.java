@@ -1,13 +1,16 @@
 package com.gek.and.project4.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 public class DateUtil {
 	public static final DateFormat dfDate = new SimpleDateFormat("yyyy-MM-dd");
 	public static final DateFormat dfTime = new SimpleDateFormat("HH:mm:ss");
+	public static final DateFormat dfHM = new SimpleDateFormat("HH:mm");
 	public static final DateFormat dfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static final DateFormat dfDay = new SimpleDateFormat("d. MMM");
 	public static final DateFormat dfWeek = new SimpleDateFormat("w");
@@ -30,7 +33,11 @@ public class DateUtil {
 	public static String getFormattedTime(Date d) {
 		return d != null ? dfTime.format(d) : "";
 	}
-	
+
+	public static String getFormattedHM(Date d) {
+		return d != null ? dfHM.format(d) : "";
+	}
+
 	public static String getFormattedHM(int minutes) {
 		if (minutes < 0) {
 			return formatHM(0, 0);
@@ -38,6 +45,16 @@ public class DateUtil {
 		int hours = (int) Math.floor(minutes / 60);
 		int mins = minutes - (hours * 60);
 		return formatHM(hours, mins);
+	}
+
+	public static String getFormattedHMDecimal(int minutes) {
+		if (minutes < 0) {
+			return formatHM(0.0);
+		}
+		int hours = (int) Math.floor(minutes / 60);
+		int mins = minutes - (hours * 60);
+		double hoursDecimal = (double)hours + (double)mins / 60.0;
+		return formatHM(hoursDecimal);
 	}
 	
 	public static String getFormattedDay(Calendar cal) {
@@ -84,7 +101,7 @@ public class DateUtil {
 		}
 	}
 
-	public static Integer getBreakTime(Calendar cBreak) {
+	public static Integer getMinutes(Calendar cBreak) {
 		int breakHours = cBreak.get(Calendar.HOUR_OF_DAY) * 60;
 		int breakMinutes = cBreak.get(Calendar.MINUTE);
 
@@ -93,6 +110,10 @@ public class DateUtil {
 
 	private static String formatHM(int hours, int minutes) {
 		return String.format("%02d:%02d", hours, minutes);
+	}
+
+	private static String formatHM(double hours) {
+		return String.format("%.2f", hours);
 	}
 
 	public static Calendar combineDateAndTime(Calendar date, Calendar time) {
@@ -105,5 +126,33 @@ public class DateUtil {
 		c.set(Calendar.MINUTE, time.get(Calendar.MINUTE));
 		c.set(Calendar.SECOND, time.get(Calendar.SECOND));
 		return c;
+	}
+
+	public static Optional<Date> parseDate(String day) {
+		try {
+			return Optional.of(dfDate.parse(day));
+		}
+		catch (ParseException e) {
+			return Optional.empty();
+		}
+	}
+
+	public static Optional<Date> parseDateTime(String dateTime) {
+		try {
+			return Optional.of(dfDateTime.parse(dateTime));
+		}
+		catch (ParseException e) {
+			return Optional.empty();
+		}
+	}
+
+	public static Optional<Integer> parseHM(String hm, int position) {
+		try {
+			String[] parts = hm.split(":");
+			return Optional.of(Integer.parseInt(parts[position]));
+		}
+		catch (Exception e) {
+			return Optional.empty();
+		}
 	}
 }

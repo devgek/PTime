@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,17 +18,30 @@ import android.widget.Toast;
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.async.ExportGenerator;
+import com.gek.and.project4.async.ExportImporter;
+import com.gek.and.project4.async.ImportResult;
 import com.gek.and.project4.async.SummaryLoader.SummaryLoaderTarget;
+import com.gek.and.project4.dao.BookingDao;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.menu.PeriodActionProvider.PeriodActionProviderListener;
 import com.gek.and.project4.menu.ProjectActionProvider.ProjectActionProviderListener;
+import com.gek.and.project4.service.BookingImportService;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.FileUtil;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
 
-public class BookingListActivity extends AppCompatActivity implements ProjectActionProviderListener, PeriodActionProviderListener, SummaryLoaderTarget {
+public class BookingListActivity extends AppCompatActivity implements ProjectActionProviderListener, PeriodActionProviderListener, SummaryLoaderTarget, ExportImporter.ExportImporterTarget {
+	private static final String IMPORT_PROP_FILE_NAME = "import_file";
+	private static final String IMPORT_PROPERTIES_FILE_NAME = "ptime-import.properties";
 	private static final String PERIOD_ITEM_POSITION = "period_item_position";
 	private static final String PROJECT_ITEM_POSITION = "project_item_position";
 	private int periodActionPosition;
@@ -74,7 +88,11 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		if (itemId == R.id.action_export) {
 			exportBookings();
 			return true;
-		} 
+		}
+		if (itemId == R.id.action_import) {
+			importBookings();
+			return true;
+		}
 		else {
 			return false;
 		}
@@ -144,7 +162,47 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		generator.execute(new Object[] {this, bookingList, getExportFileName()});
 	}
 
-	@NonNull
+	private void importBookings() {
+		File sd = Environment.getExternalStorageDirectory();
+		File importPropertiesFile = new File(sd, IMPORT_PROPERTIES_FILE_NAME);
+		if (!importPropertiesFile.exists()) {
+			Toast.makeText(getApplicationContext(), "Keine Konfigdatei für Import vorhanden.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		Properties importProperties = null;
+		try {
+			importProperties = FileUtil.loadProperties(importPropertiesFile);
+		} catch (IOException e) {
+			Toast.makeText(getApplicationContext(), "Konfigdatei für Import konnte nicht gelesen werden.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		String importFileName = importProperties.getProperty(IMPORT_PROP_FILE_NAME);
+		if (importFileName == null || importFileName.isEmpty()) {
+			Toast.makeText(getApplicationContext(), "Property 'import_file' nicht vorhanden.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		File importFile = new File(sd, importFileName);
+
+		List<String> importLines = new ArrayList<>();
+		BufferedReader b = null;
+		try {
+			b = new BufferedReader(new FileReader(importFile));
+			String readLine = "";
+
+			while ((readLine = b.readLine()) != null) {
+				importLines.add(readLine);
+			}
+		}
+		catch (Exception e) {
+			Toast.makeText(getApplicationContext(), "Fehler beim Lesen des Importfiles, Import abgebrochen.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		ExportImporter importer = new ExportImporter();
+		importer.execute(new Object[] {this, this, importLines, importProperties});
+	}
+
 	private String getExportFileName() {
 		StringBuffer buf = new StringBuffer("export_");
 		
@@ -196,4 +254,8 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		System.out.println("BookingListActivity::onPostSummaryLoad");
 	}
 
+	@Override
+	public void onPostExportImporter(ImportResult result) {
+
+	}
 }

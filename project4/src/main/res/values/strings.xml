@@ -53,15 +53,26 @@
     <string name="action_save">Speichern</string>
     <string name="action_discard">Löschen</string>
     <string name="action_export">Daten exportieren</string>
+    <string name="action_import">Daten importieren</string>
     <string name="action_add_booking">Neue Buchung</string>
     <string name="action_manage_projects">Projekte verwalten</string>
-    
+
+    <string name="settings_cat_user">Benutzer</string>
     <string name="settings_cat_bookings">Buchungsliste</string>
     <string name="settings_cat_dashboard">Dashboard</string>
+    <string name="settings_cat_export">Export</string>
+    <string name="setting_user_name_summary">Name des Benutzers</string>
+    <string name="setting_user_name_title">Name</string>
     <string name="setting_bookings_showNote_summary">Notiz bei jeder Buchung anzeigen</string>
     <string name="setting_bookings_showNote_title">Notiz anzeigen</string>
     <string name="setting_dashboard_showSummary_summary">Summenansicht zeigen</string>
     <string name="setting_dashboard_showSummary_title">Summenansicht</string>
+    <string name="setting_export_showDuration_summary">Dauer exportieren</string>
+    <string name="setting_export_showDuration_title">Dauer</string>
+    <string name="setting_export_showSummaryDecimal_summary">Gesamtsumme dezimal anzeigen</string>
+    <string name="setting_export_showSummaryDecimal_title">Gesamtsumme </string>
+    <string name="setting_export_sortAscending_summary">Sortierung</string>
+    <string name="setting_export_sortAscending_title">Sortierung aufsteigend</string>
     <string name="label_dashboard_header_today">Heute   </string>
     <string name="label_dashboard_header_month">Monat   </string>
     <string name="label_dashboard_header_year">Jahr   </string>

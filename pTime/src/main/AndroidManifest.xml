@@ -4,8 +4,8 @@
     android:versionName="2.2.2 (Free)" >
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="22"
+        android:targetSdkVersion="22" />
 
     <application
         android:name="com.gek.and.ptime.free.PTimeApp"

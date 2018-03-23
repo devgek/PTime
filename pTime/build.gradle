@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "com.gek.and.ptime.free"
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion 24
+        targetSdkVersion 26
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -25,3 +25,4 @@ android {
 dependencies {
     compile project(':project4')
 }
+
