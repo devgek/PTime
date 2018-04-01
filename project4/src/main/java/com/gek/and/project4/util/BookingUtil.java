@@ -35,6 +35,9 @@ public class BookingUtil {
 	}
 
 	public static int getDuration(Booking b) {
+		if (b.getMinutes() == null) {
+			b.setMinutes(DateUtil.getMinutes(b.getFrom(), b.getTo()));
+		}
 		return b.getMinutes() - getBreakTotal(b);
 	}
 

@@ -124,7 +124,7 @@ public class BookingListArrayAdapter extends ArrayAdapter<Booking> {
 		}
 	}
 
-	private void handleClick(View row) {
+	protected void handleClick(View row) {
 		row.setOnClickListener(new OnClickListener() {
 			
 			@Override

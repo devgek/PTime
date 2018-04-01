@@ -1,5 +1,7 @@
 package com.gek.and.project4.service;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.gek.and.project4.dao.BookingDao;
 import com.gek.and.project4.dao.BookingDao.Properties;
 import com.gek.and.project4.dao.DaoSession;
@@ -230,7 +232,41 @@ public class BookingService {
 			return splitStopBooking(lastOpenBooking, cStart, cStop);
 		}
 	}
-	
+
+	public boolean deleteBooking(Booking booking) {
+		boolean ok = true;
+
+		try {
+			this.bookingDao.delete(booking);
+		}
+		catch(Exception e) {
+			ok = false;
+		}
+
+		return ok;
+	}
+
+	public boolean importBookings(List<Booking> bookings) {
+		SQLiteDatabase db = this.daoSession.getDatabase();
+		boolean ok = true;
+
+		db.beginTransaction();
+		try {
+			bookings.forEach(booking -> deleteSameDay(booking));
+			bookings.forEach(booking -> updateBooking(booking));
+			db.setTransactionSuccessful();
+		}
+		catch(Exception e) {
+			ok = false;
+		}
+		finally {
+			db.endTransaction();
+		}
+
+		this.daoSession.clear();
+		return ok;
+	}
+
 	private Booking splitStopBooking(Booking lastOpenBooking, Calendar cStart,	Calendar cStop) {
 		int startDay = cStart.get(Calendar.DAY_OF_YEAR);
 		int stopDay = cStop.get(Calendar.DAY_OF_YEAR);
@@ -293,21 +329,22 @@ public class BookingService {
 		return stopBooking;
 	}
 
-	public boolean deleteBooking(Booking booking) {
-		boolean ok = true;
-		
-		try {
-			this.bookingDao.delete(booking);
-		}
-		catch(Exception e) {
-			ok = false;
-		}
-		
-		return ok;
+
+	private void deleteSameDay(Booking booking) {
+		SQLiteDatabase db = this.daoSession.getDatabase();
+		BookingDao bookingDao = this.daoSession.getBookingDao();
+
+		String fromDay = DateUtil.getFormattedDate(booking.getFrom());
+		Date nextDayDate = DateUtil.getNextDay(booking.getFrom());
+		String nextDay = DateUtil.getFormattedDate(nextDayDate);
+
+//		String sql = "delete from " + bookingDao.getTablename() + " where date(\"" + Properties.From.columnName + "\") >= date('" + fromDay + "') and date(\""
+//				+ Properties.From.columnName + "\") < date('" + nextDay + "')";
+//		String sql = "delete from booking where \"from\" >= '2018-02-01 00:00:00' and \"from\" < '2018-02-02 00:00:00'";
+//		String sql = "delete from booking where project_id = " + booking.getProjectId(); // + " and date(\"from\") = '" + fromDay + "'";
+		String sql = "delete from booking where project_id = " + booking.getProjectId() + " and strftime(\"%Y-%m-%d\", \"from\") = '" + fromDay + "'";
+		db.execSQL(sql);
 	}
 
-	public boolean deleteWholeDay(Booking booking) {
-		return true;
-	}
 
 }

@@ -155,4 +155,12 @@ public class DateUtil {
 			return Optional.empty();
 		}
 	}
+
+	public static Date getNextDay(Date theDay) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(theDay);
+		cal.set(Calendar.DAY_OF_YEAR, cal.get(Calendar.DAY_OF_YEAR) + 1);
+
+		return cal.getTime();
+	}
 }

@@ -49,6 +49,7 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 
 	//first action selection after create is ignored
 	private boolean firstActionSelection;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,6 +112,7 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
 		// Serialize the current dropdown position.
 		outState.putInt(PERIOD_ITEM_POSITION, periodActionPosition);
 		outState.putInt(PROJECT_ITEM_POSITION, projectActionPosition);
@@ -246,6 +248,9 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 					Project4App.getApp(this).setLastBookingList(null);
 				}
 			}
+			if (requestCode == 3010) {
+				Project4App.getApp(this).setLastBookingList(null);
+			}
 		}
 	}
 
@@ -256,6 +261,11 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 
 	@Override
 	public void onPostExportImporter(ImportResult result) {
-
+		System.out.println("BookingListActivity::onPostExportImporter");
+		if (result.getResult().equals(ImportResult.ImportResultType.DONE) && result.getImports().size() > 0) {
+			Project4App.getApp(this).setImportList(result.getImports());
+			Intent intent = new Intent(this, BookingImportActivity.class);
+			startActivityForResult(intent, 3010);
+		}
 	}
 }

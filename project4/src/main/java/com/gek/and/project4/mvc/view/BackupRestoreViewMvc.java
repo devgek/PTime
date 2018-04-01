@@ -1,4 +1,6 @@
-package com.gek.and.project4.view;
+package com.gek.and.project4.mvc.view;
+
+import com.gek.and.project4.mvc.view.ViewMvc;
 
 /**
  * Created by moo on 29.11.16.

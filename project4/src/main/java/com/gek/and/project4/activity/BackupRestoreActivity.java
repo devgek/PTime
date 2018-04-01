@@ -1,35 +1,23 @@
 package com.gek.and.project4.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Toast;
-import com.gek.and.geklib.draganddroplist.DragNDropListView;
+
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
-import com.gek.and.project4.listadapter.ProjectManagementArrayAdapter;
-import com.gek.and.project4.model.ProjectCard;
-import com.gek.and.project4.service.ProjectService;
-import com.gek.and.project4.view.BackupRestoreViewMvc;
-import com.gek.and.project4.view.BackupRestoreViewMvcImpl;
+import com.gek.and.project4.mvc.view.BackupRestoreViewMvc;
+import com.gek.and.project4.mvc.view.BackupRestoreViewMvcImpl;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
-import java.util.List;
 
 public class BackupRestoreActivity extends AppCompatActivity implements BackupRestoreViewMvc.BackupRestoreViewMvcListener{
     private static final String DB_NAME = "project4-db";
@@ -99,7 +87,6 @@ public class BackupRestoreActivity extends AppCompatActivity implements BackupRe
 	public void onBackupClick() {
 		try {
 			File sd = Environment.getExternalStorageDirectory();
-			File data = Environment.getDataDirectory();
 
 			if (sd.canWrite()) {
 				File currentDB = getApplicationContext().getDatabasePath(DB_NAME);
@@ -113,6 +100,9 @@ public class BackupRestoreActivity extends AppCompatActivity implements BackupRe
 				src.close();
 				dst.close();
 				Toast.makeText(getBaseContext(), "Backup: " + backupDB.toString(), Toast.LENGTH_LONG).show();
+			}
+			else {
+				Toast.makeText(getBaseContext(), "Zugriff auf " + sd.getAbsolutePath() + " nicht möglich.", Toast.LENGTH_LONG).show();
 			}
 		} catch (Exception e) {
 			Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();

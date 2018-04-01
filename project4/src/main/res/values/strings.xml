@@ -15,6 +15,7 @@
     <string name="title_project_management">Projekte verwalten</string>
     <string name="title_settings">Einstellungen</string>
     <string name="title_backup_restore">Backup / Restore</string>
+    <string name="title_booking_import">Buchungen importieren</string>
 
     <string name="comment_project_added">Projekt hinzugefügt.</string>
     

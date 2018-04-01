@@ -45,6 +45,7 @@ public abstract class Project4App extends Application {
     private List<ProjectSummary> periodSummaryList;
 
     private ServiceComponent serviceComponent;
+    private List<Booking> importList;
 
 	@Override
 	public void onCreate() {
@@ -219,5 +220,13 @@ public abstract class Project4App extends Application {
 
 	public ServiceComponent getServiceComponent() {
 		return serviceComponent;
+	}
+
+	public List<Booking> getImportList() {
+		return importList;
+	}
+
+	public void setImportList(List<Booking> importList) {
+		this.importList = importList;
 	}
 }

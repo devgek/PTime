@@ -1,4 +1,4 @@
-package com.gek.and.project4.view;
+package com.gek.and.project4.mvc.view;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;

@@ -37,6 +37,9 @@
         <activity
             android:name="com.gek.and.project4.activity.BookingDetailActivity"
             android:parentActivityName="com.gek.and.project4.activity.BookingListActivity" />
+        <activity
+            android:name="com.gek.and.project4.activity.BookingImportActivity"
+            android:parentActivityName="com.gek.and.project4.activity.BookingListActivity" />
         <activity android:name="com.gek.and.project4.activity.SettingsActivity"
             android:parentActivityName="com.gek.and.project4.activity.DashboardActivity"/>
         <activity android:name="com.gek.and.geklib.activity.HtmlAboutActivity"
