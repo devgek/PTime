@@ -163,4 +163,24 @@ public class DateUtil {
 
 		return cal.getTime();
 	}
+
+	public static Date getDayBegin(Date theDay) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(theDay);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+
+		return c.getTime();
+	}
+
+	public static Date getDayEnd(Date theDay) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(theDay);
+		c.set(Calendar.HOUR_OF_DAY, 23);
+		c.set(Calendar.MINUTE, 59);
+		c.set(Calendar.SECOND, 59);
+
+		return c.getTime();
+	}
 }

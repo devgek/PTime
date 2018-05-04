@@ -1,5 +1,6 @@
 package com.gek.and.project4.service;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.gek.and.project4.dao.BookingDao;
@@ -16,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import de.greenrobot.dao.query.DeleteQuery;
 import de.greenrobot.dao.query.QueryBuilder;
 
 public class BookingService {
@@ -253,6 +255,7 @@ public class BookingService {
 		db.beginTransaction();
 		try {
 			bookings.forEach(booking -> deleteSameDay(booking));
+			this.daoSession.clear();
 			bookings.forEach(booking -> updateBooking(booking));
 			db.setTransactionSuccessful();
 		}
@@ -337,13 +340,33 @@ public class BookingService {
 		String fromDay = DateUtil.getFormattedDate(booking.getFrom());
 		Date nextDayDate = DateUtil.getNextDay(booking.getFrom());
 		String nextDay = DateUtil.getFormattedDate(nextDayDate);
+		Date fromDayBegin = DateUtil.getDayBegin(booking.getFrom());
+		Date fromDayEnd = DateUtil.getDayEnd(booking.getFrom());
 
 //		String sql = "delete from " + bookingDao.getTablename() + " where date(\"" + Properties.From.columnName + "\") >= date('" + fromDay + "') and date(\""
 //				+ Properties.From.columnName + "\") < date('" + nextDay + "')";
 //		String sql = "delete from booking where \"from\" >= '2018-02-01 00:00:00' and \"from\" < '2018-02-02 00:00:00'";
 //		String sql = "delete from booking where project_id = " + booking.getProjectId(); // + " and date(\"from\") = '" + fromDay + "'";
-		String sql = "delete from booking where project_id = " + booking.getProjectId() + " and strftime(\"%Y-%m-%d\", \"from\") = '" + fromDay + "'";
-		db.execSQL(sql);
+//		String sql = "delete from booking where project_id = " + booking.getProjectId() + " and strftime(\"%Y-%m-%d\", \"from\") = '" + fromDay + "'";
+//		db.execSQL(sql);
+//		int rowsDeleted = db.delete(bookingDao.getTablename(), "project_id=? and strftime(\"%Y-%m-%d\", \"from\")=?", new String[]{String.valueOf(booking.getProjectId()), fromDay});
+//		if (rowsDeleted > 0) {
+//			System.out.println(rowsDeleted);
+//		}
+//		int rowsDeleted = db.delete(bookingDao.getTablename(), "project_id=? and strftime('%Y-%m-%d', 'from')=?", new String[]{String.valueOf(booking.getProjectId()), fromDay});
+//		int rowsDeleted = db.delete(bookingDao.getTablename(), "project_id=?", new String[]{String.valueOf(booking.getProjectId())});
+//		String sql = "select project_id, date('FROM') as von, note  from booking where project_id = " + booking.getProjectId();
+//		Cursor cursor = db.rawQuery(sql, null);
+//		while (cursor != null && cursor.moveToNext()) {
+//			String note = cursor.getString(cursor.getColumnIndex("NOTE"));
+//			String theDate = cursor.getString(cursor.getColumnIndex("von"));
+//			Long pid = cursor.getLong(cursor.getColumnIndex("PROJECT_ID"));
+//			String x = "";
+//		}
+		QueryBuilder builder = bookingDao.queryBuilder();
+		builder.where(Properties.From.ge(fromDayBegin)).where(Properties.From.le(fromDayEnd));
+		DeleteQuery deleteQuery = builder.buildDelete();
+		deleteQuery.executeDeleteWithoutDetachingEntities();
 	}
 
 
