@@ -25,15 +25,15 @@ import java.util.Calendar;
 import java.util.List;
 
 public class BookingListFragment extends Fragment{
-	private int periodPosition;
+	private PeriodType periodType;
 	private int projectPosition;
 	TextView textViewSummaryTitle;
 	TextView textViewSummary;
 	ListView lvBookingList;
 	
-	public BookingListFragment(int periodPosition, int projectPosition) {
+	public BookingListFragment(PeriodType periodType, int projectPosition) {
 		super();
-		this.periodPosition = periodPosition;
+		this.periodType = periodType;
 		this.projectPosition = projectPosition;
 	}
 	
@@ -45,7 +45,7 @@ public class BookingListFragment extends Fragment{
 		this.textViewSummary = (TextView) contentView.findViewById(R.id.booking_summary_hm);
 	    this.lvBookingList = (ListView) contentView.findViewById(R.id.booking_list_view);
 
-	    textViewSummaryTitle.setText(getSummaryText(this.periodPosition));
+	    textViewSummaryTitle.setText(getSummaryText(this.periodType));
 
 		View rootView = (View) container.getRootView();
 		ImageView addButton = (ImageView) rootView.findViewById(R.id.button_add_booking);
@@ -97,17 +97,17 @@ public class BookingListFragment extends Fragment{
 		return minutes;
 	}
 
-	private String getSummaryText(int position) {
+	private String getSummaryText(PeriodType periodType) {
 		Calendar initDate = Project4App.getApp(getActivity()).getSummary().getInitDate();
 		Calendar priorYearDate = Project4App.getApp(getActivity()).getSummary().getPriorYearDate();
 		Calendar priorMonthDate = Project4App.getApp(getActivity()).getSummary().getPriorMonthDate();
-		switch (position) {
-		case 0: return DateUtil.getFormattedDay(initDate);
-		case 1: return DateUtil.getFormattedWeek(initDate);
-		case 2: return DateUtil.getFormattedMonth(initDate);
-		case 3: return DateUtil.getFormattedYear(initDate);
-		case 4: return DateUtil.getFormattedYear(priorYearDate);
-		case 5: return DateUtil.getFormattedMonth(priorMonthDate);
+		switch (periodType) {
+			case TODAY: return DateUtil.getFormattedDay(initDate);
+			case WEEK: return DateUtil.getFormattedWeek(initDate);
+			case MONTH: return DateUtil.getFormattedMonth(initDate);
+			case YEAR: return DateUtil.getFormattedYear(initDate);
+			case PRIOR_YEAR: return DateUtil.getFormattedYear(priorYearDate);
+			case PRIOR_MONTH: return DateUtil.getFormattedMonth(priorMonthDate);
 		default: return "";
 		}
 	}
@@ -123,7 +123,7 @@ public class BookingListFragment extends Fragment{
 		List<Booking> bookingList = Project4App.getApp(getActivity()).getLastBookingList();
 		if (bookingList == null) {
 			BookingService bookingService = Project4App.getApp(getActivity()).getBookingService();
-			bookingList =  bookingService.getFiltered(PeriodType.fromInt(this.periodPosition), getProjectIdFromPosition(this.projectPosition));
+			bookingList =  bookingService.getFiltered(this.periodType, getProjectIdFromPosition(this.projectPosition));
 			Project4App.getApp(getActivity()).setLastBookingList(bookingList);
 		}
 		

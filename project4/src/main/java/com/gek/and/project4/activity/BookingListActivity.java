@@ -26,6 +26,7 @@ import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.menu.PeriodActionProvider.PeriodActionProviderListener;
 import com.gek.and.project4.menu.ProjectActionProvider.ProjectActionProviderListener;
 import com.gek.and.project4.service.BookingImportService;
+import com.gek.and.project4.types.PeriodType;
 import com.gek.and.project4.util.DateUtil;
 import com.gek.and.project4.util.FileUtil;
 
@@ -127,7 +128,13 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 	@Override
 	public void onPeriodActionItemSelected(int position) {
 		this.periodActionPosition = position;
-		switchToFragment();
+		PeriodType periodType = PeriodType.fromInt(periodActionPosition);
+		if (PeriodType.SELECT_MONTH.equals(periodType)) {
+
+		}
+		else {
+			switchToFragment();
+		}
 	}
 
 	public void switchToFragment() {
@@ -136,8 +143,9 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 			return;
 		}
 		Project4App.getApp(this).setLastBookingList(null);
-		
-		Fragment fragment = new  BookingListFragment(periodActionPosition, projectActionPosition);
+
+		PeriodType periodType = PeriodType.fromInt(periodActionPosition);
+		Fragment fragment = new  BookingListFragment(periodType, projectActionPosition);
 		getFragmentManager().beginTransaction().replace(R.id.booking_list_frame, fragment).commit();
 	}
 	

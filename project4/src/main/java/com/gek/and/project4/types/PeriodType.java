@@ -7,8 +7,9 @@ public enum PeriodType {
 	MONTH(2),
 	YEAR(3),
 	PRIOR_YEAR(4),
-	PRIOR_MONTH(5);
-	
+	PRIOR_MONTH(5),
+	SELECT_MONTH(6);
+
 	private int code;
 	
 	PeriodType(int code) {
@@ -26,7 +27,9 @@ public enum PeriodType {
 		if (code == 3) return PeriodType.YEAR;
 		if (code == 4) return PeriodType.PRIOR_YEAR;
 		if (code == 5) return PeriodType.PRIOR_MONTH;
+		if (code == 6) return PeriodType.SELECT_MONTH;
 
 		throw new IllegalArgumentException("Illegal PeriodType with code " + code);
 	}
+
 }
