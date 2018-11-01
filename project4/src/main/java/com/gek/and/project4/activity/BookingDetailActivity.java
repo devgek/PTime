@@ -104,7 +104,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			
 			@Override
 			public void onClick(View v) {
-				showTimePickerDialog((EditText) v, false);
+				showTimePickerDialog((EditText) v, true);
 			}
 		});
 		
@@ -113,7 +113,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			
 			@Override
 			public void onClick(View v) {
-				showTimePickerDialog((EditText) v, false);
+				showTimePickerDialog((EditText) v, true);
 			}
 		});
 
@@ -169,13 +169,13 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 			if (theBooking.getFrom() != null) {
 				cFrom.setTime(theBooking.getFrom());
 			}
-			from.setText(DateUtil.getFormattedTime(cFrom.getTime()));
+			from.setText(DateUtil.getFormattedHM(cFrom.getTime()));
 			from.setTag(cFrom);
 			
 			Calendar cTo = Calendar.getInstance();
 			if (theBooking.getTo() != null) {
 				cTo.setTime(theBooking.getTo());
-				to.setText(DateUtil.getFormattedTime(cTo.getTime()));
+				to.setText(DateUtil.getFormattedHM(cTo.getTime()));
 			}
 			else {
 				to.setText(getResources().getString(R.string.booking_detail_text_running));

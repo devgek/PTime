@@ -40,26 +40,6 @@ public class BookingService {
 		}
 	}
 	
-	public boolean bookNow(long projectId) {
-		boolean bookedStart = false;
-		Booking lastOpenBooking = getLastOpenBooking();
-		if (lastOpenBooking != null) {
-			bookStop(lastOpenBooking);
-		}
-		
-		if (lastOpenBooking == null || !lastOpenBooking.getProjectId().equals(projectId)) {
-			Booking newBooking = bookStart(projectId);
-			bookedStart = true;
-		}
-		return bookedStart;
-	}
-	
-	public Booking getLastOpenBooking() {
-		QueryBuilder<Booking> qb = this.bookingDao.queryBuilder();
-		qb.where(Properties.To.isNull()).orderDesc(Properties.From);
-		return qb.unique();
-	}
-
 	public List<Booking> getFiltered(PeriodType periodType, Long projectId) {
 		List<Booking> bookingList;
 		
@@ -209,7 +189,7 @@ public class BookingService {
 		start.setBreakHours(0);
 		start.setBreakMinutes(0);
 		start.setMinutes(0);
-		start.setFrom(new Date());
+		start.setFrom(DateUtil.getNowSmoothed());
 		long bookingId = this.bookingDao.insert(start);
 		if (bookingId > 0) {
 			L.d(TAG, "Project started at:" + start.getFrom());
@@ -225,7 +205,7 @@ public class BookingService {
 		Calendar cStart = Calendar.getInstance();
 		cStart.setTime(lastOpenBooking.getFrom());
 		if (cStart.get(Calendar.DAY_OF_YEAR) == cStop.get(Calendar.DAY_OF_YEAR)) {
-			lastOpenBooking.setTo(cStop.getTime());
+			lastOpenBooking.setTo(DateUtil.getSmoothed(cStop));
 			updateBooking(lastOpenBooking);
 			L.d(TAG, "Project stopped at:" + lastOpenBooking.getTo() + " with minutes: " + lastOpenBooking.getMinutes());
 			return lastOpenBooking;

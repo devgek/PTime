@@ -90,9 +90,9 @@ public class BookingListArrayAdapter extends ArrayAdapter<Booking> {
 		StringBuffer buf = new StringBuffer();
 		buf.append(DateUtil.getFormattedDate(booking.getFrom()));
 		buf.append("   ");
-		buf.append(DateUtil.getFormattedTime(booking.getFrom()));
+		buf.append(DateUtil.getFormattedHM(booking.getFrom()));
 		buf.append("   ");
-		buf.append(booking.getTo() != null ? DateUtil.getFormattedTime(booking.getTo()) : "läuft ...");
+		buf.append(booking.getTo() != null ? DateUtil.getFormattedHM(booking.getTo()) : "läuft ...");
 		int breakTotal = BookingUtil.getBreakTotal(booking);
 		if (breakTotal > 0) {
 			buf.append("      ");

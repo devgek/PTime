@@ -78,17 +78,17 @@ public class DateUtil {
 	}
 	
 	public static String getFormattedFileNameToday(Calendar cal) {
-		return "Tag_" + dfFileNameToday.format(cal.getTime());
+		return dfFileNameToday.format(cal.getTime());
 	}
 	
 	public static String getFormattedFileNameWeek(Calendar cal) {
-		return "Woche_" + dfFileNameWeek.format(cal.getTime());
+		return dfFileNameWeek.format(cal.getTime());
 	}
 	public static String getFormattedFileNameMonth(Calendar cal) {
-		return "Monat_" + dfFileNameMonth.format(cal.getTime());
+		return dfFileNameMonth.format(cal.getTime());
 	}
 	public static String getFormattedFileNameYear(Calendar cal) {
-		return "Jahr_" + dfFileNameYear.format(cal.getTime());
+		return dfFileNameYear.format(cal.getTime());
 	}
 	
 	public static Integer getMinutes(Date from, Date to) {
@@ -182,5 +182,16 @@ public class DateUtil {
 		c.set(Calendar.SECOND, 59);
 
 		return c.getTime();
+	}
+
+	public static Date getNowSmoothed() {
+		return getSmoothed(Calendar.getInstance());
+	}
+
+	public static Date getSmoothed(Calendar cal) {
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+
+		return cal.getTime();
 	}
 }

@@ -18,7 +18,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 	private boolean formatShort;
 	
 	public TimePickerFragment(EditText editView, OnTimeSetListener listener) {
-		this(editView, listener, false);
+		this(editView, listener, true);
 	}
 
 	public TimePickerFragment(EditText editView, OnTimeSetListener listener, boolean formatShort) {

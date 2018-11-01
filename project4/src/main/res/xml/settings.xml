@@ -23,6 +23,11 @@
             android:defaultValue="false"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_cat_export" >
+        <EditTextPreference
+            android:key="setting_export_prefix"
+            android:title="@string/setting_export_prefix_title"
+            android:summary="@string/setting_export_prefix_summary"
+            android:defaultValue="true"/>
         <CheckBoxPreference
             android:key="setting_export_showDuration"
             android:title="@string/setting_export_showDuration_title"

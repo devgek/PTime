@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.StrictMode;
 
 import com.gek.and.geklib.type.AppBarType;
 import com.gek.and.geklib.type.AppType;
@@ -49,6 +50,13 @@ public abstract class Project4App extends Application {
 
 	@Override
 	public void onCreate() {
+		/* Workaround for bug on create intent to store csv since android 8.0, see
+		https://stackoverflow.com/questions/38200282/android-os-fileuriexposedexception-file-storage-emulated-0-test-txt-exposed
+		*/
+		StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+		StrictMode.setVmPolicy(builder.build());
+		// end of workaround
+
 		super.onCreate();
 		
 		setAppType();

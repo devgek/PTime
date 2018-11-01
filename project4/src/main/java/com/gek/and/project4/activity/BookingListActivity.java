@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -150,11 +151,12 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 	}
 	
 	public void onExportGenerationOk(String exportFileName) {
-		Intent sendEmail= new Intent(Intent.ACTION_SEND);
-		sendEmail.setType("text/csv");
-		sendEmail.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(FileUtil.getInternalFile(this, exportFileName))); 
+		Intent sendFile= new Intent(Intent.ACTION_SEND);
+		sendFile.setType("text/csv");
+		sendFile.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(FileUtil.getInternalFile(this, exportFileName)));
+		sendFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 		
-		startActivity(Intent.createChooser(sendEmail, exportFileName + " senden:"));	
+		startActivity(Intent.createChooser(sendFile, exportFileName + " senden:"));
 	}
 	
 	public void onExportGenerationNotOk() {
@@ -214,8 +216,9 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 	}
 
 	private String getExportFileName() {
-		StringBuffer buf = new StringBuffer("export_");
-		
+		String prefix = PreferenceManager.getDefaultSharedPreferences(this).getString("setting_export_prefix", "export");
+		StringBuffer buf = new StringBuffer(prefix + "_");
+
 		Calendar cal = Project4App.getApp(this).getSummary().getInitDate();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH);
@@ -229,9 +232,9 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 			case 5: buf.append(DateUtil.getFormattedFileNameMonth(Project4App.getApp(this).getSummary().getPriorMonthDate())); break;
 			default:break;
 		}
-		
+
 		buf.append(".csv");
-		
+
 		return buf.toString();
 	}
 
