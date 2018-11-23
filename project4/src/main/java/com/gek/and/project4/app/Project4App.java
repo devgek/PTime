@@ -93,13 +93,17 @@ public abstract class Project4App extends Application {
 	}
 
 	protected abstract void setAppType();
+
+	public void setAppType(AppType appType) {
+		this.appType = appType;
+	}
 	
 	public String getVersion() {
-		return "Version " + PackageInfoUtil.getVersionName(this);
+		return "Version " + PackageInfoUtil.getVersionName(this) + (isPro() ? " P" : "");
 	}
 	
 	public String getCopyright() {
-		return "Copyright (c) 2017";
+		return "Copyright (c) 2018";
 	}
 	
 	public String getDeveloper() {

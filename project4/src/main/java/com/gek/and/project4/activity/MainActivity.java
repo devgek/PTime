@@ -13,6 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.gek.and.geklib.GekConstants;
+import com.gek.and.geklib.activity.DefaultAboutActivity;
+import com.gek.and.geklib.type.AppType;
+import com.gek.and.project4.AppConstants;
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
 
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 		getSupportActionBar().setTitle(R.string.title_project_dashboard);
 		getSupportActionBar().setElevation(0);
 
-		mDrawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
 		setUpNavDrawer();
 
 		mNavigationView = (NavigationView) findViewById(R.id.main_navigation_view);
@@ -125,8 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
 			if (Project4App.getApp(this).isAppBarDark()) {
 				mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-			}
-			else {
+			} else {
 				mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
 			}
 //			mToolbar.setNavigationIcon(R.drawable.drawer_menu_selector);
@@ -138,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 			});
 		}
 	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -149,18 +153,19 @@ public class MainActivity extends AppCompatActivity {
 
 	private void showAbout() {
 		Intent about = new Intent(this, com.gek.and.geklib.activity.DefaultAboutActivity.class);
-		
+
 		Project4App theApp = Project4App.getApp(this);
-		
+
 		about.putExtra("gek_about_appName", getResources().getString(R.string.app_name));
 		about.putExtra("gek_about_icon", R.drawable.ic_launcher_clock);
 		about.putExtra("gek_about_header_line1", theApp.getVersion());
 		about.putExtra("gek_about_header_line2", theApp.getCopyright());
 		about.putExtra("gek_about_header_line3", theApp.getDeveloper());
 		about.putExtra("gek_about_content", theApp.loadHtmlAboutContent());
-		
-		startActivity(about);
+
+		startActivityForResult(about, GekConstants.RC_ABOUT);
 	}
+
 	private void listBookings() {
 		startActivityNewTask(BookingListActivity.class);
 	}
@@ -171,12 +176,12 @@ public class MainActivity extends AppCompatActivity {
 
 	private void manageProjects() {
 		Intent intent = new Intent(this, ProjectManagementActivity.class);
-		startActivityForResult(intent, 3000);
+		startActivityForResult(intent, AppConstants.RC_PROJECT_MANAGEMENT);
 	}
 
 	private void backupRestore() {
 		Intent intent = new Intent(this, BackupRestoreActivity.class);
-		startActivityForResult(intent, 4000);
+		startActivityForResult(intent, AppConstants.RC_BACKUP_RESTORE);
 	}
 
 	private void startActivityNewTask(Class<?> theActivityClass) {
@@ -184,4 +189,5 @@ public class MainActivity extends AppCompatActivity {
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
+
 }

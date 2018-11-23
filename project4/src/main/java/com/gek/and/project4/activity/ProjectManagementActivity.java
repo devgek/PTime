@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.gek.and.geklib.draganddroplist.DragNDropListView;
+import com.gek.and.project4.AppConstants;
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.entity.Project;
@@ -73,13 +74,13 @@ public class ProjectManagementActivity extends AppCompatActivity {
 	public void editProject(Long projectId) {
 		Intent intent = new Intent(this, ProjectDetailActivity.class);
 		intent.putExtra("projectId", projectId);
-		startActivityForResult(intent, 2000);
+		startActivityForResult(intent, AppConstants.RC_PROJECT_DETAIL_EDIT);
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			if (requestCode == 2000) {
+			if (requestCode == AppConstants.RC_PROJECT_DETAIL_EDIT) {
 				this.adapter.clear();
 				ProjectService projectService = Project4App.getApp(this).getProjectService();
 				this.adapter.addAll(projectService.getAllProjects(null));

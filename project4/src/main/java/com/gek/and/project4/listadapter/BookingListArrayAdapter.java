@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gek.and.project4.AppConstants;
 import com.gek.and.project4.R;
 import com.gek.and.project4.activity.BookingDetailActivity;
 import com.gek.and.project4.app.Project4App;
@@ -133,7 +134,7 @@ public class BookingListArrayAdapter extends ArrayAdapter<Booking> {
 				Project4App.getApp(parentActivity).setEditBooking(holder.booking);
 				
 				Intent intent = new Intent(parentActivity, BookingDetailActivity.class);
-				parentActivity.startActivityForResult(intent, 3000);
+				parentActivity.startActivityForResult(intent, AppConstants.RC_BOOKING_DETAIL);
 			}
 		});
 	}

@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gek.and.geklib.GekConstants;
+import com.gek.and.geklib.type.AppType;
 import com.gek.and.geklib.view.ColorBar;
 import com.gek.and.geklib.view.ColorBarView;
 import com.gek.and.project4.AppConstants;
@@ -50,10 +52,6 @@ import java.util.Set;
 
 public class DashboardActivity extends MainActivity implements SummaryLoaderTarget{
 	private static final String TAG = "DashboardActivity::";
-	private static final int RC_PROJECT__DETAIL_NEW = 1000;
-	private static final int RC_PROJECT_DETAIL_EDIT = 2000;
-	private static final int RC_PROJECT_MANAGEMENT = 3000;
-	private static final int RC_BACKUP_RESTORE = 4000;
 	private final int BAR_HEIGHT = 40;
 	private final int BAR_PADDING = 0;
 	
@@ -237,13 +235,13 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 			return;
 		}
 		Intent intent = new Intent(this, ProjectDetailActivity.class);
-		startActivityForResult(intent, RC_PROJECT__DETAIL_NEW);
+		startActivityForResult(intent, AppConstants.RC_PROJECT__DETAIL_NEW);
 	}
 
 	public void editProject(Long projectId) {
 		Intent intent = new Intent(this, ProjectDetailActivity.class);
 		intent.putExtra("projectId", projectId);
-		startActivityForResult(intent, RC_PROJECT_DETAIL_EDIT);
+		startActivityForResult(intent, AppConstants.RC_PROJECT_DETAIL_EDIT);
 	}
 
 	public void bookProject(Long projectId) {
@@ -254,8 +252,8 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			if (requestCode == RC_PROJECT__DETAIL_NEW || requestCode == RC_PROJECT_DETAIL_EDIT ||
-					requestCode == RC_PROJECT_MANAGEMENT || requestCode == RC_BACKUP_RESTORE) {
+			if (requestCode == AppConstants.RC_PROJECT__DETAIL_NEW || requestCode == AppConstants.RC_PROJECT_DETAIL_EDIT ||
+					requestCode == AppConstants.RC_PROJECT_MANAGEMENT || requestCode == AppConstants.RC_BACKUP_RESTORE) {
 				boolean reloadSummary = data.getBooleanExtra("reloadSummary", false);
 				if (reloadSummary) {
 					startSummaryLoader();
@@ -264,6 +262,12 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 					updateDashboardHeader();
 					updateCardAdapter();
 					invalidateMainView();
+				}
+			}
+			if (requestCode == GekConstants.RC_ABOUT) {
+				boolean c7 = data.getBooleanExtra("c7", false);
+				if (c7) {
+					Project4App.getApp(this).setAppType(AppType.PRO);
 				}
 			}
 		}

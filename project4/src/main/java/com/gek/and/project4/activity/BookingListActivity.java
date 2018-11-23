@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.gek.and.project4.AppConstants;
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
 import com.gek.and.project4.async.ExportGenerator;
@@ -246,20 +247,20 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		Project4App.getApp(this).setEditBooking(booking);
 		
 		Intent intent = new Intent(this, BookingDetailActivity.class);
-		startActivityForResult(intent, 3000);
+		startActivityForResult(intent, AppConstants.RC_BOOKING_DETAIL);
 	}
 
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
-			if (requestCode == 3000) {
+			if (requestCode == AppConstants.RC_BOOKING_DETAIL) {
 				boolean reloadList = data.getBooleanExtra("reloadList", false);
 				if (reloadList) {
 					Project4App.getApp(this).setLastBookingList(null);
 				}
 			}
-			if (requestCode == 3010) {
+			if (requestCode == AppConstants.RC_BOOKING_IMPORT) {
 				Project4App.getApp(this).setLastBookingList(null);
 			}
 		}
@@ -276,7 +277,7 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		if (result.getResult().equals(ImportResult.ImportResultType.DONE) && result.getImports().size() > 0) {
 			Project4App.getApp(this).setImportList(result.getImports());
 			Intent intent = new Intent(this, BookingImportActivity.class);
-			startActivityForResult(intent, 3010);
+			startActivityForResult(intent, AppConstants.RC_BOOKING_IMPORT);
 		}
 	}
 }

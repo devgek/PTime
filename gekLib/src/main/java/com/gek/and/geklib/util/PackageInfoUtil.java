@@ -9,7 +9,7 @@ public class PackageInfoUtil {
 		PackageInfo info;
 		try {
 			info = app.getPackageManager().getPackageInfo(app.getPackageName(), 0);
-			return info.versionName + " [" + info.versionCode + "]";
+			return info.versionName + " [" + info.versionCode + "]" ;
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 			return "";

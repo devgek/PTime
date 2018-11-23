@@ -1,5 +1,6 @@
 package com.gek.and.geklib.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -13,7 +14,29 @@ public class DefaultAboutActivity extends AboutActivity {
 	private String headerLine2;
 	private String headerLine3;
 	private String content;
-	
+	private int counter;
+	private boolean c7 = false;
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		counter = 0;
+		c7 = false;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	public void finish() {
+		Intent back = this.getIntent();
+		setResult(RESULT_OK, back);
+		back.putExtra("c7", c7);
+		super.finish();
+	}
+
 	@Override
 	protected void populateParameter() {
 		super.populateParameter();
@@ -33,6 +56,21 @@ public class DefaultAboutActivity extends AboutActivity {
 		}
 		else {
 			iView.setVisibility(View.INVISIBLE);
+		}
+		if (iView.getVisibility() == View.VISIBLE) {
+			iView.setOnClickListener( new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (counter == 6) {
+						c7 = true;
+						counter = 0;
+						finish();
+					}
+					else {
+						counter++;
+					};
+				}
+			});
 		}
 		
 		TextView tvAppName = (TextView) findViewById(R.id.gek_about_default_header_appname);
@@ -81,5 +119,4 @@ public class DefaultAboutActivity extends AboutActivity {
 	protected int getContentResourceId() {
 		return R.layout.gek_about_default;
 	}
-
 }
