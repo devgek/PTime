@@ -34,6 +34,7 @@ public class BookingDao extends AbstractDao<Booking, Long> {
         public final static Property Note = new Property(5, String.class, "note", false, "NOTE");
         public final static Property BreakHours = new Property(6, Integer.class, "breakHours", false, "BREAK_HOURS");
         public final static Property BreakMinutes = new Property(7, Integer.class, "breakMinutes", false, "BREAK_MINUTES");
+        public final static Property Billable = new Property(8, Boolean.class, "billable", false, "BILLABLE");
     };
 
     private DaoSession daoSession;
@@ -60,7 +61,8 @@ public class BookingDao extends AbstractDao<Booking, Long> {
                 "'MINUTES' INTEGER," + // 4: minutes
                 "'NOTE' TEXT," + // 5: note
                 "'BREAK_HOURS' INTEGER," + // 6: breakHours
-                "'BREAK_MINUTES' INTEGER);"); // 7: breakMinutes
+                "'BREAK_MINUTES' INTEGER," + // 7: breakMinutes
+                "'BILLABLE' INTEGER);"); // 8: billable
     }
 
     /** Drops the underlying database table. */
@@ -109,6 +111,11 @@ public class BookingDao extends AbstractDao<Booking, Long> {
         if (breakMinutes != null) {
             stmt.bindLong(8, breakMinutes);
         }
+ 
+        Boolean billable = entity.getBillable();
+        if (billable != null) {
+            stmt.bindLong(9, billable ? 1l: 0l);
+        }
     }
 
     @Override
@@ -134,7 +141,8 @@ public class BookingDao extends AbstractDao<Booking, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // minutes
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // note
             cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // breakHours
-            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7) // breakMinutes
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // breakMinutes
+            cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0 // billable
         );
         return entity;
     }
@@ -150,6 +158,7 @@ public class BookingDao extends AbstractDao<Booking, Long> {
         entity.setNote(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setBreakHours(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
         entity.setBreakMinutes(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
+        entity.setBillable(cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0);
      }
     
     /** @inheritdoc */

@@ -27,6 +27,7 @@ public class Project {
     private Integer priority;
     private Boolean active;
     private String defaultNote;
+    private Boolean billable;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -46,7 +47,7 @@ public class Project {
         this.id = id;
     }
 
-    public Project(Long id, String title, String subTitle, String company, String color, Integer priority, Boolean active, String defaultNote) {
+    public Project(Long id, String title, String subTitle, String company, String color, Integer priority, Boolean active, String defaultNote, Boolean billable) {
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
@@ -55,6 +56,7 @@ public class Project {
         this.priority = priority;
         this.active = active;
         this.defaultNote = defaultNote;
+        this.billable = billable;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -131,6 +133,14 @@ public class Project {
 
     public void setDefaultNote(String defaultNote) {
         this.defaultNote = defaultNote;
+    }
+
+    public Boolean getBillable() {
+        return billable;
+    }
+
+    public void setBillable(Boolean billable) {
+        this.billable = billable;
     }
 
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */

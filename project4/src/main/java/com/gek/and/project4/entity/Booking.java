@@ -23,6 +23,7 @@ public class Booking {
     private String note;
     private Integer breakHours;
     private Integer breakMinutes;
+    private Boolean billable;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -41,7 +42,7 @@ public class Booking {
         this.id = id;
     }
 
-    public Booking(Long id, Long projectId, java.util.Date from, java.util.Date to, Integer minutes, String note, Integer breakHours, Integer breakMinutes) {
+    public Booking(Long id, Long projectId, java.util.Date from, java.util.Date to, Integer minutes, String note, Integer breakHours, Integer breakMinutes, Boolean billable) {
         this.id = id;
         this.projectId = projectId;
         this.from = from;
@@ -50,6 +51,7 @@ public class Booking {
         this.note = note;
         this.breakHours = breakHours;
         this.breakMinutes = breakMinutes;
+        this.billable = billable;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -122,6 +124,14 @@ public class Booking {
 
     public void setBreakMinutes(Integer breakMinutes) {
         this.breakMinutes = breakMinutes;
+    }
+
+    public Boolean getBillable() {
+        return billable;
+    }
+
+    public void setBillable(Boolean billable) {
+        this.billable = billable;
     }
 
     /** Convenient call for {@link AbstractDao#delete(Object)}. Entity must attached to an entity context. */

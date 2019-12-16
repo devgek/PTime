@@ -29,6 +29,10 @@
     <string name="project_detail_active_text_off">inaktiv</string>
     <string name="project_detail_defaultTask_label">DEFAULT-NOTIZ</string>
     <string name="project_detail_defaultTask_text">Default Notiz</string>
+    <string name="project_detail_billable_label">VERRECHENBAR</string>
+    <string name="project_detail_billable_text">Projekt verrechenbar</string>
+    <string name="project_detail_billable_text_on">aktiv</string>
+    <string name="project_detail_billable_text_off">inaktiv</string>
 
     <string name="buttonColorCancel">Abbrechen</string>
     <string name="buttonColorSelect">Auswählen</string>

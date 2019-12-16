@@ -26,6 +26,10 @@ public class SelectiveUpdateOpenHelper extends DaoMaster.DevOpenHelper {
 			ProjectTable.migrateTo9(db);
 			BookingTable.migrateTo9(db);
 		}
+		if (oldVersion < 10) {
+			ProjectTable.migrateTo10(db);
+			BookingTable.migrateTo10(db);
+		}
         else {
         	super.onUpgrade(db, oldVersion, newVersion);
         }
@@ -39,6 +43,9 @@ public class SelectiveUpdateOpenHelper extends DaoMaster.DevOpenHelper {
 			db.execSQL("alter table " + BookingDao.TABLENAME + " add column BREAK_HOURS integer default 0");
 			db.execSQL("alter table " + BookingDao.TABLENAME + " add column BREAK_MINUTES integer default 0");
 		}
+		public static void migrateTo10(SQLiteDatabase db) {
+			db.execSQL("alter table " + BookingDao.TABLENAME + " add column BILLABLE integer default 1");
+		}
 	}
 	
 	public static class ProjectTable {
@@ -47,6 +54,9 @@ public class SelectiveUpdateOpenHelper extends DaoMaster.DevOpenHelper {
 		}
 		public static void migrateTo9(SQLiteDatabase db) {
 			db.execSQL("alter table " + ProjectDao.TABLENAME + " add column DEFAULT_NOTE text");
+		}
+		public static void migrateTo10(SQLiteDatabase db) {
+			db.execSQL("alter table " + ProjectDao.TABLENAME + " add column BILLABLE integer default 1");
 		}
 	}
 

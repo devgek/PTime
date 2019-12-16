@@ -57,7 +57,7 @@ public class ProjectService {
 	}
 
 	public Project addProject(String customer, String title, String subTitle, String color, int priority, boolean active, String defaultNote) {
-		Project p = new Project(null, title, subTitle, customer, color, priority, Boolean.valueOf(active), defaultNote);
+		Project p = new Project(null, title, subTitle, customer, color, priority, Boolean.valueOf(active), defaultNote, Boolean.TRUE);
 		long id = this.projectDao.insert(p);
 		p.setId(id);
 		

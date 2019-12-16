@@ -199,7 +199,7 @@ public class DashboardActivity extends MainActivity implements SummaryLoaderTarg
 
 		projectCardListView.setAdapter(projectCardAdapter);
 
-		FloatingActionButton addProjectButton = (FloatingActionButton) findViewById(R.id.button_add_project);
+		FloatingActionButton addProjectButton = findViewById(R.id.button_add_project);
 		addProjectButton.setOnClickListener(new OnClickListener() {
 
 			@Override

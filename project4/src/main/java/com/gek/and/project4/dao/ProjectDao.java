@@ -31,6 +31,7 @@ public class ProjectDao extends AbstractDao<Project, Long> {
         public final static Property Priority = new Property(5, Integer.class, "priority", false, "PRIORITY");
         public final static Property Active = new Property(6, Boolean.class, "active", false, "ACTIVE");
         public final static Property DefaultNote = new Property(7, String.class, "defaultNote", false, "DEFAULT_NOTE");
+        public final static Property Billable = new Property(8, Boolean.class, "billable", false, "BILLABLE");
     };
 
     private DaoSession daoSession;
@@ -56,7 +57,8 @@ public class ProjectDao extends AbstractDao<Project, Long> {
                 "'COLOR' TEXT NOT NULL ," + // 4: color
                 "'PRIORITY' INTEGER," + // 5: priority
                 "'ACTIVE' INTEGER," + // 6: active
-                "'DEFAULT_NOTE' TEXT);"); // 7: defaultNote
+                "'DEFAULT_NOTE' TEXT," + // 7: defaultNote
+                "'BILLABLE' INTEGER);"); // 8: billable
     }
 
     /** Drops the underlying database table. */
@@ -97,6 +99,11 @@ public class ProjectDao extends AbstractDao<Project, Long> {
         if (defaultNote != null) {
             stmt.bindString(8, defaultNote);
         }
+ 
+        Boolean billable = entity.getBillable();
+        if (billable != null) {
+            stmt.bindLong(9, billable ? 1l: 0l);
+        }
     }
 
     @Override
@@ -122,7 +129,8 @@ public class ProjectDao extends AbstractDao<Project, Long> {
             cursor.getString(offset + 4), // color
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // priority
             cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0, // active
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // defaultNote
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // defaultNote
+            cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0 // billable
         );
         return entity;
     }
@@ -138,6 +146,7 @@ public class ProjectDao extends AbstractDao<Project, Long> {
         entity.setPriority(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setActive(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
         entity.setDefaultNote(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setBillable(cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0);
      }
     
     /** @inheritdoc */

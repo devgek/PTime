@@ -39,7 +39,7 @@
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/g_fab_margin_right"
         android:layout_marginRight="@dimen/g_fab_margin_bottom"/>
 

@@ -1,5 +1,6 @@
 package com.gek.and.project4.activity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,6 +36,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 	private EditText editTextProject;
 	private ImageButton buttonProjectColor;
 	private CheckedTextView switchProjectActive;
+	private CheckedTextView switchProjectBillable;
 	private EditText editTextDefaultNote;
 	private String mSubTitle;
 	private int mPriority;
@@ -103,6 +105,20 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 			}
 		});
 
+		switchProjectBillable = (CheckedTextView) findViewById(R.id.projectDetailBillableSwitch);
+		switchProjectBillable.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (switchProjectBillable.isChecked()) {
+					switchProjectBillable.setChecked(false);
+				} else {
+					switchProjectBillable.setChecked(true);
+				}
+
+				setBillableText();
+			}
+		});
+
 		editTextDefaultNote = (EditText) findViewById(R.id.projectDetailDefaultTask);
 
 		prepareData();
@@ -146,12 +162,14 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		return projectId < 0;
 	}
 	
+	@SuppressLint("ResourceType")
 	private void prepareData() {
 		if (isModeNew()) {
 			editTextCustomer.setText("");
 			editTextProject.setText("");
 			setProjectColor(getResources().getString(R.color.project_color_preselect));
 			switchProjectActive.setChecked(true);
+			switchProjectBillable.setChecked(true);
 			editTextDefaultNote.setText("");
 			mPriority = 0;
 			mSubTitle = "";
@@ -162,12 +180,14 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 			editTextProject.setText(editProject.getTitle());
 			setProjectColor(editProject.getColor());
 			switchProjectActive.setChecked(editProject.getActive() == null || editProject.getActive().equals(Boolean.TRUE));
+			switchProjectBillable.setChecked(editProject.getBillable() == null || editProject.getBillable().equals(Boolean.TRUE));
 			editTextDefaultNote.setText(editProject.getDefaultNote());
 			mPriority = editProject.getPriority();
 			mSubTitle = editProject.getSubTitle();
 		}
 		
 		setStateText();
+		setBillableText();
 	}
 	
 	private void setStateText() {
@@ -176,6 +196,15 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		}
 		else {
 			switchProjectActive.setText(R.string.project_detail_active_text_off);
+		}
+	}
+
+	private void setBillableText() {
+		if (switchProjectBillable.isChecked()) {
+			switchProjectBillable.setText(R.string.project_detail_billable_text_on);
+		}
+		else {
+			switchProjectBillable.setText(R.string.project_detail_billable_text_off);
 		}
 	}
 

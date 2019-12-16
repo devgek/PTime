@@ -150,6 +150,49 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/projectDetailTableRow9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/projectDetailBillableLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:labelFor="@+id/projectDetailBillableSwitch"
+                    android:text="@string/project_detail_billable_label"
+                    style="@style/label"
+                    />
+
+                <TextView
+                    android:id="@+id/projectDetailBillableLabel2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/projectDetailTableRow10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <CheckedTextView
+                    android:id="@+id/projectDetailBillableSwitch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text=""
+                    android:focusable="true"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                    android:background="@drawable/apptheme_edit_text_holo_light"/>
+
+
+                <TextView
+                    android:id="@+id/projectDetailBillableColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+            <TableRow
                 android:id="@+id/projectDetailTableRow7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
