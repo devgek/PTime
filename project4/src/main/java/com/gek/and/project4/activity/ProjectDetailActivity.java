@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
+import com.gek.and.project4.controlhelper.BillableControlHelper;
 import com.gek.and.project4.dialogcontroller.ColorPickerDialogController;
 import com.gek.and.project4.dialogcontroller.DefaultDialogController;
 import com.gek.and.project4.entity.Booking;
@@ -115,7 +116,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 					switchProjectBillable.setChecked(true);
 				}
 
-				setBillableText();
+				BillableControlHelper.setText(switchProjectBillable);
 			}
 		});
 
@@ -187,7 +188,7 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		}
 		
 		setStateText();
-		setBillableText();
+		BillableControlHelper.setText(switchProjectBillable);
 	}
 	
 	private void setStateText() {
@@ -196,15 +197,6 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		}
 		else {
 			switchProjectActive.setText(R.string.project_detail_active_text_off);
-		}
-	}
-
-	private void setBillableText() {
-		if (switchProjectBillable.isChecked()) {
-			switchProjectBillable.setText(R.string.project_detail_billable_text_on);
-		}
-		else {
-			switchProjectBillable.setText(R.string.project_detail_billable_text_off);
 		}
 	}
 
@@ -241,8 +233,9 @@ public class ProjectDetailActivity extends AppCompatActivity implements DefaultD
 		
 		boolean active = switchProjectActive.isChecked();
 		String defaultNote = editTextDefaultNote.getText().toString();
-		
-		Project p = Project4App.getApp(this).getProjectService().addOrUpdateProject(projectId, customer, title, mSubTitle, projectColor, mPriority, active, defaultNote);
+		boolean billable = switchProjectBillable.isChecked();
+
+		Project p = Project4App.getApp(this).getProjectService().addOrUpdateProject(projectId, customer, title, mSubTitle, projectColor, mPriority, active, defaultNote, billable);
 		if (isModeNew()) {
 			ProjectCard pCard = Project4App.getApp(this).getProjectService().toCard(p, null);
 			List<ProjectCard> projectCardList = Project4App.getApp(this).getProjectCardList();

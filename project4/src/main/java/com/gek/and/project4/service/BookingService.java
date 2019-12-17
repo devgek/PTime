@@ -186,6 +186,7 @@ public class BookingService {
 		Booking start = new Booking();
 		start.setProjectId(projectId);
 		start.setNote(project.getDefaultNote());
+		start.setBillable((project.getBillable()));
 		start.setBreakHours(0);
 		start.setBreakMinutes(0);
 		start.setMinutes(0);

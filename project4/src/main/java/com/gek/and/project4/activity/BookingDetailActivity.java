@@ -13,11 +13,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gek.and.project4.R;
 import com.gek.and.project4.app.Project4App;
+import com.gek.and.project4.controlhelper.BillableControlHelper;
 import com.gek.and.project4.dialogcontroller.ProjectSelectionDialogController;
 import com.gek.and.project4.entity.Booking;
 import com.gek.and.project4.entity.Project;
@@ -40,6 +42,7 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 	private EditText duration;
 	private ProjectView projectView;
 	private EditText note;
+	private CheckedTextView billable;
 	
 	private Booking theBooking;
 	private Integer mDuration;
@@ -126,6 +129,20 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 		});
 
 		duration = (EditText) findViewById(R.id.bookingDetailDuration);
+
+		billable = (CheckedTextView) findViewById(R.id.bookingDetailBillable);
+		billable.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (billable.isChecked()) {
+					billable.setChecked(false);
+				} else {
+					billable.setChecked(true);
+				}
+
+				BillableControlHelper.setText(billable);
+			}
+		});
 
 		projectView	= (ProjectView) findViewById(R.id.bookingDetailProject);
 		projectView.setOnClickListener(new OnClickListener() {
@@ -221,7 +238,10 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 
 
 			updateDuration();
-			
+
+			billable.setChecked(theBooking.getBillable() == null || theBooking.getBillable().equals(Boolean.TRUE));
+			BillableControlHelper.setText(billable);
+
 			if (theBooking.getProjectId() != null) {
 				prepareDataProject(theBooking.getProjectId());
 				note.requestFocus();
@@ -297,6 +317,8 @@ public class BookingDetailActivity extends AppCompatActivity implements OnTimeSe
 		
 		String note = this.note.getText().toString();
 		this.theBooking.setNote(note);
+
+		this.theBooking.setBillable(this.billable.isChecked());
 		
 		Project4App.getApp(this).getBookingService().updateBooking(this.theBooking);
 		

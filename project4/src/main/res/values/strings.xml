@@ -31,8 +31,8 @@
     <string name="project_detail_defaultTask_text">Default Notiz</string>
     <string name="project_detail_billable_label">VERRECHENBAR</string>
     <string name="project_detail_billable_text">Projekt verrechenbar</string>
-    <string name="project_detail_billable_text_on">aktiv</string>
-    <string name="project_detail_billable_text_off">inaktiv</string>
+    <string name="billable_edit_text_on">ja</string>
+    <string name="billable_edit_text_off">nein</string>
 
     <string name="buttonColorCancel">Abbrechen</string>
     <string name="buttonColorSelect">Auswählen</string>
@@ -42,6 +42,7 @@
     <string name="booking_detail_to_label">STOP</string>
     <string name="booking_detail_break_label">PAUSE</string>
     <string name="booking_detail_duration_label">DAUER</string>
+    <string name="booking_detail_billable_label">VERRECHENBAR</string>
     <string name="booking_detail_project_label">PROJEKT</string>
     <string name="booking_detail_note_label">NOTIZ</string>
     <string name="booking_detail_text_running">läuft ...</string>

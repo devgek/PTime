@@ -15,139 +15,165 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:textColor="@android:color/primary_text_light"/-->
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
-        >
-
-        <TextView
-            android:id="@+id/bookingDetailDayLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/bookingDetailFrom"
-            android:text="@string/booking_detail_day_label"
-            style="@style/label"
-            />
-
-        <EditText
-            android:id="@+id/bookingDetailDay"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/text_view_big"
-            android:focusable="false"
-            android:gravity="center"
-            android:inputType="none"
-            android:textSize="@dimen/text_big" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
 
-        <TextView
-            android:id="@+id/bookingDetailFromLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/bookingDetailFrom"
-            android:text="@string/booking_detail_from_label"
-            style="@style/label"
-             />
+            <TextView
+                android:id="@+id/bookingDetailDayLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailFrom"
+                android:text="@string/booking_detail_day_label"
+                style="@style/label"
+                />
 
-        <EditText
-            android:id="@+id/bookingDetailFrom"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/text_view_big"
-            android:focusable="false"
-            android:gravity="center"
-            android:inputType="none"
-            android:textSize="@dimen/text_big" />
+            <EditText
+                android:id="@+id/bookingDetailDay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_big"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="none"
+                android:textSize="@dimen/text_big" />
 
-        <TextView
-            android:id="@+id/bookingDetailToLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/bookingDetailTo"
-            android:text="@string/booking_detail_to_label"
-            style="@style/label"
-             />
+            <TextView
+                android:id="@+id/bookingDetailFromLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailFrom"
+                android:text="@string/booking_detail_from_label"
+                style="@style/label"
+                />
 
-        <EditText
-            android:id="@+id/bookingDetailTo"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/text_view_big"
-            android:focusable="false"
-            android:gravity="center"
-            android:inputType="time"
-            android:textSize="@dimen/text_big"
-            />
+            <EditText
+                android:id="@+id/bookingDetailFrom"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_big"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="none"
+                android:textSize="@dimen/text_big" />
 
-        <TextView
-            android:id="@+id/bookingDetailBreakLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/bookingDetailBreak"
-            android:text="@string/booking_detail_break_label"
-            style="@style/label"
-            />
+            <TextView
+                android:id="@+id/bookingDetailToLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailTo"
+                android:text="@string/booking_detail_to_label"
+                style="@style/label"
+                />
 
-        <EditText
-            android:id="@+id/bookingDetailBreak"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/text_view_big"
-            android:focusable="false"
-            android:gravity="center"
-            android:inputType="time"
-            android:textSize="@dimen/text_big"
-            />
+            <EditText
+                android:id="@+id/bookingDetailTo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_big"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="time"
+                android:textSize="@dimen/text_big"
+                />
 
-        <TextView
-            android:id="@+id/bookingDetailDurationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/bookingDetailDuration"
-            android:text="@string/booking_detail_duration_label"
-            style="@style/label"
-             />
+            <TextView
+                android:id="@+id/bookingDetailBreakLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailBreak"
+                android:text="@string/booking_detail_break_label"
+                style="@style/label"
+                />
 
-        <EditText
-            android:id="@+id/bookingDetailDuration"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/text_view_big"
-            android:focusable="false"
-            android:gravity="center"
-            android:textSize="@dimen/text_big"
-            android:editable="false"
-            android:cursorVisible="false"
-            android:clickable="false"
-            android:textColor="@android:color/tertiary_text_light"
-            />
+            <EditText
+                android:id="@+id/bookingDetailBreak"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_big"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="time"
+                android:textSize="@dimen/text_big"
+                />
 
-        <TextView
-            android:id="@+id/bookingDetailProjectLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/bookingDetailProject"
-            android:text="@string/booking_detail_project_label"
-            style="@style/label"
-             />
+            <TextView
+                android:id="@+id/bookingDetailDurationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailDuration"
+                android:text="@string/booking_detail_duration_label"
+                style="@style/label"
+                />
 
-        <com.gek.and.project4.view.ProjectView
-            android:id="@+id/bookingDetailProject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true" />
+            <EditText
+                android:id="@+id/bookingDetailDuration"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_big"
+                android:focusable="false"
+                android:gravity="center"
+                android:textSize="@dimen/text_big"
+                android:editable="false"
+                android:cursorVisible="false"
+                android:clickable="false"
+                android:textColor="@android:color/tertiary_text_light"
+                />
 
-        <TextView
-            android:id="@+id/bookingDetailNoteLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/bookingDetailNote"
-            android:text="@string/booking_detail_note_label"
-            style="@style/label"
-             />
+            <TextView
+                android:id="@+id/bookingDetailBillableLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailBillable"
+                android:text="@string/booking_detail_billable_label"
+                style="@style/label"
+                />
+            <CheckedTextView
+                android:id="@+id/bookingDetailBillable"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_big"
+                android:focusable="false"
+                android:gravity="center"
+                android:textSize="@dimen/text_big"
+                android:editable="false"
+                android:cursorVisible="false"
+                android:clickable="false"
+                android:textColor="@android:color/tertiary_text_light"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                android:text=""
+                />
+            <TextView
+                android:id="@+id/bookingDetailProjectLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailProject"
+                android:text="@string/booking_detail_project_label"
+                style="@style/label"
+                />
 
-        <EditText
-            android:id="@+id/bookingDetailNote"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/text_view_big"
-            android:inputType="text" />
-    </LinearLayout>
+            <com.gek.and.project4.view.ProjectView
+                android:id="@+id/bookingDetailProject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/bookingDetailNoteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/bookingDetailNote"
+                android:text="@string/booking_detail_note_label"
+                style="@style/label"
+                />
+
+            <EditText
+                android:id="@+id/bookingDetailNote"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_big"
+                android:inputType="text" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
