@@ -28,6 +28,6 @@ android {
 }
 
 dependencies {
-    compile project(':project4')
+    api project(':project4')
 }
 
