@@ -176,7 +176,8 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 	}
 
 	private void importBookings() {
-		File sd = Environment.getExternalStorageDirectory();
+		//File sd = Environment.getExternalStorageDirectory();
+		File sd = getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 		File importPropertiesFile = new File(sd, IMPORT_PROPERTIES_FILE_NAME);
 		if (!importPropertiesFile.exists()) {
 			Toast.makeText(getApplicationContext(), "Keine Konfigdatei für Import vorhanden.", Toast.LENGTH_SHORT).show();

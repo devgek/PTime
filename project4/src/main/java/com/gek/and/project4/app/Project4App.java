@@ -103,7 +103,7 @@ public abstract class Project4App extends Application {
 	}
 	
 	public String getCopyright() {
-		return "Copyright (c) 2018";
+		return "Copyright (c) 2021";
 	}
 	
 	public String getDeveloper() {

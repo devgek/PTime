@@ -86,13 +86,14 @@ public class BackupRestoreActivity extends AppCompatActivity implements BackupRe
 	@Override
 	public void onBackupClick() {
 		try {
-			File sd = Environment.getExternalStorageDirectory();
+			//File sd = Environment.getExternalStorageDirectory();
+			File bDir = getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 
-			if (sd.canWrite()) {
+			if (bDir.canWrite()) {
 				File currentDB = getApplicationContext().getDatabasePath(DB_NAME);
 
 				String backupDBPath = DB_BACKUP_NAME;
-				File backupDB = new File(sd, backupDBPath);
+				File backupDB = new File(bDir, backupDBPath);
 
 				FileChannel src = new FileInputStream(currentDB).getChannel();
 				FileChannel dst = new FileOutputStream(backupDB).getChannel();
@@ -102,7 +103,7 @@ public class BackupRestoreActivity extends AppCompatActivity implements BackupRe
 				Toast.makeText(getBaseContext(), "Backup: " + backupDB.toString(), Toast.LENGTH_LONG).show();
 			}
 			else {
-				Toast.makeText(getBaseContext(), "Zugriff auf " + sd.getAbsolutePath() + " nicht möglich.", Toast.LENGTH_LONG).show();
+				Toast.makeText(getBaseContext(), "Zugriff auf " + bDir.getAbsolutePath() + " nicht möglich.", Toast.LENGTH_LONG).show();
 			}
 		} catch (Exception e) {
 			Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
@@ -114,8 +115,8 @@ public class BackupRestoreActivity extends AppCompatActivity implements BackupRe
 		try {
 			Project4App.getApp(this).closeDatabase();
 
-			File sd = Environment.getExternalStorageDirectory();
-			File data = Environment.getDataDirectory();
+			//File sd = Environment.getExternalStorageDirectory();
+			File bDir = getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 
 			File currentDB = getApplicationContext().getDatabasePath(DB_NAME);
 
@@ -123,7 +124,7 @@ public class BackupRestoreActivity extends AppCompatActivity implements BackupRe
 			if (restoreLastBackup) {
 				backupDBPath = DB_BACKUP_NAME;
 			}
-			File backupDB = new File(sd, backupDBPath);
+			File backupDB = new File(bDir, backupDBPath);
 
 			FileChannel src = new FileInputStream(backupDB).getChannel();
 			FileChannel dst = new FileOutputStream(currentDB).getChannel();
