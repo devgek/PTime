@@ -1,3 +1,9 @@
+Version 4.29.2(14)
+- Erster Build unter Antroid Studio Narwhal 3 (Windows)
+
+Version 4.29.1(13)
+- Build für Galaxy S9
+
 Version 2.2.2(9):
 - neue Funktion "Vormonat" in der Buchungsliste
 

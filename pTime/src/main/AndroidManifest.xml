@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gek.and.ptime.free"
-    android:versionCode="13"
-    android:versionName="4.29.1 (Free)" >
+    android:versionCode="14"
+    android:versionName="4.29.2 (Free)" >
     <!-- 2021-09-01: 4.29.1 Major 4 = für Galaxy S9, 29 = API-Level, 1 = 1. Patch -->
+    <!-- 2025-09-05: 4.29.2 Major 4 = für Galaxy S9, 29 = API-Level, 1 = 2. Patch -->
 
     <application
         android:name="com.gek.and.ptime.free.PTimeApp"
