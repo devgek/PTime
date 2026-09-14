@@ -1,5 +1,7 @@
 package com.gek.and.project4.activity;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
@@ -64,7 +66,10 @@ public class BookingListActivity extends AppCompatActivity implements ProjectAct
 		getSupportActionBar().setDisplayShowTitleEnabled(false);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		this.firstActionSelection = true;
-		
+		boolean showWeek = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("setting_bookings_showWeek", false);
+		this.periodActionPosition = showWeek ? PeriodType.WEEK.getCode() : PeriodType.TODAY.getCode();
+		this.projectActionPosition = 0;
+
 //		WorkaroundActionOverflow.execute(this);
 	}
 

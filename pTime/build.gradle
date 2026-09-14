@@ -10,9 +10,11 @@ android {
 
     defaultConfig {
         applicationId "com.gek.and.ptime.free"
+        versionNameSuffix "-Free"
         minSdkVersion 29
         targetSdkVersion 29
         multiDexEnabled true
+        versionName "4.29.2"
     }
 
     buildTypes {

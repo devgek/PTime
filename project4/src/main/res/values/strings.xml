@@ -71,6 +71,8 @@
     <string name="setting_user_name_title">Name</string>
     <string name="setting_bookings_showNote_summary">Notiz bei jeder Buchung anzeigen</string>
     <string name="setting_bookings_showNote_title">Notiz anzeigen</string>
+    <string name="setting_bookings_showWeek_summary">Wochenliste als Default anzeigen</string>
+    <string name="setting_bookings_showWeek_title">Wochenliste anzeigen</string>
     <string name="setting_dashboard_showSummary_summary">Summenansicht zeigen</string>
     <string name="setting_dashboard_showSummary_title">Summenansicht</string>
     <string name="setting_export_prefix_summary">Prefix der Exportdatei</string>
