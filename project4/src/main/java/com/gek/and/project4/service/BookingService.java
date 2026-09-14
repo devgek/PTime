@@ -265,9 +265,9 @@ public class BookingService {
 
 		lastOpenBooking.setTo(cTo.getTime());
 		lastOpenBooking.setMinutes(DateUtil.getMinutes(lastOpenBooking.getFrom(), lastOpenBooking.getTo()));
-		
-		bookingDao.update(lastOpenBooking);
-		
+
+		updateBooking(lastOpenBooking);
+
 		//if there is more than one day left
 		for (int iDay = startDay + 1; iDay < stopDay; iDay++) {
 			cFrom = Calendar.getInstance();
@@ -275,13 +275,15 @@ public class BookingService {
 			cFrom.set(Calendar.HOUR_OF_DAY, 0);
 			cFrom.set(Calendar.MINUTE, 0);
 			cFrom.set(Calendar.SECOND, 0);
-			
+			cFrom.set(Calendar.MILLISECOND, 0);
+
 			cTo = Calendar.getInstance();
 			cTo.set(Calendar.DAY_OF_YEAR, iDay);
 			cTo.set(Calendar.HOUR_OF_DAY, 23);
 			cTo.set(Calendar.MINUTE, 59);
 			cTo.set(Calendar.SECOND, 59);
-			
+			cTo.set(Calendar.MILLISECOND, 0);
+
 			Booking splitBooking = new Booking();
 			splitBooking.setProjectId(lastOpenBooking.getProjectId());
 			splitBooking.setNote(lastOpenBooking.getNote());
@@ -297,7 +299,8 @@ public class BookingService {
 		cFrom.set(Calendar.HOUR_OF_DAY, 0);
 		cFrom.set(Calendar.MINUTE, 0);
 		cFrom.set(Calendar.SECOND, 0);
-		
+		cFrom.set(Calendar.MILLISECOND, 0);
+
 		cTo = Calendar.getInstance();
 		cTo.setTime(cStop.getTime());
 
