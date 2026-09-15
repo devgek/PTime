@@ -11,26 +11,9 @@ PTime ("Project time keeping, the easy way") is a German-language Android app fo
 
 ## Build
 
-Gradle 6.1.1, Android Gradle Plugin 4.0.2, `compileSdkVersion`/`minSdkVersion`/`targetSdkVersion` all 29. Java 8 source/target compatibility.
-
-```
-./gradlew assembleDebug          # build the app (pTime module)
-./gradlew assembleRelease
-./gradlew clean
-```
-
 There is no unit/instrumentation test setup in this repo (no `test`/`androidTest` source sets, no test runner configured). The only "test" file, `project4/.../test/ProjectTypeComparatorTest.java`, is a plain class under `src/main` with its body fully commented out — it does not run as part of any build task. Do not assume `./gradlew test` exercises anything meaningful.
 
 ## Module structure
-
-Gradle multi-module project (`settings.gradle`):
-
-- **`pTime`** — the application module (`com.android.application`). Thin: just `AndroidManifest.xml`, the launcher icon/theme, `about_content.html`, and one class (`PTimeApp extends Project4App`) that sets `AppType.FREE`. `applicationId` is `com.gek.and.ptime.free`. All actual activities are declared here but implemented in `project4`.
-- **`project4`** — the actual application logic (Android library): activities, services, DAOs, entities, fragments, dialogs, adapters. Depends on `holoColorPicker`, `gekLib`, greenDAO (bundled as `libs/greendao-1.3.7.jar`), and Dagger 2.13.
-- **`gekLib`** — small shared utility library (About screens, `AppType`/`AppBarType` enums, file/package-info utilities, a drag-and-drop list view). Used across the author's other apps, not PTime-specific.
-- **`holoColorPicker`** — a third-party color picker, vendored as a precompiled `libs/classes.jar` plus a resources-only Android library wrapper.
-
-Dependency direction: `pTime` → `project4` → (`holoColorPicker`, `gekLib`). All Java packages live under `com.gek.and.*`.
 
 Note: the app currently only builds as a single "Free" variant (package suffix `.free`, `AppType.FREE`). `Project4App.isPro()` / `AppType.PRO` exist in the code but there is no `pro`-flavored application module wired up in `settings.gradle` right now.
 
