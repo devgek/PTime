@@ -205,7 +205,7 @@ public class BookingService {
 		Calendar cStop = Calendar.getInstance();
 		Calendar cStart = Calendar.getInstance();
 		cStart.setTime(lastOpenBooking.getFrom());
-		if (cStart.get(Calendar.DAY_OF_YEAR) == cStop.get(Calendar.DAY_OF_YEAR)) {
+		if (isSameDay(cStart, cStop)) {
 			lastOpenBooking.setTo(DateUtil.getSmoothed(cStop));
 			updateBooking(lastOpenBooking);
 			L.d(TAG, "Project stopped at:" + lastOpenBooking.getTo() + " with minutes: " + lastOpenBooking.getMinutes());
@@ -251,14 +251,9 @@ public class BookingService {
 		return ok;
 	}
 
-	private Booking splitStopBooking(Booking lastOpenBooking, Calendar cStart,	Calendar cStop) {
-		int startDay = cStart.get(Calendar.DAY_OF_YEAR);
-		int stopDay = cStop.get(Calendar.DAY_OF_YEAR);
-		
+	Booking splitStopBooking(Booking lastOpenBooking, Calendar cStart, Calendar cStop) {
 		//startDay
-		Calendar cFrom;
-		Calendar cTo = Calendar.getInstance();
-		cTo.setTime(cStart.getTime());
+		Calendar cTo = (Calendar) cStart.clone();
 		cTo.set(Calendar.HOUR_OF_DAY, 23);
 		cTo.set(Calendar.MINUTE, 59);
 		cTo.set(Calendar.SECOND, 59);
@@ -268,52 +263,41 @@ public class BookingService {
 
 		updateBooking(lastOpenBooking);
 
-		//if there is more than one day left
-		for (int iDay = startDay + 1; iDay < stopDay; iDay++) {
-			cFrom = Calendar.getInstance();
-			cFrom.set(Calendar.DAY_OF_YEAR, iDay);
-			cFrom.set(Calendar.HOUR_OF_DAY, 0);
-			cFrom.set(Calendar.MINUTE, 0);
-			cFrom.set(Calendar.SECOND, 0);
-			cFrom.set(Calendar.MILLISECOND, 0);
-
-			cTo = Calendar.getInstance();
-			cTo.set(Calendar.DAY_OF_YEAR, iDay);
-			cTo.set(Calendar.HOUR_OF_DAY, 23);
-			cTo.set(Calendar.MINUTE, 59);
-			cTo.set(Calendar.SECOND, 59);
-			cTo.set(Calendar.MILLISECOND, 0);
+		//every full day strictly between start and stop
+		Calendar cursor = (Calendar) cStart.clone();
+		cursor.add(Calendar.DAY_OF_YEAR, 1);
+		while (!isSameDay(cursor, cStop)) {
+			Date dayBegin = DateUtil.getDayBegin(cursor.getTime());
+			Date dayEnd = DateUtil.getDayEnd(cursor.getTime());
 
 			Booking splitBooking = new Booking();
 			splitBooking.setProjectId(lastOpenBooking.getProjectId());
 			splitBooking.setNote(lastOpenBooking.getNote());
-			splitBooking.setFrom(cFrom.getTime());
-			splitBooking.setTo(cTo.getTime());
-			splitBooking.setMinutes(DateUtil.getMinutes(cFrom.getTime(), cTo.getTime()));
+			splitBooking.setFrom(dayBegin);
+			splitBooking.setTo(dayEnd);
+			splitBooking.setMinutes(DateUtil.getMinutes(dayBegin, dayEnd));
 			bookingDao.insert(splitBooking);
-		}
-		
-		//stopDay
-		cFrom = Calendar.getInstance();
-		cFrom.set(Calendar.DAY_OF_YEAR, stopDay);
-		cFrom.set(Calendar.HOUR_OF_DAY, 0);
-		cFrom.set(Calendar.MINUTE, 0);
-		cFrom.set(Calendar.SECOND, 0);
-		cFrom.set(Calendar.MILLISECOND, 0);
 
-		cTo = Calendar.getInstance();
-		cTo.setTime(cStop.getTime());
+			cursor.add(Calendar.DAY_OF_YEAR, 1);
+		}
+
+		//stopDay
+		Date stopDayBegin = DateUtil.getDayBegin(cStop.getTime());
 
 		Booking stopBooking = new Booking();
 		stopBooking.setProjectId(lastOpenBooking.getProjectId());
 		stopBooking.setNote(lastOpenBooking.getNote());
-		stopBooking.setFrom(cFrom.getTime());
-		stopBooking.setTo(cTo.getTime());
-		stopBooking.setMinutes(DateUtil.getMinutes(cFrom.getTime(), cTo.getTime()));
+		stopBooking.setFrom(stopDayBegin);
+		stopBooking.setTo(cStop.getTime());
+		stopBooking.setMinutes(DateUtil.getMinutes(stopDayBegin, cStop.getTime()));
 		Long id = bookingDao.insert(stopBooking);
 
 		stopBooking.setId(id);
 		return stopBooking;
+	}
+
+	private boolean isSameDay(Calendar a, Calendar b) {
+		return a.get(Calendar.YEAR) == b.get(Calendar.YEAR) && a.get(Calendar.DAY_OF_YEAR) == b.get(Calendar.DAY_OF_YEAR);
 	}
 
 

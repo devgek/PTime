@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
+/import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -116,6 +117,12 @@ public class BookingServiceTest {
 
     private static Date atZone(LocalDateTime dateTime) {
         return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    private static Calendar calendarOf(LocalDateTime dateTime) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(atZone(dateTime));
+        return cal;
     }
 
     private static boolean containsId(List<Booking> bookings, long id) {
@@ -311,5 +318,75 @@ public class BookingServiceTest {
         assertNotNull(open.getId());
         assertNotNull(stopped.getId());
         assertEquals(2, bookingDao.loadAll().size());
+    }
+
+    @Test
+    public void splitStopBooking_multiDayGapWithinSameYear_createsOneBookingPerDay() {
+        // Regression test for the middle-day loop, which was never exercised by the
+        // midnight-crossing tests above (those only ever have a 1-day gap, so the loop body
+        // never runs). Calls splitStopBooking() directly with fixed Calendars instead of going
+        // through bookStop(), since bookStop() always derives "stop" from the real wall clock.
+        Calendar cStart = calendarOf(LocalDateTime.of(2026, 1, 10, 20, 0));
+        Calendar cStop = calendarOf(LocalDateTime.of(2026, 1, 13, 8, 0));
+
+        Booking open = new Booking();
+        open.setProjectId(projectId);
+        open.setFrom(cStart.getTime());
+        open.setBreakHours(0);
+        open.setBreakMinutes(0);
+        open.setBillable(true);
+        open.setMinutes(0);
+        bookingDao.insert(open);
+
+        Booking stopped = bookingService.splitStopBooking(open, cStart, cStop);
+
+        List<Booking> all = bookingDao.loadAll();
+        assertEquals(4, all.size()); // Jan 10 tail, Jan 11 + Jan 12 middle days, Jan 13 head
+
+        assertEquals(atZone(LocalDateTime.of(2026, 1, 10, 23, 59, 59)), open.getTo());
+        assertTrue(hasFullDayBooking(all, LocalDate.of(2026, 1, 11)));
+        assertTrue(hasFullDayBooking(all, LocalDate.of(2026, 1, 12)));
+        assertEquals(atZone(LocalDateTime.of(2026, 1, 13, 0, 0)), stopped.getFrom());
+        assertEquals(cStop.getTime(), stopped.getTo());
+    }
+
+    @Test
+    public void splitStopBooking_acrossYearBoundary_createsOneBookingPerDayIncludingMiddleDays() {
+        // Regression test: the middle-day loop and the day Calendars it built were derived from
+        // Calendar.getInstance() ("now"'s year) with only DAY_OF_YEAR overwritten, so a gap that
+        // crossed a year boundary silently dropped the days in between (e.g. Dec 31 here).
+        Calendar cStart = calendarOf(LocalDateTime.of(2025, 12, 30, 20, 0));
+        Calendar cStop = calendarOf(LocalDateTime.of(2026, 1, 2, 8, 0));
+
+        Booking open = new Booking();
+        open.setProjectId(projectId);
+        open.setFrom(cStart.getTime());
+        open.setBreakHours(0);
+        open.setBreakMinutes(0);
+        open.setBillable(true);
+        open.setMinutes(0);
+        bookingDao.insert(open);
+
+        Booking stopped = bookingService.splitStopBooking(open, cStart, cStop);
+
+        List<Booking> all = bookingDao.loadAll();
+        assertEquals(4, all.size()); // Dec 30 tail, Dec 31 + Jan 1 middle days, Jan 2 head
+
+        assertEquals(atZone(LocalDateTime.of(2025, 12, 30, 23, 59, 59)), open.getTo());
+        assertTrue(hasFullDayBooking(all, LocalDate.of(2025, 12, 31)));
+        assertTrue(hasFullDayBooking(all, LocalDate.of(2026, 1, 1)));
+        assertEquals(atZone(LocalDateTime.of(2026, 1, 2, 0, 0)), stopped.getFrom());
+        assertEquals(cStop.getTime(), stopped.getTo());
+    }
+
+    private static boolean hasFullDayBooking(List<Booking> bookings, LocalDate day) {
+        Date dayBegin = atZone(day.atStartOfDay());
+        Date dayEnd = atZone(day.atTime(23, 59, 59));
+        for (Booking booking : bookings) {
+            if (dayBegin.equals(booking.getFrom()) && dayEnd.equals(booking.getTo())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
